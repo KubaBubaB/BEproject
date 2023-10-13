@@ -11,8 +11,10 @@ services:
       - prestashop_network
   prestashop:
     container_name: prestashop
-    image: prestashop/prestashop:latest
+    image: prestashop/prestashop:1.7.8
     restart: unless-stopped
+    volumes:  
+      - /home/$USER/src:/var/www/html
     depends_on:
       - mariadb
     ports:
