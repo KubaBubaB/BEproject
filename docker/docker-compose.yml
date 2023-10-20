@@ -7,9 +7,10 @@ services:
       MYSQL_DATABASE: prestashop
     volumes:
       - ./docker/mariadb:/docker-entrypoint-initdb.d
-      - ../mariadb:/var/lib/mysql
+      - mariadb:/var/lib/mysql 
     networks:
       - prestashop_network
+  
   prestashop:
     container_name: prestashop
     image: prestashop/prestashop:1.7.8
@@ -29,8 +30,11 @@ services:
       DB_USER: root
       DB_PASSWD: root
       PS_INSTALL_AUTO: 1
+      PS_LANGUAGE: pl
+      PS_COUNTRY: pl
     networks:
       - prestashop_network
+  
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
@@ -47,3 +51,6 @@ services:
       - prestashop_network
 networks:
     prestashop_network:
+
+volumes:
+  mariadb:

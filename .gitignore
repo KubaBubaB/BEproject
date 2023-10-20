@@ -4,6 +4,7 @@ admin-dev/autoupgrade/
 !/cache/index.php
 # !/cache/*/
 # /cache/*/*
+/BEproject/mariadb/*
 /src/var/cache/prod/*
 !/cache/cachefs/index.php
 !/cache/purifier/index.php
