@@ -6,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: prestashop
     volumes:
-      - ./docker/mariadb:/docker-entrypoint-initdb.d
+      - ./dbquery:/docker-entrypoint-initdb.d/
       - mariadb:/var/lib/mysql 
     networks:
       - prestashop_network

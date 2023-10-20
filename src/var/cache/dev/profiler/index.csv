@@ -39,3 +39,6 @@ f42566,172.22.0.1,POST,http://127.0.0.1:8080/myadmin/index.php/common/notificati
 966411,172.23.0.1,GET,http://127.0.0.1:8080/myadmin/index.php/modules/metrics/api/getShopData?_token=DRK88SOb9IeRSPeBNuV5Vx0uc3oiyEysS90aP2NcNec,1697271994,,200
 f66e80,172.23.0.1,POST,http://127.0.0.1:8080/myadmin/index.php/common/notifications?_token=DRK88SOb9IeRSPeBNuV5Vx0uc3oiyEysS90aP2NcNec&rand=1697271993829,1697271994,,200
 dab040,172.23.0.1,POST,http://127.0.0.1:8080/myadmin/index.php/common/notifications?_token=DRK88SOb9IeRSPeBNuV5Vx0uc3oiyEysS90aP2NcNec&rand=1697271993923,1697271994,,200
+a816d2,172.25.0.1,GET,http://127.0.0.1:8080/myadmin/index.php/modules/metrics/api/getShopData?_token=8URytXOtoZSfblvAEqiQKgb3cvW5TjZWpuMt2g1ZSj4,1697826416,,200
+8c766e,172.25.0.1,POST,http://127.0.0.1:8080/myadmin/index.php/common/notifications?_token=8URytXOtoZSfblvAEqiQKgb3cvW5TjZWpuMt2g1ZSj4&rand=1697826416132,1697826416,,200
+3518e9,172.25.0.1,POST,http://127.0.0.1:8080/myadmin/index.php/common/notifications?_token=8URytXOtoZSfblvAEqiQKgb3cvW5TjZWpuMt2g1ZSj4&rand=1697826416215,1697826417,,200
