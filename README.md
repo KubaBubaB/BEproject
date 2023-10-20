@@ -42,7 +42,7 @@ docker exec -it prestashop bash
 
 And the last 2 commands:
 ```bash
-chmod 777 -R vendor
+chmod 777 -R var
 exit
 ```
 If something doesn't work, first restart docker.
