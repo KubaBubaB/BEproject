@@ -2,8 +2,8 @@
 admin-dev/autoupgrade/
 /cache/*
 !/cache/index.php
-!/cache/*/
-/cache/*/*
+# !/cache/*/
+# /cache/*/*
 /src/var/cache/prod/*
 !/cache/cachefs/index.php
 !/cache/purifier/index.php
