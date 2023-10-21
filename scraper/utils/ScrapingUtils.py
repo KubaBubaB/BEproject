@@ -37,11 +37,11 @@ def scrapShoe(driver):
         catalog = "Brak numeru katalogowego"
 
     try:
-        price = driver.find_element(By.CLASS_NAME, "price").text
+        price = driver.find_element(By.XPATH, "//*[@data-type='product-price']").text
     except NoSuchElementException:
         price = "Brak podanej ceny"
     else:
-        price = price[:len(price)-16]
+        price = price[:len(price)-2]
 
     try:
         imageURL = driver.find_element(By.CLASS_NAME, "main-item.active.item") \
@@ -88,21 +88,27 @@ def scrapShoe(driver):
     else:
         for size in sizes_tags[1:]:
             if "available" in size.get_attribute("data-value"):
-                availableSizes.append(size.get_attribute("data-value")[0:2])
+                availableSizes.append(size.get_attribute("data-value").split()[0])
             else:
-                nonAvailableSizes.append(size.get_attribute("data-value")[0:2])
+                nonAvailableSizes.append(size.get_attribute("data-value").split()[0])
 
         for size in lacking_sizes_tags:
             if "Zapytaj" in size.get_attribute("textContent") and size.get_attribute("textContent") !="Zapytaj o rozmiar":
-                nonAvailableSizes.append(size.get_attribute("textContent")[0:2])
+                nonAvailableSizes.append(size.get_attribute("textContent").split()[0])
 
         if len(availableSizes) == 0:
             availableSizes = "Brak dostępnych rozmiarów"
         if len(nonAvailableSizes) == 0:
             nonAvailableSizes = "Brak niedostępnych rozmiarów"
 
+    try:
+        container = driver.find_element(By.CLASS_NAME, "product-labels")
+        productLabel = container.find_element(By.TAG_NAME, "div").text
+    except NoSuchElementException:
+        productLabel = "Brak labela"
+
     return Shoe(category, subcategory, brand, name, catalog, imageURL, price, description, characteristics,
-                availableSizes, nonAvailableSizes)
+                availableSizes, nonAvailableSizes, productLabel)
 
 
 # searching through one main page and entering into all shoe's subpages

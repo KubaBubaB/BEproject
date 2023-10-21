@@ -4,7 +4,7 @@ import sys
 
 class Shoe:
     def __init__(self, category, subcategory, name, mainDescription, catalogNumber, image, price, description,
-                 characteristics, availableSizes, nonAvailableSizes):
+                 characteristics, availableSizes, nonAvailableSizes, productLabel):
         self.category = category
         self.subcategory = subcategory
         self.name = name
@@ -16,6 +16,7 @@ class Shoe:
         self.characteristics = characteristics  # dictionary ( characteristic_name -> information ) fe. ( color -> red )
         self.availableSizes = availableSizes
         self.nonAvailableSizes = nonAvailableSizes
+        self.productLabel = productLabel
 
     def toDictionary(self):
         result = {}
