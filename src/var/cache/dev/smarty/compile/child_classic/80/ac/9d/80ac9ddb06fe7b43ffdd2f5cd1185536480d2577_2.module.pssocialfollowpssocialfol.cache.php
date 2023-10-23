@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-21 21:12:14
+/* Smarty version 3.1.48, created on 2023-10-23 16:46:52
   from 'module:pssocialfollowpssocialfol' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6534228e7c57a1_36390219',
+  'unifunc' => 'content_6536875c28a5c7_20636304',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '80ac9ddb06fe7b43ffdd2f5cd1185536480d2577' => 
     array (
       0 => 'module:pssocialfollowpssocialfol',
-      1 => 1697888504,
+      1 => 1698012028,
       2 => 'module',
     ),
   ),
@@ -20,24 +20,24 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6534228e7c57a1_36390219 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6536875c28a5c7_20636304 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
-$_smarty_tpl->compiled->nocache_hash = '20865748606534228e7c2a53_17346492';
+$_smarty_tpl->compiled->nocache_hash = '9155899476536875c287ff4_75210188';
 ?>
 <!-- begin /var/www/html/themes/classic/modules/ps_socialfollow/ps_socialfollow.tpl -->
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_608124076534228e7c32d0_79169290', 'block_social');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_5589451016536875c288909_65554245', 'block_social');
 ?>
 
 <!-- end /var/www/html/themes/classic/modules/ps_socialfollow/ps_socialfollow.tpl --><?php }
 /* {block 'block_social'} */
-class Block_608124076534228e7c32d0_79169290 extends Smarty_Internal_Block
+class Block_5589451016536875c288909_65554245 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'block_social' => 
   array (
-    0 => 'Block_608124076534228e7c32d0_79169290',
+    0 => 'Block_5589451016536875c288909_65554245',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
