@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>customcontactphonenumber</name>
+	<displayName><![CDATA[cs_customcontactphonenumber]]></displayName>
+	<version><![CDATA[1.7.8]]></version>
+	<description><![CDATA[Custom contact phone number]]></description>
+	<author><![CDATA[LozaSzydercow]]></author>
+	<tab><![CDATA[others]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>
