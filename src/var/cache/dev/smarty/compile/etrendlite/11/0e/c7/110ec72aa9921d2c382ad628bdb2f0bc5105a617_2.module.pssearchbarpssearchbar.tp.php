@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 01:54:21
+/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
   from 'module:pssearchbarpssearchbar.tp' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653d9f2dbb4622_31031105',
+  'unifunc' => 'content_653e946cd6fb80_59358077',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '110ec72aa9921d2c382ad628bdb2f0bc5105a617' => 
     array (
       0 => 'module:pssearchbarpssearchbar.tp',
-      1 => 1698514639,
+      1 => 1698598184,
       2 => 'module',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653d9f2dbb4622_31031105 (Smarty_Internal_Template $_smarty_tpl) {
+function content_653e946cd6fb80_59358077 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_searchbar/ps_searchbar.tpl --><!-- Block search module TOP -->
 <div id="search_widget" class="col-lg-6 col-md-5 col-sm-12 search-widget" data-search-controller-url="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['search_controller_url']->value, ENT_QUOTES, 'UTF-8');?>
 ">

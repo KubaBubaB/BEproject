@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 01:54:21
+/* Smarty version 3.1.48, created on 2023-10-29 18:20:45
   from '/var/www/html/modules/ht_googleanalytics/views/templates/hook/ht_googleanalytics.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653d9f2ddfa449_28722133',
+  'unifunc' => 'content_653e946d01ebb3_56818785',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b40f5285cc3aa689b196add44a655b47a1511c3b' => 
     array (
       0 => '/var/www/html/modules/ht_googleanalytics/views/templates/hook/ht_googleanalytics.tpl',
-      1 => 1698514639,
+      1 => 1698598183,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653d9f2ddfa449_28722133 (Smarty_Internal_Template $_smarty_tpl) {
+function content_653e946d01ebb3_56818785 (Smarty_Internal_Template $_smarty_tpl) {
 if ((isset($_smarty_tpl->tpl_vars['ga_enable']->value)) && $_smarty_tpl->tpl_vars['ga_enable']->value == 'ga_yes') {?>
     <?php echo '<script'; ?>
 >
