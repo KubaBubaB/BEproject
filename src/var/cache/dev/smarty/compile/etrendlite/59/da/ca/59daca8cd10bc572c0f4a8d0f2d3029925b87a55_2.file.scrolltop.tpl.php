@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:45
+/* Smarty version 3.1.48, created on 2023-10-29 01:54:21
   from '/var/www/html/modules/ht_scrolltop/views/templates/hook/scrolltop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946d01b0b5_83554523',
+  'unifunc' => 'content_653d9f2ddf5112_34078146',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '59daca8cd10bc572c0f4a8d0f2d3029925b87a55' => 
     array (
       0 => '/var/www/html/modules/ht_scrolltop/views/templates/hook/scrolltop.tpl',
-      1 => 1698598183,
+      1 => 1698514639,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653e946d01b0b5_83554523 (Smarty_Internal_Template $_smarty_tpl) {
+function content_653d9f2ddf5112_34078146 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <a class="scrollTop" href="#" title="Scroll To Top">
     <span>

@@ -1,31 +1,31 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:45
+/* Smarty version 3.1.48, created on 2023-10-30 22:28:01
   from 'module:pslinklistviewstemplatesh' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946d002bb2_98148645',
+  'unifunc' => 'content_65401fe129b7d6_91928495',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '906548e89c8c6025457ddaeffb1980a0c743b872' => 
     array (
       0 => 'module:pslinklistviewstemplatesh',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'module',
     ),
   ),
   'cache_lifetime' => 31536000,
 ),true)) {
-function content_653e946d002bb2_98148645 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65401fe129b7d6_91928495 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, array (
 ));
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_linklist/views/templates/hook/linkblock.tpl --><div class="col-md-4 links">
   <div class="row">
       <div class="col-md-6 wrapper">
       <h3 class="h3 hidden-sm-down">Products</h3>
-            <div class="title clearfix hidden-md-up" data-target="#footer_sub_menu_78679" data-toggle="collapse">
+            <div class="title clearfix hidden-md-up" data-target="#footer_sub_menu_65893" data-toggle="collapse">
         <span class="h3">Products</span>
         <span class="float-xs-right">
           <span class="navbar-toggler collapse-icons">
@@ -34,7 +34,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
           </span>
         </span>
       </div>
-      <ul id="footer_sub_menu_78679" class="collapse">
+      <ul id="footer_sub_menu_65893" class="collapse">
                   <li>
             <a
                 id="link-product-page-prices-drop-1"
@@ -69,7 +69,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
     </div>
       <div class="col-md-6 wrapper">
       <h3 class="h3 hidden-sm-down">Our company</h3>
-            <div class="title clearfix hidden-md-up" data-target="#footer_sub_menu_91532" data-toggle="collapse">
+            <div class="title clearfix hidden-md-up" data-target="#footer_sub_menu_74110" data-toggle="collapse">
         <span class="h3">Our company</span>
         <span class="float-xs-right">
           <span class="navbar-toggler collapse-icons">
@@ -78,7 +78,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
           </span>
         </span>
       </div>
-      <ul id="footer_sub_menu_91532" class="collapse">
+      <ul id="footer_sub_menu_74110" class="collapse">
                   <li>
             <a
                 id="link-cms-page-1-2"

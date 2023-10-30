@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-10-29 01:54:21
   from 'module:psemailsubscriptionviewst' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946cf04598_39135236',
+  'unifunc' => 'content_653d9f2ddb2942_18263645',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '307dc6bd4724d29d1572cc301dd7148e962604ef' => 
     array (
       0 => 'module:psemailsubscriptionviewst',
-      1 => 1698598184,
+      1 => 1698514639,
       2 => 'module',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653e946cf04598_39135236 (Smarty_Internal_Template $_smarty_tpl) {
+function content_653d9f2ddb2942_18263645 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_emailsubscription/views/templates/hook/ps_emailsubscription.tpl -->
 <div class="block_newsletter col-lg-8 col-md-12 col-sm-12">
     <div class="newsletter-title">

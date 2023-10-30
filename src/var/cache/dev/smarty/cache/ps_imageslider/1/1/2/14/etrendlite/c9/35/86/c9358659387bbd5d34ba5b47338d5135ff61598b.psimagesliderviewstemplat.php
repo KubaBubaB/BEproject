@@ -1,24 +1,24 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-10-30 22:28:01
   from 'module:psimagesliderviewstemplat' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946cdf59a8_83331868',
+  'unifunc' => 'content_65401fe1132284_42503677',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6c2108a17c7103b6e203f4f0621d4645b56b0114' => 
     array (
       0 => 'module:psimagesliderviewstemplat',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'module',
     ),
   ),
   'cache_lifetime' => 31536000,
 ),true)) {
-function content_653e946cdf59a8_83331868 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65401fe1132284_42503677 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, array (
 ));
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_imageslider/views/templates/hook/slider.tpl -->

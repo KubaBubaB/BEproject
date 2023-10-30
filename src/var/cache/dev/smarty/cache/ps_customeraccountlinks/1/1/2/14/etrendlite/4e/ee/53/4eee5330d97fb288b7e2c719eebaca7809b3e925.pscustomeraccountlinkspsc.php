@@ -1,24 +1,24 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:45
+/* Smarty version 3.1.48, created on 2023-10-30 22:28:01
   from 'module:pscustomeraccountlinkspsc' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946d011bc7_02021530',
+  'unifunc' => 'content_65401fe12abf78_16314107',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '42f9461127ce7396a601c2484841253ea5ba658f' => 
     array (
       0 => 'module:pscustomeraccountlinkspsc',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'module',
     ),
   ),
   'cache_lifetime' => 31536000,
 ),true)) {
-function content_653e946d011bc7_02021530 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65401fe12abf78_16314107 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, array (
 ));
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_customeraccountlinks/ps_customeraccountlinks.tpl -->

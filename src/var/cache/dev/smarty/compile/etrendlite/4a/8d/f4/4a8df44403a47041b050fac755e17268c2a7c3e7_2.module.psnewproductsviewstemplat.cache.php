@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-10-30 22:28:00
   from 'module:psnewproductsviewstemplat' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946cc68ac8_30798150',
+  'unifunc' => 'content_65401fe0ee21c3_61966742',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a8df44403a47041b050fac755e17268c2a7c3e7' => 
     array (
       0 => 'module:psnewproductsviewstemplat',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'module',
     ),
   ),
@@ -21,8 +21,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:catalog/_partials/miniatures/product.tpl' => 1,
   ),
 ),false)) {
-function content_653e946cc68ac8_30798150 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '833119819653e946cc62b28_02147481';
+function content_65401fe0ee21c3_61966742 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '132821438665401fe0e9a701_97357906';
 ?>
 <!-- begin /var/www/html/themes/etrendlite/modules/ps_newproducts/views/templates/hook/ps_newproducts.tpl -->
 <section class="featured-products clearfix top-margin bottom-margin">

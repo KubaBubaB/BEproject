@@ -1,30 +1,30 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-10-30 22:28:01
   from 'module:psnewproductsviewstemplat' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946cd005a3_76257731',
+  'unifunc' => 'content_65401fe10a13d3_25120449',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a8df44403a47041b050fac755e17268c2a7c3e7' => 
     array (
       0 => 'module:psnewproductsviewstemplat',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'module',
     ),
     '044f7d24b674381611ed9252b9680ad62130c41d' => 
     array (
       0 => '/var/www/html/themes/etrendlite/templates/catalog/_partials/miniatures/product.tpl',
-      1 => 1698598184,
+      1 => 1698701204,
       2 => 'file',
     ),
   ),
   'cache_lifetime' => 31536000,
 ),true)) {
-function content_653e946cd005a3_76257731 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65401fe10a13d3_25120449 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_newproducts/views/templates/hook/ps_newproducts.tpl -->
 <section class="featured-products clearfix top-margin bottom-margin">
     <div class="container">
