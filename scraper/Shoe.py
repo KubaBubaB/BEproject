@@ -22,8 +22,8 @@ class Shoe:
         result = {}
         result['category'] = self.category
         result['subcategory'] = self.subcategory
-        result['name'] = self.name
-        result['mainDescription'] = self.mainDescription
+        result['brand'] = self.name
+        result['name'] = self.mainDescription
         result['catalogNumber'] = self.catalogNumber
         result['image'] = self.image
         result['price'] = self.price
