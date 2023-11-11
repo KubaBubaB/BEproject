@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 01:44:52
+/* Smarty version 3.1.48, created on 2023-11-11 03:26:01
   from '/var/www/html/modules/ht_staticblocks/views/templates/admin/list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653d9cf43db889_62707657',
+  'unifunc' => 'content_654ee639f0b2a6_43863571',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e3a67a393f8273185b1add60c3c3bc2ccf1e1948' => 
     array (
       0 => '/var/www/html/modules/ht_staticblocks/views/templates/admin/list.tpl',
-      1 => 1698514639,
+      1 => 1698701203,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653d9cf43db889_62707657 (Smarty_Internal_Template $_smarty_tpl) {
+function content_654ee639f0b2a6_43863571 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="panel"><h3><i class="icon-list-ul"></i> <?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Static Block List','mod'=>'ht_staticblocks'),$_smarty_tpl ) );?>
 
         <span class="panel-heading-action">

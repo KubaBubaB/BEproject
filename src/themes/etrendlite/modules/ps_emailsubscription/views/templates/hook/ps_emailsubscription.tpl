@@ -26,13 +26,14 @@
 <div class="block_newsletter col-lg-8 col-md-12 col-sm-12">
     <div class="newsletter-title">
         <h2 id="block-newsletter-label" class="footer-block-title">
-            <span>{l s='Latest From' d='Shop.Theme.Global'} 
-                <i>{l s='Etrend' d='Shop.Theme.Global'}</i>
+            <span>
+                <i class="fa fa-paper-plane"></i>
+                {l s='NEWSLETTER' d='Shop.Theme.Global'} 
             </span>
         </h2>
     </div>
     <div class="footer-block-toggle-content">
-        <p>{l s='Subscribe to our newsletter to get exclusive discounts and new theme launches right in your inbox.' d='Shop.Theme.Global'}</p>
+        <p>{l s='Bądź na bieżąco i korzystaj z PROMOCJI!' d='Shop.Theme.Global'}</p>
         <form action="{$urls.pages.index}#footer" method="post">
             <div class="col-xs-12 subscribe-block">
                 <div class="input-wrapper">

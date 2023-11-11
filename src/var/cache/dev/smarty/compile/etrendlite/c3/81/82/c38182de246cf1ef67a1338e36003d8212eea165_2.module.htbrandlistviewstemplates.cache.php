@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-30 22:28:01
+/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
   from 'module:htbrandlistviewstemplates' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_65401fe1240c19_74671118',
+  'unifunc' => 'content_653e946cef4a60_16437353',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c38182de246cf1ef67a1338e36003d8212eea165' => 
     array (
       0 => 'module:htbrandlistviewstemplates',
-      1 => 1698701203,
+      1 => 1698598183,
       2 => 'module',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65401fe1240c19_74671118 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '107409390365401fe123d1b0_07183218';
+function content_653e946cef4a60_16437353 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '967140411653e946cef1a02_60516229';
 ?>
 <!-- begin /var/www/html/modules/ht_brandlist/views/templates/_partials/brand_image.tpl --><ul id="brands-slider" <?php if ($_smarty_tpl->tpl_vars['slider_enable']->value == 1) {?>class="brands-slider"<?php }
 if ($_smarty_tpl->tpl_vars['slider_enable']->value == 0) {?>class="brands-list"<?php }?>>

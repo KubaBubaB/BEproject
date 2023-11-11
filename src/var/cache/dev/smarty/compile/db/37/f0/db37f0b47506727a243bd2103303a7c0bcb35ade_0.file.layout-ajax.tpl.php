@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 01:44:48
+/* Smarty version 3.1.48, created on 2023-11-11 03:25:59
   from '/var/www/html/myadmin/themes/default/template/layout-ajax.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653d9cf07a9321_75558759',
+  'unifunc' => 'content_654ee6379111a4_90675525',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'db37f0b47506727a243bd2103303a7c0bcb35ade' => 
     array (
       0 => '/var/www/html/myadmin/themes/default/template/layout-ajax.tpl',
-      1 => 1698514353,
+      1 => 1698701203,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653d9cf07a9321_75558759 (Smarty_Internal_Template $_smarty_tpl) {
+function content_654ee6379111a4_90675525 (Smarty_Internal_Template $_smarty_tpl) {
 if ((isset($_smarty_tpl->tpl_vars['json']->value))) {?>
 {<?php if ((isset($_smarty_tpl->tpl_vars['status']->value)) && is_string($_smarty_tpl->tpl_vars['status']->value) && trim($_smarty_tpl->tpl_vars['status']->value) != '') {
 $_smarty_tpl->_assignInScope('hasresult', 'ok');?>"status" : "<?php echo $_smarty_tpl->tpl_vars['status']->value;?>

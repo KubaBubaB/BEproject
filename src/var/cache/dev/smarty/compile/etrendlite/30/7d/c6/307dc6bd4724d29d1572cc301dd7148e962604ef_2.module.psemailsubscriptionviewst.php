@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 01:54:21
+/* Smarty version 3.1.48, created on 2023-11-11 03:43:49
   from 'module:psemailsubscriptionviewst' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653d9f2ddb2942_18263645',
+  'unifunc' => 'content_654eea65303a65_84522307',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '307dc6bd4724d29d1572cc301dd7148e962604ef' => 
     array (
       0 => 'module:psemailsubscriptionviewst',
-      1 => 1698514639,
+      1 => 1699670466,
       2 => 'module',
     ),
   ),
@@ -20,20 +20,20 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653d9f2ddb2942_18263645 (Smarty_Internal_Template $_smarty_tpl) {
+function content_654eea65303a65_84522307 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_emailsubscription/views/templates/hook/ps_emailsubscription.tpl -->
 <div class="block_newsletter col-lg-8 col-md-12 col-sm-12">
     <div class="newsletter-title">
         <h2 id="block-newsletter-label" class="footer-block-title">
-            <span><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Latest From','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>
+            <span>
+                <i class="fa fa-paper-plane"></i>
+                <?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'NEWSLETTER','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>
  
-                <i><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Etrend','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>
-</i>
             </span>
         </h2>
     </div>
     <div class="footer-block-toggle-content">
-        <p><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Subscribe to our newsletter to get exclusive discounts and new theme launches right in your inbox.','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>
+        <p><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Bądź na bieżąco i korzystaj z PROMOCJI!','d'=>'Shop.Theme.Global'),$_smarty_tpl ) );?>
 </p>
         <form action="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['urls']->value['pages']['index'], ENT_QUOTES, 'UTF-8');?>
 #footer" method="post">
