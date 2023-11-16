@@ -1,3 +1,6 @@
+import os
+import shutil
+
 import requests
 import time
 import json
@@ -11,7 +14,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 
 
 # searching through shoe's page and creating object containing all the data
-def scrapShoe(driver):
+def scrapShoe(driver, dir):
     try:
         categories = driver.find_elements(By.CSS_SELECTOR, 'span[property="name"]')
     except NoSuchElementException:
@@ -32,7 +35,8 @@ def scrapShoe(driver):
         name = "Brak nazwy"
 
     try:
-        catalog = driver.find_element(By.TAG_NAME, "strong").text[8:]
+        catalog = driver.find_element(By.TAG_NAME, "strong").text[8:].replace(" ", "-")
+        catalog = catalog.replace("/", "-")
     except NoSuchElementException:
         catalog = "Brak numeru katalogowego"
 
@@ -44,11 +48,30 @@ def scrapShoe(driver):
         price = price[:len(price)-2]
 
     try:
-        imageURL = driver.find_element(By.CLASS_NAME, "main-item.active.item") \
-            .find_element(By.CSS_SELECTOR, '[data-thumb]') \
-            .get_attribute("src")
+        imagesDiv = driver.find_element(By.CLASS_NAME, "slides") \
+            .find_elements(By.CLASS_NAME, 'slide')
+
+        imageURL = []
+        for imageDiv in imagesDiv[0:]:
+            imageURL.append(imageDiv.find_element(By.TAG_NAME, 'img') \
+                            .get_attribute("src"))
     except NoSuchElementException:
-        imageURL = "https://www.filtrowanie.com.pl/wp-content/uploads/2017/07/brak-zdjecia.png"
+        imageURL = []
+
+    image_dir = dir + 'scraping_results\\products_images\\' + str(catalog)
+    if not os.path.exists(image_dir) and not os.path.isdir(image_dir):
+        os.makedirs(image_dir)
+        counter = 0
+        for url in imageURL:
+            counter += 1
+            try:
+                response = requests.get(url, stream=True)
+                with open(image_dir + "\image_numer_" + str(counter) + ".jpg", "wb") as out_file:
+                    shutil.copyfileobj(response.raw, out_file)
+            except requests.exceptions.RequestException:
+                continue
+            else:
+                del response
 
     try:
         description = driver.find_element(By.CLASS_NAME, 'col-7')\
@@ -107,12 +130,12 @@ def scrapShoe(driver):
     except NoSuchElementException:
         productLabel = "Brak labela"
 
-    return Shoe(category, subcategory, brand, name, catalog, imageURL, price, description, characteristics,
+    return Shoe(category, subcategory, brand, name, catalog, price, description, characteristics,
                 availableSizes, nonAvailableSizes, productLabel)
 
 
 # searching through one main page and entering into all shoe's subpages
-def scrapOnePage(driver, shoesList):
+def scrapOnePage(driver, shoesList, dir):
     link_list = []
     try:
         link_containers = driver.find_element(By.CLASS_NAME, "product-list.gallery.col-4") \
@@ -125,13 +148,14 @@ def scrapOnePage(driver, shoesList):
         return shoesList
 
     for link in link_list:
-        time.sleep(2.5)
+        time.sleep(3)
         driver.get(link)
-        shoesList.append(scrapShoe(driver))
+        shoesList.append(scrapShoe(driver, dir))
 
     return shoesList
 
-def scrapAllPages(driver, shoesList, URL):
+
+def scrapAllPages(driver, shoesList, URL, dir):
     counter = 1
     while(True):
         print(requests.get(str(URL) + str(counter)).status_code)
@@ -141,16 +165,16 @@ def scrapAllPages(driver, shoesList, URL):
                 driver.find_element(By.CLASS_NAME, "product-list.gallery.col-4")
             except NoSuchElementException:
                 return shoesList
-            shoesList = scrapOnePage(driver, shoesList)
+            shoesList = scrapOnePage(driver, shoesList, dir)
             counter = counter + 1
-            time.sleep(60)
+            time.sleep(90)
         else:
             return shoesList
 
 
-def createJSON(shoesList):
-    for shoe in shoesList:
-        with open('scrapingResults.txt', 'a', encoding='utf-8') as file:
+def createJSON(shoesList, dir):
+    with open(str(dir) + 'scraping_results\scrappedProducts.txt', 'w', encoding='utf-8') as file:
+        for shoe in shoesList:
             json.dump(shoe.toDictionary(), file, ensure_ascii=False)
             file.write("\n")
     file.close()

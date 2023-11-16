@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import utils.ScrapingUtils as utils
@@ -14,12 +16,13 @@ pageList = ["https://www.butyxl.pl/dodatki/page:", "https://www.butyxl.pl/buty-d
             "https://www.butyxl.pl/buty-meskie-duze-rozmiary/page:",
             "https://www.butyxl.pl/kurtki-meskie-duze-rozmiary/page:"]
 
-categories.get(driver)
+dir = os.path.dirname(__file__).split("scraper")[0]
+categories.get(driver, dir)
 
 shoesList = []
 for pageURL in pageList:
-    shoesList = utils.scrapAllPages(driver, shoesList, pageURL)
+    shoesList = utils.scrapAllPages(driver, shoesList, pageURL, dir)
 
-print(utils.createJSON(shoesList))
+print(utils.createJSON(shoesList, dir))
 
 driver.quit()

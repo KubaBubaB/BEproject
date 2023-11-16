@@ -1,8 +1,10 @@
+import os
+
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
-def get(driver):
+def get(driver, dir):
     classes = ["main_nav_85", "main_nav_55", "main_nav_179", "main_nav_44"]
     categories = []
     classTitleWrapper = 0
@@ -30,7 +32,7 @@ def get(driver):
 
         categories.append(category)
 
-    with open('scrappedCategories.txt', 'a', encoding='utf-8') as file:
+    with open(str(dir) + 'scraping_results\scrappedCategories.txt', 'w', encoding='utf-8') as file:
         for item in categories:
             file.write(f'{item}\n')
         file.close()

@@ -3,14 +3,13 @@ import sys
 
 
 class Shoe:
-    def __init__(self, category, subcategory, name, mainDescription, catalogNumber, image, price, description,
+    def __init__(self, category, subcategory, name, mainDescription, catalogNumber, price, description,
                  characteristics, availableSizes, nonAvailableSizes, productLabel):
         self.category = category
         self.subcategory = subcategory
         self.name = name
         self.mainDescription = mainDescription  # description below the name of a shoe
         self.catalogNumber = catalogNumber
-        self.image = image
         self.price = price
         self.description = description
         self.characteristics = characteristics  # dictionary ( characteristic_name -> information ) fe. ( color -> red )
@@ -25,7 +24,6 @@ class Shoe:
         result['brand'] = self.name
         result['name'] = self.mainDescription
         result['catalogNumber'] = self.catalogNumber
-        result['image'] = self.image
         result['price'] = self.price
         result['description'] = self.description
         result['availableSizes'] = self.availableSizes
