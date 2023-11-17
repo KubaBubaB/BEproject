@@ -21,6 +21,8 @@ def scrapShoe(driver, dir):
         category = "Brak kategorii"
         subcategory = "Brak podkategorii"
     else:
+        if len(categories) < 3:
+            return None
         category = categories[1].text
         subcategory = categories[2].text
 
@@ -46,32 +48,6 @@ def scrapShoe(driver, dir):
         price = "Brak podanej ceny"
     else:
         price = price[:len(price)-2]
-
-    try:
-        imagesDiv = driver.find_element(By.CLASS_NAME, "slides") \
-            .find_elements(By.CLASS_NAME, 'slide')
-
-        imageURL = []
-        for imageDiv in imagesDiv[0:]:
-            imageURL.append(imageDiv.find_element(By.TAG_NAME, 'img') \
-                            .get_attribute("src"))
-    except NoSuchElementException:
-        imageURL = []
-
-    image_dir = dir + 'scraping_results\\products_images\\' + str(catalog)
-    if not os.path.exists(image_dir) and not os.path.isdir(image_dir):
-        os.makedirs(image_dir)
-        counter = 0
-        for url in imageURL:
-            counter += 1
-            try:
-                response = requests.get(url, stream=True)
-                with open(image_dir + "\image_numer_" + str(counter) + ".jpg", "wb") as out_file:
-                    shutil.copyfileobj(response.raw, out_file)
-            except requests.exceptions.RequestException:
-                continue
-            else:
-                del response
 
     try:
         description = driver.find_element(By.CLASS_NAME, 'col-7')\
@@ -130,6 +106,40 @@ def scrapShoe(driver, dir):
     except NoSuchElementException:
         productLabel = "Brak labela"
 
+    try:
+        imagesDiv = driver.find_element(By.CLASS_NAME, "slides") \
+            .find_elements(By.CLASS_NAME, 'slide')
+    except NoSuchElementException:
+        imageURL = []
+    else:
+        try:
+            imageURL = []
+            for imageDiv in imagesDiv[0:]:
+                imageURL.append(imageDiv.find_element(By.TAG_NAME, 'img') \
+                                .get_attribute("src"))
+                if len(imageURL) == 2:
+                    break
+        except NoSuchElementException:
+            print("")
+
+    image_dir = dir + 'scraping_results\\products_images\\' + str(catalog)
+    if not os.path.exists(image_dir + "\image_numer_1.jpg"):
+        if not os.path.exists(image_dir):
+            os.makedirs(image_dir)
+        counter = 0
+        for url in imageURL:
+            if counter == 2:
+                break
+            counter += 1
+            try:
+                response = requests.get(url, stream=True)
+                with open(image_dir + "\image_numer_" + str(counter) + ".jpg", "wb") as out_file:
+                    shutil.copyfileobj(response.raw, out_file)
+            except requests.exceptions.RequestException:
+                continue
+            else:
+                del response
+
     return Shoe(category, subcategory, brand, name, catalog, price, description, characteristics,
                 availableSizes, nonAvailableSizes, productLabel)
 
@@ -150,7 +160,9 @@ def scrapOnePage(driver, shoesList, dir):
     for link in link_list:
         time.sleep(3)
         driver.get(link)
-        shoesList.append(scrapShoe(driver, dir))
+        newShoe = scrapShoe(driver, dir)
+        if newShoe is not None:
+            shoesList.append(newShoe)
 
     return shoesList
 

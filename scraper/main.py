@@ -12,7 +12,7 @@ driver.get("https://www.butyxl.pl/buty-meskie-duze-rozmiary/page:1")
 wrapped_menu = driver.find_element(By.ID, "CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
 wrapped_menu.click()
 
-pageList = ["https://www.butyxl.pl/dodatki/page:", "https://www.butyxl.pl/buty-damskie-duze-rozmiary/page:",
+pageList = ["https://www.butyxl.pl/buty-damskie-duze-rozmiary/page:", "https://www.butyxl.pl/dodatki/page:",
             "https://www.butyxl.pl/buty-meskie-duze-rozmiary/page:",
             "https://www.butyxl.pl/kurtki-meskie-duze-rozmiary/page:"]
 
