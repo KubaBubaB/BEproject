@@ -1,11 +1,16 @@
 import io
 import os
 import random
+import concurrent.futures
+from asyncio import Semaphore
+from concurrent.futures import ThreadPoolExecutor
 
+from tqdm import tqdm
 from prestapyt import PrestaShopWebServiceError
 
 from utils.categoryUtils import getCategoryId
 
+semaphore = Semaphore(1)
 
 def setQuantity(prestashop, id):
     availablenessId = prestashop.search("stock_availables", options={
@@ -21,7 +26,7 @@ def setQuantity(prestashop, id):
 
 def deleteAllProducts(prestashop):
     products = prestashop.get("products")["products"]
-    if products is not "":
+    if products != "":
         productsList = products["product"]
 
         if isinstance(productsList, dict):  # if 1 product
@@ -39,6 +44,9 @@ def isImageSizeValid(imagePath, maxSizeKb=3000):
 def loadImages(prestashop, id, product, DIR):
     catalog_name = product['catalogNumber']
     imageDir = os.path.join(DIR, 'scraping_results\products_images', catalog_name)
+
+    if not os.path.exists(imageDir) or not os.path.isdir(imageDir):
+        return
 
     for imageName in os.listdir(imageDir):
         imagePath = os.path.join(imageDir, imageName)
@@ -108,14 +116,20 @@ def addProduct(prestashop, product, categoriesDict, product_template, DIR):
     product_template["product"]["description"]["language"][0]["value"] = desc
     product_template["product"]["description"]["language"][1]["value"] = desc
 
+    semaphore.acquire()
     productId = prestashop.add("products", product_template)["prestashop"]["product"]["id"]
 
     setQuantity(prestashop, productId)
     loadImages(prestashop, productId, product, DIR)
+    semaphore.release()
 
 
 def addProducts(prestashop, product_template, products, categoriesDict, DIR):
+    print("Deleting products...")
     deleteAllProducts(prestashop)
+    print("Finished deleting products.")
 
-    for product in products:
-        addProduct(prestashop, product, categoriesDict, product_template, DIR)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        list(tqdm(executor.map(lambda product: addProduct(prestashop, product, categoriesDict, product_template, DIR), products),
+                  total=len(products), desc="Adding products"))
+
