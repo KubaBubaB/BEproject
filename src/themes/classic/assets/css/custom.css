@@ -1,0 +1,8 @@
+#search_widget {
+    float: left;
+}
+
+#header .header-top .menu {
+    padding-left: 15px;
+    float: inline-end;
+}

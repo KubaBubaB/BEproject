@@ -16,6 +16,6 @@ if (!\class_exists(appDevDebugProjectContainer::class, false)) {
 
 return new \ContainerKt95tmg\appDevDebugProjectContainer([
     'container.build_hash' => 'Kt95tmg',
-    'container.build_id' => '6f6b36b2',
-    'container.build_time' => 1700851199,
+    'container.build_id' => '406fbfbc',
+    'container.build_time' => 1700852504,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerKt95tmg');
