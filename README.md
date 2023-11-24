@@ -37,7 +37,7 @@ Run project
 If something doesn't work, first restart docker.
 
 Project will be accessible at: 
- - localhost or 127.0.0.1 (Prestashop)
+ - [localhost](https://localhost/) or 127.0.0.1 (Prestashop)
  - 127.0.0.1/myadmin (Admin panel, see faq for credentials)
  - 127.0.0.1:8081 (Phpmyadmin)
 
