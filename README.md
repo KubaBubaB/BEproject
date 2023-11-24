@@ -28,29 +28,18 @@ Go to the project directory
   cd BEproject/docker
 ```
 
-Run docker compose
+Run project
 
 ```bash
-  docker compose up -d
+  ./start.sh
 ```
 
-Finally
-
-```bash
-docker exec -it prestashop bash
-```
-
-And the last 2 commands:
-```bash
-chmod 777 -R var
-exit
-```
 If something doesn't work, first restart docker.
 
 Project will be accessible at: 
- - 127.0.0.1/8080 (Prestashop)
- - 127.0.0.1/8080/myadmin (Admin panel, see faq for credentials)
- - 127.0.0.1/8081 (Phpmyadmin)
+ - localhost or 127.0.0.1 (Prestashop)
+ - 127.0.0.1/myadmin (Admin panel, see faq for credentials)
+ - 127.0.0.1:8081 (Phpmyadmin)
 
 
 
@@ -61,12 +50,12 @@ Project will be accessible at:
 Shallow restart:
 ```bash
 docker compose down
-docker compose up -d
+./start.sh
 ```
 Deep restart:
 in docker desktop remove all the images, all the containers, all the volumes, then:
 ```bash
-docker compose up -d
+./start.sh
 ```
 
 #### What are credentials to myadmin panel?
