@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 24, 2023 at 03:39 PM
+-- Generation Time: Lis 24, 2023 at 04:04 PM
 -- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
 -- Wersja PHP: 8.2.8
 
@@ -3193,7 +3193,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (5, NULL, NULL, 'PS_GROUP_FEATURE_ACTIVE', '1', '2023-10-14 10:10:39', '2023-10-14 10:10:39'),
 (6, NULL, NULL, 'PS_CURRENCY_DEFAULT', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (7, NULL, NULL, 'PS_COUNTRY_DEFAULT', '14', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
-(8, NULL, NULL, 'PS_REWRITING_SETTINGS', '1', '0000-00-00 00:00:00', '2023-11-24 14:32:36'),
+(8, NULL, NULL, 'PS_REWRITING_SETTINGS', '1', '0000-00-00 00:00:00', '2023-11-24 16:52:32'),
 (9, NULL, NULL, 'PS_ORDER_OUT_OF_STOCK', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (10, NULL, NULL, 'PS_LAST_QTIES', '3', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (11, NULL, NULL, 'PS_CONDITIONS', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3601,8 +3601,9 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (423, NULL, NULL, 'PS_LAYERED_INDEXED', '1', '2023-10-14 10:11:40', '2023-10-14 10:11:40'),
 (424, NULL, NULL, 'ONBOARDINGV2_SHUT_DOWN', '1', '2023-10-14 10:14:44', '2023-10-14 10:14:44'),
 (425, NULL, NULL, 'PS_MBO_SHOP_ADMIN_UUID', 'ceb6ab8d-2573-4387-8f02-3c6d87a4eb11', '2023-11-11 21:06:25', '2023-11-11 21:06:25'),
-(426, NULL, NULL, 'PS_CCCJS_VERSION', '1', '2023-11-24 14:32:36', '2023-11-24 14:32:36'),
-(427, NULL, NULL, 'PS_CCCCSS_VERSION', '1', '2023-11-24 14:32:36', '2023-11-24 14:32:36');
+(426, NULL, NULL, 'PS_CCCJS_VERSION', '2', '2023-11-24 14:32:36', '2023-11-24 16:52:32'),
+(427, NULL, NULL, 'PS_CCCCSS_VERSION', '2', '2023-11-24 14:32:36', '2023-11-24 16:52:32'),
+(428, NULL, NULL, 'PS_HTACCESS_DISABLE_MULTIVIEWS', '1', '2023-11-24 16:52:32', '2023-11-24 16:52:32');
 
 -- --------------------------------------------------------
 
@@ -3807,7 +3808,8 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (9, 1, 1, 7, 1, 3232268289, '2023-11-24 14:51:12', ''),
 (10, 1, 1, 7, 1, 3232296961, '2023-11-24 15:35:20', ''),
 (11, 1, 1, 8, 1, 3232296961, '2023-11-24 15:44:04', ''),
-(12, 1, 1, 7, 1, 2887385089, '2023-11-24 16:37:21', '');
+(12, 1, 1, 7, 1, 2887385089, '2023-11-24 16:37:21', ''),
+(13, 1, 1, 9, 1, 2887450625, '2023-11-24 16:52:50', '');
 
 -- --------------------------------------------------------
 
@@ -5355,7 +5357,8 @@ CREATE TABLE `ps_employee_session` (
 
 INSERT INTO `ps_employee_session` (`id_employee_session`, `id_employee`, `token`) VALUES
 (2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b'),
-(4, 1, '3b28e5a4de9ca22cfed059c956c3c9cff6f94d58');
+(4, 1, '3b28e5a4de9ca22cfed059c956c3c9cff6f94d58'),
+(5, 1, 'd91144e888524d0d6a7c18a81ea2a5ca5f435121');
 
 -- --------------------------------------------------------
 
@@ -8075,7 +8078,8 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (348, 1, 0, 'Core output folder: /var/www/html/mails', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:05:45', '2023-11-11 21:05:45'),
 (349, 1, 0, 'Modules output folder: /var/www/html/modules/', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:05:45', '2023-11-11 21:05:45'),
 (350, 1, 0, 'Protect vendor folder in module ps_mbo', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:06:25', '2023-11-11 21:06:25'),
-(351, 1, 0, 'Back office connection from 192.168.80.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-24 14:31:38', '2023-11-24 14:31:38');
+(351, 1, 0, 'Back office connection from 192.168.80.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-24 14:31:38', '2023-11-24 14:31:38'),
+(352, 1, 0, 'Back office connection from 172.27.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-24 16:52:10', '2023-11-24 16:52:10');
 
 -- --------------------------------------------------------
 
@@ -17939,7 +17943,7 @@ ALTER TABLE `ps_cms_role`
 -- AUTO_INCREMENT for table `ps_configuration`
 --
 ALTER TABLE `ps_configuration`
-  MODIFY `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=428;
+  MODIFY `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=429;
 
 --
 -- AUTO_INCREMENT for table `ps_configuration_kpi`
@@ -17951,7 +17955,7 @@ ALTER TABLE `ps_configuration_kpi`
 -- AUTO_INCREMENT for table `ps_connections`
 --
 ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ps_connections_source`
@@ -18041,7 +18045,7 @@ ALTER TABLE `ps_employee`
 -- AUTO_INCREMENT for table `ps_employee_session`
 --
 ALTER TABLE `ps_employee_session`
-  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ps_feature`
@@ -18179,7 +18183,7 @@ ALTER TABLE `ps_link_block_shop`
 -- AUTO_INCREMENT for table `ps_log`
 --
 ALTER TABLE `ps_log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=353;
 
 --
 -- AUTO_INCREMENT for table `ps_mail`
