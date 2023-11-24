@@ -2,7 +2,7 @@
 
 docker-compose up -d
 
-docker exec -it prestashop bash -c "cd ../../.. && chmod 777 -R var"
 chmod -R 777 ssl/
+docker exec -it prestashop bash -c "cd ../../.. && chmod 777 -R var"
 
 ./ssl/ssl.sh

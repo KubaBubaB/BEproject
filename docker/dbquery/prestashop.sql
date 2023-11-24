@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 24, 2023 at 03:04 PM
+-- Generation Time: Lis 24, 2023 at 03:39 PM
 -- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
 -- Wersja PHP: 8.2.8
 
@@ -3806,7 +3806,8 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (8, 1, 1, 6, 1, 3232256001, '2023-11-24 14:32:54', ''),
 (9, 1, 1, 7, 1, 3232268289, '2023-11-24 14:51:12', ''),
 (10, 1, 1, 7, 1, 3232296961, '2023-11-24 15:35:20', ''),
-(11, 1, 1, 8, 1, 3232296961, '2023-11-24 15:44:04', '');
+(11, 1, 1, 8, 1, 3232296961, '2023-11-24 15:44:04', ''),
+(12, 1, 1, 7, 1, 2887385089, '2023-11-24 16:37:21', '');
 
 -- --------------------------------------------------------
 
@@ -17950,7 +17951,7 @@ ALTER TABLE `ps_configuration_kpi`
 -- AUTO_INCREMENT for table `ps_connections`
 --
 ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ps_connections_source`
