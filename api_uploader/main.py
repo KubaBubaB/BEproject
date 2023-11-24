@@ -11,7 +11,7 @@ from utils.cloudDownload import downloadDropboxFolder
 from utils.productUtils import addProducts
 
 if __name__ == '__main__':
-    prestashop = prestapyt.PrestaShopWebServiceDict("http://127.0.0.1:8080/api/", "WGT6FAZ2MYGGRG8Z5QZYKBNLDMAZEAA3")
+    prestashop = prestapyt.PrestaShopWebServiceDict("http://127.0.0.1:8080/api/", "6QHZJHNKWG7T3AI5AUPNZI9QMCRRCGYH")
 
     products = prestashop.get("products")["products"]
     if products != "":
@@ -33,8 +33,8 @@ if __name__ == '__main__':
     else:
         print("There are already available images, no need to download from cloud")
 
-    categories = loadCategories(os.path.join(DIR, 'scraping_results\scrappedCategories.txt'))
-    products = loadProducts(os.path.join(DIR, 'scraping_results\scrappedProducts.txt'))
+    categories = loadCategories(os.path.join(DIR, 'scraping_results/scrappedCategories.txt'))
+    products = loadProducts(os.path.join(DIR, 'scraping_results/scrappedProducts.txt'))
 
     categories = transformCategories(categories, products)
 

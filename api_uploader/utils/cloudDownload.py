@@ -4,7 +4,7 @@ import dropbox
 from dropbox.exceptions import AuthError
 
 def downloadDropboxFolder(DIR):
-    with open("utils\TOKEN.txt", "r") as f:
+    with open("utils/TOKEN.txt", "r") as f:
         TOKEN = f.read()
     try:
         dbx = dropbox.Dropbox(TOKEN)

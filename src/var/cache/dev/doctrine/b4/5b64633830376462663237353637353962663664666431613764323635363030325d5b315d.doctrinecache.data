@@ -1,6 +1,6 @@
-1698599511
+1700836001
 s:1386:"HTTP/1.1 200 OK
-Date: Sun, 29 Oct 2023 17:06:49 GMT
+Date: Fri, 24 Nov 2023 14:21:42 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -19,8 +19,8 @@ Access-Control-Allow-Origin: https://assets.prestashop3.com
 Access-Control-Allow-Methods: GET,OPTIONS
 Access-Control-Allow-Headers: Content-Type
 CF-Cache-Status: DYNAMIC
-Set-Cookie: __cf_bm=v3jSnQgEZqz4uz98HoXOlzU3yN9B9sK4yn4zGR2xcs8-1698599209-0-AToZbNWvTxVq3KAwJ0kL8+etYVvcBoyMS5HrZC5FNf9dxSe1g0r/o4+qXj9dK/DX6QkUKdCoCnvMhH02UbLn8Oc=; path=/; expires=Sun, 29-Oct-23 17:36:49 GMT; domain=.prestashop.com; HttpOnly; Secure; SameSite=None
+Set-Cookie: __cf_bm=ljZkTeryRMIhSLC2L6yv2udHWLIKcn2IZZsJlU8KzXE-1700835702-0-AabJybra/IDAfu56ou/kVf5hrYsYIZfiIlUbg2p5F8qjc83uY/2ky5xjkjCyTngTEB0jVWZsr412Q1YU4nkb8nU=; path=/; expires=Fri, 24-Nov-23 14:51:42 GMT; domain=.prestashop.com; HttpOnly; Secure; SameSite=None
 Server: cloudflare
-CF-RAY: 81dd02e02fea3bba-WAW
+CF-RAY: 82b24cc4ad56ffd4-WAW
 
 {"services":[]}";
