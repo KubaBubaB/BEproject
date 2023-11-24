@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-11-24 19:13:10
   from '/var/www/html/modules/ht_staticblocks/views/templates/hook/ht_staticblocks_hometop2.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946ce07067_36424935',
+  'unifunc' => 'content_6560e7b6e92fd1_39957303',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7bf37a381f94c1bef22a56c14601c6b03dc1418' => 
     array (
       0 => '/var/www/html/modules/ht_staticblocks/views/templates/hook/ht_staticblocks_hometop2.tpl',
-      1 => 1698598183,
+      1 => 1700849573,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_653e946ce07067_36424935 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '1324454188653e946ce05302_88113493';
+function content_6560e7b6e92fd1_39957303 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '4939591706560e7b6e90e30_69568945';
 ?>
 
 <!-- Static Block module -->

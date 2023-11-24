@@ -1,36 +1,36 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-29 18:20:44
+/* Smarty version 3.1.48, created on 2023-11-24 19:13:11
   from 'module:psfeaturedproductsviewste' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_653e946cecba00_28402136',
+  'unifunc' => 'content_6560e7b7124c91_26321195',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fa6cc378d2942c8857b89d6bca728048c0caeedd' => 
     array (
       0 => 'module:psfeaturedproductsviewste',
-      1 => 1698598184,
+      1 => 1700849573,
       2 => 'module',
     ),
     '044f7d24b674381611ed9252b9680ad62130c41d' => 
     array (
       0 => '/var/www/html/themes/etrendlite/templates/catalog/_partials/miniatures/product.tpl',
-      1 => 1698598184,
+      1 => 1700849573,
       2 => 'file',
     ),
     'f140cb8d7087794d75d80f1720515eb8928d20bd' => 
     array (
       0 => '/var/www/html/themes/etrendlite/templates/catalog/_partials/variant-links.tpl',
-      1 => 1698598184,
+      1 => 1700849573,
       2 => 'file',
     ),
   ),
   'cache_lifetime' => 31536000,
 ),true)) {
-function content_653e946cecba00_28402136 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6560e7b7124c91_26321195 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, array (
 ));
 ?><!-- begin /var/www/html/themes/etrendlite/modules/ps_featuredproducts/views/templates/hook/ps_featuredproducts.tpl -->
@@ -60,7 +60,6 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                         <ul class="product-flags">
                                                             <li class="product-flag discount">-20%</li>
-                                                                <li class="product-flag new">Nowy</li>
                                                         </ul>
                     
                     <div class="highlighted-informations hidden-sm-down">
@@ -151,7 +150,6 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                         <ul class="product-flags">
                                                             <li class="product-flag discount">-20%</li>
-                                                                <li class="product-flag new">Nowy</li>
                                                         </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
@@ -229,8 +227,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         
@@ -303,8 +300,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         
@@ -377,8 +373,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         
@@ -451,8 +446,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         
@@ -525,8 +519,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         
@@ -599,8 +592,7 @@ $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, arra
                     
                     
                         <ul class="product-flags">
-                                                            <li class="product-flag new">Nowy</li>
-                                                        </ul>
+                                                    </ul>
                     
                     <div class="highlighted-informations no-variants hidden-sm-down">
                         

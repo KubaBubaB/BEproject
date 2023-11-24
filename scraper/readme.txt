@@ -1,1 +1,0 @@
-To run this scraper it is required to have already installed Selenium.webDriver and chromedriver.exe in your C:/Program Files directory

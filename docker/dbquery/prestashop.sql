@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 12, 2023 at 10:05 AM
--- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
--- Wersja PHP: 8.2.8
+-- Generation Time: Oct 20, 2023 at 05:03 PM
+-- Server version: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
+-- PHP Version: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,16 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `prestashop`
 --
+CREATE DATABASE IF NOT EXISTS `prestashop` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `prestashop`;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_access`
+-- Table structure for table `ps_access`
 --
 
-CREATE TABLE `ps_access` (
+DROP TABLE IF EXISTS `ps_access`;
+CREATE TABLE IF NOT EXISTS `ps_access` (
   `id_profile` int(10) UNSIGNED NOT NULL,
-  `id_authorization_role` int(10) UNSIGNED NOT NULL
+  `id_authorization_role` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_profile`,`id_authorization_role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -609,22 +613,6 @@ INSERT INTO `ps_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 822),
 (1, 823),
 (1, 824),
-(1, 829),
-(1, 830),
-(1, 831),
-(1, 832),
-(1, 833),
-(1, 834),
-(1, 835),
-(1, 836),
-(1, 837),
-(1, 838),
-(1, 839),
-(1, 840),
-(1, 841),
-(1, 842),
-(1, 843),
-(1, 844),
 (2, 9),
 (2, 10),
 (2, 11),
@@ -873,22 +861,25 @@ INSERT INTO `ps_access` (`id_profile`, `id_authorization_role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_accessory`
+-- Table structure for table `ps_accessory`
 --
 
-CREATE TABLE `ps_accessory` (
+DROP TABLE IF EXISTS `ps_accessory`;
+CREATE TABLE IF NOT EXISTS `ps_accessory` (
   `id_product_1` int(10) UNSIGNED NOT NULL,
-  `id_product_2` int(10) UNSIGNED NOT NULL
+  `id_product_2` int(10) UNSIGNED NOT NULL,
+  KEY `accessory_product` (`id_product_1`,`id_product_2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_address`
+-- Table structure for table `ps_address`
 --
 
-CREATE TABLE `ps_address` (
-  `id_address` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_address`;
+CREATE TABLE IF NOT EXISTS `ps_address` (
+  `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_country` int(10) UNSIGNED NOT NULL,
   `id_state` int(10) UNSIGNED DEFAULT NULL,
   `id_customer` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -911,8 +902,15 @@ CREATE TABLE `ps_address` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_address`),
+  KEY `address_customer` (`id_customer`),
+  KEY `id_country` (`id_country`),
+  KEY `id_state` (`id_state`),
+  KEY `id_manufacturer` (`id_manufacturer`),
+  KEY `id_supplier` (`id_supplier`),
+  KEY `id_warehouse` (`id_warehouse`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_address`
@@ -929,12 +927,14 @@ INSERT INTO `ps_address` (`id_address`, `id_country`, `id_state`, `id_customer`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_address_format`
+-- Table structure for table `ps_address_format`
 --
 
-CREATE TABLE `ps_address_format` (
+DROP TABLE IF EXISTS `ps_address_format`;
+CREATE TABLE IF NOT EXISTS `ps_address_format` (
   `id_country` int(10) UNSIGNED NOT NULL,
-  `format` varchar(255) NOT NULL DEFAULT ''
+  `format` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1187,43 +1187,44 @@ INSERT INTO `ps_address_format` (`id_country`, `format`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_admin_filter`
+-- Table structure for table `ps_admin_filter`
 --
 
-CREATE TABLE `ps_admin_filter` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_admin_filter`;
+CREATE TABLE IF NOT EXISTS `ps_admin_filter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee` int(11) NOT NULL,
   `shop` int(11) NOT NULL,
   `controller` varchar(60) NOT NULL,
   `action` varchar(100) NOT NULL,
   `filter` longtext NOT NULL,
-  `filter_id` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `filter_id` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admin_filter_search_id_idx` (`employee`,`shop`,`controller`,`action`,`filter_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_admin_filter`
 --
 
 INSERT INTO `ps_admin_filter` (`id`, `employee`, `shop`, `controller`, `action`, `filter`, `filter_id`) VALUES
-(1, 1, 1, 'ProductController', 'catalogAction', '{\"filter_category\":\"\",\"filter_column_id_product\":\"\",\"filter_column_name\":\"\",\"filter_column_reference\":\"\",\"filter_column_name_category\":\"\",\"filter_column_price\":\"\",\"filter_column_sav_quantity\":\"\",\"filter_column_active\":\"\",\"last_offset\":\"0\",\"last_limit\":\"20\",\"last_orderBy\":\"id_product\",\"last_sortOrder\":\"desc\"}', ''),
-(2, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_order_message\",\"sortOrder\":\"asc\",\"filters\":[]}', 'order_message'),
-(3, 1, 1, '', '', '{\"orderBy\":\"position\",\"sortOrder\":\"asc\",\"limit\":50,\"filters\":{\"id_category_parent\":\"2\"}}', 'category'),
-(4, 1, 1, 'contacts', 'index', '{\"limit\":10,\"orderBy\":\"id_contact\",\"sortOrder\":\"asc\",\"filters\":[]}', ''),
-(5, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_order\",\"sortOrder\":\"DESC\",\"filters\":[]}', 'order'),
-(6, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"date_add\",\"sortOrder\":\"DESC\",\"filters\":[]}', 'customer');
+(1, 1, 1, 'ProductController', 'catalogAction', '{\"filter_category\":\"\",\"filter_column_id_product\":\"\",\"filter_column_name\":\"\",\"filter_column_reference\":\"\",\"filter_column_name_category\":\"\",\"filter_column_price\":\"\",\"filter_column_sav_quantity\":\"\",\"filter_column_active\":\"\",\"last_offset\":\"0\",\"last_limit\":\"20\",\"last_orderBy\":\"id_product\",\"last_sortOrder\":\"desc\"}', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_alias`
+-- Table structure for table `ps_alias`
 --
 
-CREATE TABLE `ps_alias` (
-  `id_alias` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_alias`;
+CREATE TABLE IF NOT EXISTS `ps_alias` (
+  `id_alias` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alias` varchar(191) NOT NULL,
   `search` varchar(255) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_alias`),
+  UNIQUE KEY `alias` (`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_alias`
@@ -1236,42 +1237,49 @@ INSERT INTO `ps_alias` (`id_alias`, `alias`, `search`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attachment`
+-- Table structure for table `ps_attachment`
 --
 
-CREATE TABLE `ps_attachment` (
-  `id_attachment` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_attachment`;
+CREATE TABLE IF NOT EXISTS `ps_attachment` (
+  `id_attachment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `file` varchar(40) NOT NULL,
   `file_name` varchar(128) NOT NULL,
   `file_size` bigint(10) UNSIGNED NOT NULL DEFAULT 0,
-  `mime` varchar(128) NOT NULL
+  `mime` varchar(128) NOT NULL,
+  PRIMARY KEY (`id_attachment`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attachment_lang`
+-- Table structure for table `ps_attachment_lang`
 --
 
-CREATE TABLE `ps_attachment_lang` (
-  `id_attachment` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_attachment_lang`;
+CREATE TABLE IF NOT EXISTS `ps_attachment_lang` (
+  `id_attachment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) DEFAULT NULL,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id_attachment`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute`
+-- Table structure for table `ps_attribute`
 --
 
-CREATE TABLE `ps_attribute` (
-  `id_attribute` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_attribute`;
+CREATE TABLE IF NOT EXISTS `ps_attribute` (
+  `id_attribute` int(11) NOT NULL AUTO_INCREMENT,
   `id_attribute_group` int(11) NOT NULL,
   `color` varchar(32) NOT NULL,
-  `position` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `position` int(11) NOT NULL,
+  PRIMARY KEY (`id_attribute`),
+  KEY `attribute_group` (`id_attribute_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_attribute`
@@ -1307,15 +1315,17 @@ INSERT INTO `ps_attribute` (`id_attribute`, `id_attribute_group`, `color`, `posi
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_group`
+-- Table structure for table `ps_attribute_group`
 --
 
-CREATE TABLE `ps_attribute_group` (
-  `id_attribute_group` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_attribute_group`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_group` (
+  `id_attribute_group` int(11) NOT NULL AUTO_INCREMENT,
   `is_color_group` tinyint(1) NOT NULL,
   `group_type` varchar(255) NOT NULL,
-  `position` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `position` int(11) NOT NULL,
+  PRIMARY KEY (`id_attribute_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_attribute_group`
@@ -1330,14 +1340,18 @@ INSERT INTO `ps_attribute_group` (`id_attribute_group`, `is_color_group`, `group
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_group_lang`
+-- Table structure for table `ps_attribute_group_lang`
 --
 
-CREATE TABLE `ps_attribute_group_lang` (
+DROP TABLE IF EXISTS `ps_attribute_group_lang`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_group_lang` (
   `id_attribute_group` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `public_name` varchar(64) NOT NULL
+  `public_name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_attribute_group`,`id_lang`),
+  KEY `IDX_4653726C67A664FB` (`id_attribute_group`),
+  KEY `IDX_4653726CBA299860` (`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1357,12 +1371,16 @@ INSERT INTO `ps_attribute_group_lang` (`id_attribute_group`, `id_lang`, `name`, 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_group_shop`
+-- Table structure for table `ps_attribute_group_shop`
 --
 
-CREATE TABLE `ps_attribute_group_shop` (
+DROP TABLE IF EXISTS `ps_attribute_group_shop`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_group_shop` (
   `id_attribute_group` int(11) NOT NULL,
-  `id_shop` int(11) NOT NULL
+  `id_shop` int(11) NOT NULL,
+  PRIMARY KEY (`id_attribute_group`,`id_shop`),
+  KEY `IDX_DB30BAAC67A664FB` (`id_attribute_group`),
+  KEY `IDX_DB30BAAC274A50A0` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1378,27 +1396,34 @@ INSERT INTO `ps_attribute_group_shop` (`id_attribute_group`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_impact`
+-- Table structure for table `ps_attribute_impact`
 --
 
-CREATE TABLE `ps_attribute_impact` (
-  `id_attribute_impact` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_attribute_impact`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_impact` (
+  `id_attribute_impact` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_attribute` int(11) UNSIGNED NOT NULL,
   `weight` decimal(20,6) NOT NULL,
-  `price` decimal(20,6) NOT NULL
+  `price` decimal(20,6) NOT NULL,
+  PRIMARY KEY (`id_attribute_impact`),
+  UNIQUE KEY `id_product` (`id_product`,`id_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_lang`
+-- Table structure for table `ps_attribute_lang`
 --
 
-CREATE TABLE `ps_attribute_lang` (
+DROP TABLE IF EXISTS `ps_attribute_lang`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_lang` (
   `id_attribute` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`id_attribute`,`id_lang`),
+  KEY `IDX_3ABE46A77A4F53DC` (`id_attribute`),
+  KEY `IDX_3ABE46A7BA299860` (`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1460,12 +1485,16 @@ INSERT INTO `ps_attribute_lang` (`id_attribute`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_attribute_shop`
+-- Table structure for table `ps_attribute_shop`
 --
 
-CREATE TABLE `ps_attribute_shop` (
+DROP TABLE IF EXISTS `ps_attribute_shop`;
+CREATE TABLE IF NOT EXISTS `ps_attribute_shop` (
   `id_attribute` int(11) NOT NULL,
-  `id_shop` int(11) NOT NULL
+  `id_shop` int(11) NOT NULL,
+  PRIMARY KEY (`id_attribute`,`id_shop`),
+  KEY `IDX_A7DD8E677A4F53DC` (`id_attribute`),
+  KEY `IDX_A7DD8E67274A50A0` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1502,13 +1531,16 @@ INSERT INTO `ps_attribute_shop` (`id_attribute`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_authorization_role`
+-- Table structure for table `ps_authorization_role`
 --
 
-CREATE TABLE `ps_authorization_role` (
-  `id_authorization_role` int(10) UNSIGNED NOT NULL,
-  `slug` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_authorization_role`;
+CREATE TABLE IF NOT EXISTS `ps_authorization_role` (
+  `id_authorization_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `slug` varchar(191) NOT NULL,
+  PRIMARY KEY (`id_authorization_role`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=829 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_authorization_role`
@@ -1651,10 +1683,10 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (620, 'ROLE_MOD_MODULE_PS_MAINMENU_DELETE'),
 (618, 'ROLE_MOD_MODULE_PS_MAINMENU_READ'),
 (619, 'ROLE_MOD_MODULE_PS_MAINMENU_UPDATE'),
-(845, 'ROLE_MOD_MODULE_PS_MBO_CREATE'),
-(848, 'ROLE_MOD_MODULE_PS_MBO_DELETE'),
-(846, 'ROLE_MOD_MODULE_PS_MBO_READ'),
-(847, 'ROLE_MOD_MODULE_PS_MBO_UPDATE'),
+(761, 'ROLE_MOD_MODULE_PS_MBO_CREATE'),
+(764, 'ROLE_MOD_MODULE_PS_MBO_DELETE'),
+(762, 'ROLE_MOD_MODULE_PS_MBO_READ'),
+(763, 'ROLE_MOD_MODULE_PS_MBO_UPDATE'),
 (777, 'ROLE_MOD_MODULE_PS_METRICS_CREATE'),
 (780, 'ROLE_MOD_MODULE_PS_METRICS_DELETE'),
 (778, 'ROLE_MOD_MODULE_PS_METRICS_READ'),
@@ -2143,22 +2175,22 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (796, 'ROLE_MOD_TAB_ADMINPSFACEBOOKMODULE_DELETE'),
 (794, 'ROLE_MOD_TAB_ADMINPSFACEBOOKMODULE_READ'),
 (795, 'ROLE_MOD_TAB_ADMINPSFACEBOOKMODULE_UPDATE'),
-(833, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_CREATE'),
-(836, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_DELETE'),
-(834, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_READ'),
-(835, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_UPDATE'),
-(829, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_CREATE'),
-(832, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_DELETE'),
-(830, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_READ'),
-(831, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_UPDATE'),
-(837, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_CREATE'),
-(840, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_DELETE'),
-(838, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_READ'),
-(839, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_UPDATE'),
-(841, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_CREATE'),
-(844, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_DELETE'),
-(842, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_READ'),
-(843, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_UPDATE'),
+(749, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_CREATE'),
+(752, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_DELETE'),
+(750, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_READ'),
+(751, 'ROLE_MOD_TAB_ADMINPSMBOADDONS_UPDATE'),
+(745, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_CREATE'),
+(748, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_DELETE'),
+(746, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_READ'),
+(747, 'ROLE_MOD_TAB_ADMINPSMBOMODULE_UPDATE'),
+(753, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_CREATE'),
+(756, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_DELETE'),
+(754, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_READ'),
+(755, 'ROLE_MOD_TAB_ADMINPSMBORECOMMENDED_UPDATE'),
+(757, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_CREATE'),
+(760, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_DELETE'),
+(758, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_READ'),
+(759, 'ROLE_MOD_TAB_ADMINPSMBOTHEME_UPDATE'),
 (649, 'ROLE_MOD_TAB_ADMINPSTHEMECUSTOADVANCED_CREATE'),
 (652, 'ROLE_MOD_TAB_ADMINPSTHEMECUSTOADVANCED_DELETE'),
 (650, 'ROLE_MOD_TAB_ADMINPSTHEMECUSTOADVANCED_READ'),
@@ -2343,26 +2375,29 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_blockwishlist_statistics`
+-- Table structure for table `ps_blockwishlist_statistics`
 --
 
-CREATE TABLE `ps_blockwishlist_statistics` (
-  `id_statistics` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_blockwishlist_statistics`;
+CREATE TABLE IF NOT EXISTS `ps_blockwishlist_statistics` (
+  `id_statistics` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cart` int(10) UNSIGNED DEFAULT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_product_attribute` int(10) UNSIGNED NOT NULL,
   `date_add` datetime NOT NULL,
-  `id_shop` int(10) UNSIGNED DEFAULT 1
+  `id_shop` int(10) UNSIGNED DEFAULT 1,
+  PRIMARY KEY (`id_statistics`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier`
+-- Table structure for table `ps_carrier`
 --
 
-CREATE TABLE `ps_carrier` (
-  `id_carrier` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_carrier` (
+  `id_carrier` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_reference` int(10) UNSIGNED NOT NULL,
   `id_tax_rules_group` int(10) UNSIGNED DEFAULT 0,
   `name` varchar(64) NOT NULL,
@@ -2382,8 +2417,12 @@ CREATE TABLE `ps_carrier` (
   `max_height` int(10) DEFAULT 0,
   `max_depth` int(10) DEFAULT 0,
   `max_weight` decimal(20,6) DEFAULT 0.000000,
-  `grade` int(10) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `grade` int(10) DEFAULT 0,
+  PRIMARY KEY (`id_carrier`),
+  KEY `deleted` (`deleted`,`active`),
+  KEY `id_tax_rules_group` (`id_tax_rules_group`),
+  KEY `reference` (`id_reference`,`deleted`,`active`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_carrier`
@@ -2391,21 +2430,21 @@ CREATE TABLE `ps_carrier` (
 
 INSERT INTO `ps_carrier` (`id_carrier`, `id_reference`, `id_tax_rules_group`, `name`, `url`, `active`, `deleted`, `shipping_handling`, `range_behavior`, `is_module`, `is_free`, `shipping_external`, `need_range`, `external_module_name`, `shipping_method`, `position`, `max_width`, `max_height`, `max_depth`, `max_weight`, `grade`) VALUES
 (1, 1, 0, '0', '', 1, 0, 0, 0, 0, 1, 0, 0, '', 0, 0, 0, 0, 0, 0.000000, 0),
-(2, 2, 0, 'My carrier', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, 0.000000, 0),
-(3, 3, 0, 'My cheap carrier', '', 0, 1, 1, 0, 0, 0, 0, 0, '', 2, 2, 0, 0, 0, 0.000000, 0),
-(4, 4, 0, 'My light carrier', '', 0, 1, 1, 0, 0, 0, 0, 0, '', 1, 3, 0, 0, 0, 0.000000, 0),
-(5, 5, 0, 'DHL', '', 1, 0, 0, 0, 0, 0, 0, 0, '', 1, 1, 150, 150, 150, 50.000000, 0),
-(6, 6, 0, 'InPost', '', 1, 0, 0, 0, 0, 0, 0, 0, '', 1, 2, 64, 41, 38, 25.000000, 0);
+(2, 2, 0, 'My carrier', '', 1, 0, 1, 0, 0, 0, 0, 0, '', 0, 1, 0, 0, 0, 0.000000, 0),
+(3, 3, 0, 'My cheap carrier', '', 0, 0, 1, 0, 0, 0, 0, 0, '', 2, 2, 0, 0, 0, 0.000000, 0),
+(4, 4, 0, 'My light carrier', '', 0, 0, 1, 0, 0, 0, 0, 0, '', 1, 3, 0, 0, 0, 0.000000, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier_group`
+-- Table structure for table `ps_carrier_group`
 --
 
-CREATE TABLE `ps_carrier_group` (
+DROP TABLE IF EXISTS `ps_carrier_group`;
+CREATE TABLE IF NOT EXISTS `ps_carrier_group` (
   `id_carrier` int(10) UNSIGNED NOT NULL,
-  `id_group` int(10) UNSIGNED NOT NULL
+  `id_group` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_carrier`,`id_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2424,25 +2463,21 @@ INSERT INTO `ps_carrier_group` (`id_carrier`, `id_group`) VALUES
 (3, 3),
 (4, 1),
 (4, 2),
-(4, 3),
-(5, 1),
-(5, 2),
-(5, 3),
-(6, 1),
-(6, 2),
-(6, 3);
+(4, 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier_lang`
+-- Table structure for table `ps_carrier_lang`
 --
 
-CREATE TABLE `ps_carrier_lang` (
+DROP TABLE IF EXISTS `ps_carrier_lang`;
+CREATE TABLE IF NOT EXISTS `ps_carrier_lang` (
   `id_carrier` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `delay` varchar(512) DEFAULT NULL
+  `delay` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id_lang`,`id_shop`,`id_carrier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2454,24 +2489,23 @@ INSERT INTO `ps_carrier_lang` (`id_carrier`, `id_shop`, `id_lang`, `delay`) VALU
 (2, 1, 1, 'Delivery next day!'),
 (3, 1, 1, 'Buy more to pay less!'),
 (4, 1, 1, 'The lighter the cheaper!'),
-(5, 1, 1, '1-2 dni robocze'),
-(6, 1, 1, '1-2 dni robocze'),
 (1, 1, 2, 'Odbiór w sklepie'),
 (2, 1, 2, 'Dostawa następnego dnia!'),
 (3, 1, 2, 'Buy more to pay less!'),
-(4, 1, 2, 'The lighter the cheaper!'),
-(5, 1, 2, '1-2 dni robocze'),
-(6, 1, 2, '1-2 dni robocze');
+(4, 1, 2, 'The lighter the cheaper!');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier_shop`
+-- Table structure for table `ps_carrier_shop`
 --
 
-CREATE TABLE `ps_carrier_shop` (
+DROP TABLE IF EXISTS `ps_carrier_shop`;
+CREATE TABLE IF NOT EXISTS `ps_carrier_shop` (
   `id_carrier` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_carrier`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2482,20 +2516,20 @@ INSERT INTO `ps_carrier_shop` (`id_carrier`, `id_shop`) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
-(4, 1),
-(5, 1),
-(6, 1);
+(4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier_tax_rules_group_shop`
+-- Table structure for table `ps_carrier_tax_rules_group_shop`
 --
 
-CREATE TABLE `ps_carrier_tax_rules_group_shop` (
+DROP TABLE IF EXISTS `ps_carrier_tax_rules_group_shop`;
+CREATE TABLE IF NOT EXISTS `ps_carrier_tax_rules_group_shop` (
   `id_carrier` int(11) UNSIGNED NOT NULL,
   `id_tax_rules_group` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_carrier`,`id_tax_rules_group`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2506,19 +2540,19 @@ INSERT INTO `ps_carrier_tax_rules_group_shop` (`id_carrier`, `id_tax_rules_group
 (1, 1, 1),
 (2, 1, 1),
 (3, 1, 1),
-(4, 1, 1),
-(5, 0, 1),
-(6, 0, 1);
+(4, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_carrier_zone`
+-- Table structure for table `ps_carrier_zone`
 --
 
-CREATE TABLE `ps_carrier_zone` (
+DROP TABLE IF EXISTS `ps_carrier_zone`;
+CREATE TABLE IF NOT EXISTS `ps_carrier_zone` (
   `id_carrier` int(10) UNSIGNED NOT NULL,
-  `id_zone` int(10) UNSIGNED NOT NULL
+  `id_zone` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_carrier`,`id_zone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2532,18 +2566,17 @@ INSERT INTO `ps_carrier_zone` (`id_carrier`, `id_zone`) VALUES
 (3, 1),
 (3, 2),
 (4, 1),
-(4, 2),
-(5, 1),
-(6, 1);
+(4, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart`
+-- Table structure for table `ps_cart`
 --
 
-CREATE TABLE `ps_cart` (
-  `id_cart` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cart`;
+CREATE TABLE IF NOT EXISTS `ps_cart` (
+  `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_carrier` int(10) UNSIGNED NOT NULL,
@@ -2562,8 +2595,19 @@ CREATE TABLE `ps_cart` (
   `allow_seperated_package` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `checkout_session_data` mediumtext DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `checkout_session_data` mediumtext DEFAULT NULL,
+  PRIMARY KEY (`id_cart`),
+  KEY `cart_customer` (`id_customer`),
+  KEY `id_address_delivery` (`id_address_delivery`),
+  KEY `id_address_invoice` (`id_address_invoice`),
+  KEY `id_carrier` (`id_carrier`),
+  KEY `id_lang` (`id_lang`),
+  KEY `id_currency` (`id_currency`),
+  KEY `id_guest` (`id_guest`),
+  KEY `id_shop_group` (`id_shop_group`),
+  KEY `id_shop_2` (`id_shop`,`date_upd`),
+  KEY `id_shop` (`id_shop`,`date_add`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_cart`
@@ -2574,27 +2618,30 @@ INSERT INTO `ps_cart` (`id_cart`, `id_shop_group`, `id_shop`, `id_carrier`, `del
 (2, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (3, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (4, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
-(5, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
-(6, 1, 1, 0, '', 2, 0, 0, 1, 0, 5, '', 0, 0, '', 0, 0, '2023-11-11 21:03:06', '2023-11-11 21:03:06', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-addresses-step\":{\"step_is_reachable\":false,\"step_is_complete\":false,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"fa8e7d95cd976c16cca1571ce9d926b00b40dd33\"}');
+(5, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_cart_rule`
+-- Table structure for table `ps_cart_cart_rule`
 --
 
-CREATE TABLE `ps_cart_cart_rule` (
+DROP TABLE IF EXISTS `ps_cart_cart_rule`;
+CREATE TABLE IF NOT EXISTS `ps_cart_cart_rule` (
   `id_cart` int(10) UNSIGNED NOT NULL,
-  `id_cart_rule` int(10) UNSIGNED NOT NULL
+  `id_cart_rule` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart`,`id_cart_rule`),
+  KEY `id_cart_rule` (`id_cart_rule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_product`
+-- Table structure for table `ps_cart_product`
 --
 
-CREATE TABLE `ps_cart_product` (
+DROP TABLE IF EXISTS `ps_cart_product`;
+CREATE TABLE IF NOT EXISTS `ps_cart_product` (
   `id_cart` int(10) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_address_delivery` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -2602,7 +2649,10 @@ CREATE TABLE `ps_cart_product` (
   `id_product_attribute` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_customization` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `quantity` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_cart`,`id_product`,`id_product_attribute`,`id_customization`,`id_address_delivery`),
+  KEY `id_product_attribute` (`id_product_attribute`),
+  KEY `id_cart_order` (`id_cart`,`date_add`,`id_product`,`id_product_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2616,17 +2666,17 @@ INSERT INTO `ps_cart_product` (`id_cart`, `id_product`, `id_address_delivery`, `
 (2, 8, 3, 1, 0, 0, 1, '0000-00-00 00:00:00'),
 (3, 16, 3, 1, 28, 0, 1, '0000-00-00 00:00:00'),
 (4, 16, 3, 1, 29, 0, 1, '0000-00-00 00:00:00'),
-(5, 10, 3, 1, 25, 0, 1, '0000-00-00 00:00:00'),
-(6, 2, 0, 1, 9, 0, 1, '2023-11-11 21:03:06');
+(5, 10, 3, 1, 25, 0, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule`
+-- Table structure for table `ps_cart_rule`
 --
 
-CREATE TABLE `ps_cart_rule` (
-  `id_cart_rule` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cart_rule`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule` (
+  `id_cart_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `date_from` datetime NOT NULL,
   `date_to` datetime NOT NULL,
@@ -2658,119 +2708,147 @@ CREATE TABLE `ps_cart_rule` (
   `highlight` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_cart_rule`),
+  KEY `id_customer` (`id_customer`,`active`,`date_to`),
+  KEY `group_restriction` (`group_restriction`,`active`,`date_to`),
+  KEY `id_customer_2` (`id_customer`,`active`,`highlight`,`date_to`),
+  KEY `group_restriction_2` (`group_restriction`,`active`,`highlight`,`date_to`),
+  KEY `date_from` (`date_from`),
+  KEY `date_to` (`date_to`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_carrier`
+-- Table structure for table `ps_cart_rule_carrier`
 --
 
-CREATE TABLE `ps_cart_rule_carrier` (
+DROP TABLE IF EXISTS `ps_cart_rule_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_carrier` (
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
-  `id_carrier` int(10) UNSIGNED NOT NULL
+  `id_carrier` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart_rule`,`id_carrier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_combination`
+-- Table structure for table `ps_cart_rule_combination`
 --
 
-CREATE TABLE `ps_cart_rule_combination` (
+DROP TABLE IF EXISTS `ps_cart_rule_combination`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_combination` (
   `id_cart_rule_1` int(10) UNSIGNED NOT NULL,
-  `id_cart_rule_2` int(10) UNSIGNED NOT NULL
+  `id_cart_rule_2` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart_rule_1`,`id_cart_rule_2`),
+  KEY `id_cart_rule_1` (`id_cart_rule_1`),
+  KEY `id_cart_rule_2` (`id_cart_rule_2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_country`
+-- Table structure for table `ps_cart_rule_country`
 --
 
-CREATE TABLE `ps_cart_rule_country` (
+DROP TABLE IF EXISTS `ps_cart_rule_country`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_country` (
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
-  `id_country` int(10) UNSIGNED NOT NULL
+  `id_country` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart_rule`,`id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_group`
+-- Table structure for table `ps_cart_rule_group`
 --
 
-CREATE TABLE `ps_cart_rule_group` (
+DROP TABLE IF EXISTS `ps_cart_rule_group`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_group` (
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
-  `id_group` int(10) UNSIGNED NOT NULL
+  `id_group` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart_rule`,`id_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_lang`
+-- Table structure for table `ps_cart_rule_lang`
 --
 
-CREATE TABLE `ps_cart_rule_lang` (
+DROP TABLE IF EXISTS `ps_cart_rule_lang`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_lang` (
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(254) NOT NULL
+  `name` varchar(254) NOT NULL,
+  PRIMARY KEY (`id_cart_rule`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_product_rule`
+-- Table structure for table `ps_cart_rule_product_rule`
 --
 
-CREATE TABLE `ps_cart_rule_product_rule` (
-  `id_product_rule` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cart_rule_product_rule`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_product_rule` (
+  `id_product_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product_rule_group` int(10) UNSIGNED NOT NULL,
-  `type` enum('products','categories','attributes','manufacturers','suppliers') NOT NULL
+  `type` enum('products','categories','attributes','manufacturers','suppliers') NOT NULL,
+  PRIMARY KEY (`id_product_rule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_product_rule_group`
+-- Table structure for table `ps_cart_rule_product_rule_group`
 --
 
-CREATE TABLE `ps_cart_rule_product_rule_group` (
-  `id_product_rule_group` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cart_rule_product_rule_group`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_product_rule_group` (
+  `id_product_rule_group` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
-  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_product_rule_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_product_rule_value`
+-- Table structure for table `ps_cart_rule_product_rule_value`
 --
 
-CREATE TABLE `ps_cart_rule_product_rule_value` (
+DROP TABLE IF EXISTS `ps_cart_rule_product_rule_value`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_product_rule_value` (
   `id_product_rule` int(10) UNSIGNED NOT NULL,
-  `id_item` int(10) UNSIGNED NOT NULL
+  `id_item` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_rule`,`id_item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cart_rule_shop`
+-- Table structure for table `ps_cart_rule_shop`
 --
 
-CREATE TABLE `ps_cart_rule_shop` (
+DROP TABLE IF EXISTS `ps_cart_rule_shop`;
+CREATE TABLE IF NOT EXISTS `ps_cart_rule_shop` (
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cart_rule`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_category`
+-- Table structure for table `ps_category`
 --
 
-CREATE TABLE `ps_category` (
-  `id_category` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_category`;
+CREATE TABLE IF NOT EXISTS `ps_category` (
+  `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_parent` int(10) UNSIGNED NOT NULL,
   `id_shop_default` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `level_depth` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
@@ -2780,8 +2858,15 @@ CREATE TABLE `ps_category` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `is_root_category` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `is_root_category` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_category`),
+  KEY `category_parent` (`id_parent`),
+  KEY `nleftrightactive` (`nleft`,`nright`,`active`),
+  KEY `level_depth` (`level_depth`),
+  KEY `nright` (`nright`),
+  KEY `activenleft` (`active`,`nleft`),
+  KEY `activenright` (`active`,`nright`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_category`
@@ -2801,12 +2886,16 @@ INSERT INTO `ps_category` (`id_category`, `id_parent`, `id_shop_default`, `level
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_category_group`
+-- Table structure for table `ps_category_group`
 --
 
-CREATE TABLE `ps_category_group` (
+DROP TABLE IF EXISTS `ps_category_group`;
+CREATE TABLE IF NOT EXISTS `ps_category_group` (
   `id_category` int(10) UNSIGNED NOT NULL,
-  `id_group` int(10) UNSIGNED NOT NULL
+  `id_group` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_category`,`id_group`),
+  KEY `id_category` (`id_category`),
+  KEY `id_group` (`id_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2843,10 +2932,11 @@ INSERT INTO `ps_category_group` (`id_category`, `id_group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_category_lang`
+-- Table structure for table `ps_category_lang`
 --
 
-CREATE TABLE `ps_category_lang` (
+DROP TABLE IF EXISTS `ps_category_lang`;
+CREATE TABLE IF NOT EXISTS `ps_category_lang` (
   `id_category` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
@@ -2855,7 +2945,9 @@ CREATE TABLE `ps_category_lang` (
   `link_rewrite` varchar(128) NOT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(512) DEFAULT NULL
+  `meta_description` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id_category`,`id_shop`,`id_lang`),
+  KEY `category_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2885,13 +2977,17 @@ INSERT INTO `ps_category_lang` (`id_category`, `id_shop`, `id_lang`, `name`, `de
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_category_product`
+-- Table structure for table `ps_category_product`
 --
 
-CREATE TABLE `ps_category_product` (
+DROP TABLE IF EXISTS `ps_category_product`;
+CREATE TABLE IF NOT EXISTS `ps_category_product` (
   `id_category` int(10) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL DEFAULT 0
+  `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_category`,`id_product`),
+  KEY `id_product` (`id_product`),
+  KEY `id_category` (`id_category`,`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2959,13 +3055,15 @@ INSERT INTO `ps_category_product` (`id_category`, `id_product`, `position`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_category_shop`
+-- Table structure for table `ps_category_shop`
 --
 
-CREATE TABLE `ps_category_shop` (
+DROP TABLE IF EXISTS `ps_category_shop`;
+CREATE TABLE IF NOT EXISTS `ps_category_shop` (
   `id_category` int(11) NOT NULL,
   `id_shop` int(11) NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL DEFAULT 0
+  `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_category`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2986,16 +3084,18 @@ INSERT INTO `ps_category_shop` (`id_category`, `id_shop`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms`
+-- Table structure for table `ps_cms`
 --
 
-CREATE TABLE `ps_cms` (
-  `id_cms` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cms`;
+CREATE TABLE IF NOT EXISTS `ps_cms` (
+  `id_cms` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cms_category` int(10) UNSIGNED NOT NULL,
   `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `indexation` tinyint(1) UNSIGNED NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `indexation` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_cms`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_cms`
@@ -3011,18 +3111,21 @@ INSERT INTO `ps_cms` (`id_cms`, `id_cms_category`, `position`, `active`, `indexa
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_category`
+-- Table structure for table `ps_cms_category`
 --
 
-CREATE TABLE `ps_cms_category` (
-  `id_cms_category` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cms_category`;
+CREATE TABLE IF NOT EXISTS `ps_cms_category` (
+  `id_cms_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_parent` int(10) UNSIGNED NOT NULL,
   `level_depth` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_cms_category`),
+  KEY `category_parent` (`id_parent`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_cms_category`
@@ -3034,10 +3137,11 @@ INSERT INTO `ps_cms_category` (`id_cms_category`, `id_parent`, `level_depth`, `a
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_category_lang`
+-- Table structure for table `ps_cms_category_lang`
 --
 
-CREATE TABLE `ps_cms_category_lang` (
+DROP TABLE IF EXISTS `ps_cms_category_lang`;
+CREATE TABLE IF NOT EXISTS `ps_cms_category_lang` (
   `id_cms_category` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
@@ -3046,7 +3150,9 @@ CREATE TABLE `ps_cms_category_lang` (
   `link_rewrite` varchar(128) NOT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(512) DEFAULT NULL
+  `meta_description` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id_cms_category`,`id_shop`,`id_lang`),
+  KEY `category_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3060,13 +3166,16 @@ INSERT INTO `ps_cms_category_lang` (`id_cms_category`, `id_lang`, `id_shop`, `na
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_category_shop`
+-- Table structure for table `ps_cms_category_shop`
 --
 
-CREATE TABLE `ps_cms_category_shop` (
-  `id_cms_category` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_cms_category_shop`;
+CREATE TABLE IF NOT EXISTS `ps_cms_category_shop` (
+  `id_cms_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cms_category`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_cms_category_shop`
@@ -3078,10 +3187,11 @@ INSERT INTO `ps_cms_category_shop` (`id_cms_category`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_lang`
+-- Table structure for table `ps_cms_lang`
 --
 
-CREATE TABLE `ps_cms_lang` (
+DROP TABLE IF EXISTS `ps_cms_lang`;
+CREATE TABLE IF NOT EXISTS `ps_cms_lang` (
   `id_cms` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
@@ -3090,7 +3200,8 @@ CREATE TABLE `ps_cms_lang` (
   `meta_description` varchar(512) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
   `content` longtext DEFAULT NULL,
-  `link_rewrite` varchar(128) NOT NULL
+  `link_rewrite` varchar(128) NOT NULL,
+  PRIMARY KEY (`id_cms`,`id_shop`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3112,14 +3223,17 @@ INSERT INTO `ps_cms_lang` (`id_cms`, `id_lang`, `id_shop`, `meta_title`, `head_s
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_role`
+-- Table structure for table `ps_cms_role`
 --
 
-CREATE TABLE `ps_cms_role` (
-  `id_cms_role` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_cms_role`;
+CREATE TABLE IF NOT EXISTS `ps_cms_role` (
+  `id_cms_role` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `id_cms` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_cms` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cms_role`,`id_cms`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_cms_role`
@@ -3132,25 +3246,30 @@ INSERT INTO `ps_cms_role` (`id_cms_role`, `name`, `id_cms`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_role_lang`
+-- Table structure for table `ps_cms_role_lang`
 --
 
-CREATE TABLE `ps_cms_role_lang` (
+DROP TABLE IF EXISTS `ps_cms_role_lang`;
+CREATE TABLE IF NOT EXISTS `ps_cms_role_lang` (
   `id_cms_role` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `name` varchar(128) DEFAULT NULL
+  `name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_cms_role`,`id_lang`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_cms_shop`
+-- Table structure for table `ps_cms_shop`
 --
 
-CREATE TABLE `ps_cms_shop` (
+DROP TABLE IF EXISTS `ps_cms_shop`;
+CREATE TABLE IF NOT EXISTS `ps_cms_shop` (
   `id_cms` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_cms`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3167,18 +3286,23 @@ INSERT INTO `ps_cms_shop` (`id_cms`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_configuration`
+-- Table structure for table `ps_configuration`
 --
 
-CREATE TABLE `ps_configuration` (
-  `id_configuration` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_configuration`;
+CREATE TABLE IF NOT EXISTS `ps_configuration` (
+  `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) UNSIGNED DEFAULT NULL,
   `id_shop` int(11) UNSIGNED DEFAULT NULL,
   `name` varchar(254) NOT NULL,
   `value` text DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_configuration`),
+  KEY `name` (`name`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_shop_group` (`id_shop_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=425 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_configuration`
@@ -3207,7 +3331,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (20, NULL, NULL, 'PS_PRODUCTS_ORDER_BY', '4', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (21, NULL, NULL, 'PS_DISPLAY_QTIES', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (22, NULL, NULL, 'PS_SHIPPING_HANDLING', '2', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(23, NULL, NULL, 'PS_SHIPPING_FREE_PRICE', '2000', '0000-00-00 00:00:00', '2023-11-11 20:52:07'),
+(23, NULL, NULL, 'PS_SHIPPING_FREE_PRICE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (24, NULL, NULL, 'PS_SHIPPING_FREE_WEIGHT', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (25, NULL, NULL, 'PS_SHIPPING_METHOD', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (26, NULL, NULL, 'PS_TAX', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3545,6 +3669,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (367, NULL, NULL, 'PSGDPR_CUSTOMER_FORM', NULL, '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
 (368, NULL, NULL, 'PSGDPR_ANONYMOUS_CUSTOMER', '1', '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
 (369, NULL, NULL, 'PSGDPR_ANONYMOUS_ADDRESS', '1', '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
+(370, NULL, NULL, 'PS_MBO_SHOP_ADMIN_UUID', '3c3e0299-56e2-4592-a37e-21a3b4bb4a85', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
 (371, NULL, NULL, 'CONF_PS_CHECKOUT_FIXED', '0.2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
 (372, NULL, NULL, 'CONF_PS_CHECKOUT_VAR', '2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
 (373, NULL, NULL, 'CONF_PS_CHECKOUT_FIXED_FOREIGN', '0.2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
@@ -3598,24 +3723,28 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (421, NULL, NULL, 'PS_LAYERED_FILTER_SHOW_OUT_OF_STOCK_LAST', '0', '2023-10-14 10:11:40', '2023-10-14 10:11:40'),
 (422, NULL, NULL, 'PS_LAYERED_FILTER_BY_DEFAULT_CATEGORY', '0', '2023-10-14 10:11:40', '2023-10-14 10:11:40'),
 (423, NULL, NULL, 'PS_LAYERED_INDEXED', '1', '2023-10-14 10:11:40', '2023-10-14 10:11:40'),
-(424, NULL, NULL, 'ONBOARDINGV2_SHUT_DOWN', '1', '2023-10-14 10:14:44', '2023-10-14 10:14:44'),
-(425, NULL, NULL, 'PS_MBO_SHOP_ADMIN_UUID', 'ceb6ab8d-2573-4387-8f02-3c6d87a4eb11', '2023-11-11 21:06:25', '2023-11-11 21:06:25');
+(424, NULL, NULL, 'ONBOARDINGV2_SHUT_DOWN', '1', '2023-10-14 10:14:44', '2023-10-14 10:14:44');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_configuration_kpi`
+-- Table structure for table `ps_configuration_kpi`
 --
 
-CREATE TABLE `ps_configuration_kpi` (
-  `id_configuration_kpi` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_configuration_kpi`;
+CREATE TABLE IF NOT EXISTS `ps_configuration_kpi` (
+  `id_configuration_kpi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) UNSIGNED DEFAULT NULL,
   `id_shop` int(11) UNSIGNED DEFAULT NULL,
   `name` varchar(64) NOT NULL,
   `value` text DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_configuration_kpi`),
+  KEY `name` (`name`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_shop_group` (`id_shop_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_configuration_kpi`
@@ -3657,74 +3786,36 @@ INSERT INTO `ps_configuration_kpi` (`id_configuration_kpi`, `id_shop_group`, `id
 (33, NULL, NULL, 'DASHGOALS_AVG_CART_VALUE_11_2023', '80', '2023-10-14 10:10:46', '2023-10-14 10:10:46'),
 (34, NULL, NULL, 'DASHGOALS_TRAFFIC_12_2023', '600', '2023-10-14 10:10:46', '2023-10-14 10:10:46'),
 (35, NULL, NULL, 'DASHGOALS_CONVERSION_12_2023', '2', '2023-10-14 10:10:46', '2023-10-14 10:10:46'),
-(36, NULL, NULL, 'DASHGOALS_AVG_CART_VALUE_12_2023', '80', '2023-10-14 10:10:46', '2023-10-14 10:10:46'),
-(37, NULL, NULL, 'AVG_MSG_RESPONSE_TIME', '0 hours', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(38, NULL, NULL, 'AVG_MSG_RESPONSE_TIME_EXPIRE', '1699747022', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(39, NULL, NULL, 'PENDING_MESSAGES', '0', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(40, NULL, NULL, 'PENDING_MESSAGES_EXPIRE', '1699732922', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(41, NULL, NULL, 'MESSAGES_PER_THREAD', '0', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(42, NULL, NULL, 'MESSAGES_PER_THREAD_EXPIRE', '1699775822', '2023-11-11 20:57:02', '2023-11-11 20:57:02'),
-(43, NULL, NULL, 'DISABLED_CATEGORIES', '0', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(44, NULL, NULL, 'DISABLED_CATEGORIES_EXPIRE', '1699740286', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(45, NULL, NULL, 'TOP_CATEGORY', NULL, '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(46, NULL, NULL, 'TOP_CATEGORY_EXPIRE', NULL, '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(47, NULL, NULL, 'EMPTY_CATEGORIES', '0', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(48, NULL, NULL, 'EMPTY_CATEGORIES_EXPIRE', '1699740286', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(49, NULL, NULL, 'PRODUCTS_PER_CATEGORY', '2', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(50, NULL, NULL, 'PRODUCTS_PER_CATEGORY_EXPIRE', '1699736686', '2023-11-11 21:04:46', '2023-11-11 21:04:46'),
-(51, NULL, NULL, 'AVG_ORDER_VALUE', 'zł0.00', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(52, NULL, NULL, 'AVG_ORDER_VALUE_EXPIRE', '1699743600', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(53, NULL, NULL, 'CONVERSION_RATE', '0%', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(54, NULL, NULL, 'CONVERSION_RATE_EXPIRE', '1699743600', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(55, NULL, NULL, 'ABANDONED_CARTS', '0', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(56, NULL, NULL, 'ABANDONED_CARTS_EXPIRE', '1699736766', '2023-11-11 21:06:06', '2023-11-11 21:06:06'),
-(57, NULL, NULL, 'NETPROFIT_VISIT', 'zł0.00', '2023-11-11 21:06:11', '2023-11-11 21:06:11'),
-(58, NULL, NULL, 'NETPROFIT_VISIT_EXPIRE', '1699743600', '2023-11-11 21:06:11', '2023-11-11 21:06:11'),
-(59, NULL, NULL, 'CUSTOMER_MAIN_GENDER', NULL, '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(60, NULL, NULL, 'CUSTOMER_MAIN_GENDER_EXPIRE', NULL, '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(61, NULL, NULL, 'NEWSLETTER_REGISTRATIONS', '1', '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(62, NULL, NULL, 'NEWSLETTER_REGISTRATIONS_EXPIRE', '1699754777', '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(63, NULL, NULL, 'AVG_CUSTOMER_AGE', NULL, '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(64, NULL, NULL, 'AVG_CUSTOMER_AGE_EXPIRE', NULL, '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(65, NULL, NULL, 'ORDERS_PER_CUSTOMER', '0', '2023-11-11 21:06:17', '2023-11-11 21:06:17'),
-(66, NULL, NULL, 'ORDERS_PER_CUSTOMER_EXPIRE', '1699819577', '2023-11-11 21:06:17', '2023-11-11 21:06:17');
+(36, NULL, NULL, 'DASHGOALS_AVG_CART_VALUE_12_2023', '80', '2023-10-14 10:10:46', '2023-10-14 10:10:46');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_configuration_kpi_lang`
+-- Table structure for table `ps_configuration_kpi_lang`
 --
 
-CREATE TABLE `ps_configuration_kpi_lang` (
+DROP TABLE IF EXISTS `ps_configuration_kpi_lang`;
+CREATE TABLE IF NOT EXISTS `ps_configuration_kpi_lang` (
   `id_configuration_kpi` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `value` text DEFAULT NULL,
-  `date_upd` datetime DEFAULT NULL
+  `date_upd` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_configuration_kpi`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ps_configuration_kpi_lang`
---
-
-INSERT INTO `ps_configuration_kpi_lang` (`id_configuration_kpi`, `id_lang`, `value`, `date_upd`) VALUES
-(45, 1, 'Women', '2023-11-11 21:04:46'),
-(46, 1, '1699819486', '2023-11-11 21:04:46'),
-(59, 1, '100% Male Customers', '2023-11-11 21:06:17'),
-(60, 1, '1699819577', '2023-11-11 21:06:17'),
-(63, 1, '54 years', '2023-11-11 21:06:17'),
-(64, 1, '1699819577', '2023-11-11 21:06:17');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_configuration_lang`
+-- Table structure for table `ps_configuration_lang`
 --
 
-CREATE TABLE `ps_configuration_lang` (
+DROP TABLE IF EXISTS `ps_configuration_lang`;
+CREATE TABLE IF NOT EXISTS `ps_configuration_lang` (
   `id_configuration` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `value` text DEFAULT NULL,
-  `date_upd` datetime DEFAULT NULL
+  `date_upd` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_configuration`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3774,19 +3865,24 @@ INSERT INTO `ps_configuration_lang` (`id_configuration`, `id_lang`, `value`, `da
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_connections`
+-- Table structure for table `ps_connections`
 --
 
-CREATE TABLE `ps_connections` (
-  `id_connections` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_connections`;
+CREATE TABLE IF NOT EXISTS `ps_connections` (
+  `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_guest` int(10) UNSIGNED NOT NULL,
   `id_page` int(10) UNSIGNED NOT NULL,
   `ip_address` bigint(20) DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `http_referer` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `http_referer` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_connections`),
+  KEY `id_guest` (`id_guest`),
+  KEY `date_add` (`date_add`),
+  KEY `id_page` (`id_page`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_connections`
@@ -3796,36 +3892,43 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (1, 1, 1, 1, 1, 2130706433, '2023-10-14 10:11:36', 'https://www.prestashop.com'),
 (2, 1, 1, 3, 1, 2887122945, '2023-10-14 10:18:10', 'http://127.0.0.1:8080/install/index.php'),
 (3, 1, 1, 3, 1, 2887188481, '2023-10-16 16:26:18', ''),
-(4, 1, 1, 3, 1, 2887188481, '2023-10-20 14:29:38', ''),
-(5, 1, 1, 5, 1, 2886926337, '2023-11-11 20:30:48', '');
+(4, 1, 1, 3, 1, 2887188481, '2023-10-20 14:29:38', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_connections_page`
+-- Table structure for table `ps_connections_page`
 --
 
-CREATE TABLE `ps_connections_page` (
+DROP TABLE IF EXISTS `ps_connections_page`;
+CREATE TABLE IF NOT EXISTS `ps_connections_page` (
   `id_connections` int(10) UNSIGNED NOT NULL,
   `id_page` int(10) UNSIGNED NOT NULL,
   `time_start` datetime NOT NULL,
-  `time_end` datetime DEFAULT NULL
+  `time_end` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_connections`,`id_page`,`time_start`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_connections_source`
+-- Table structure for table `ps_connections_source`
 --
 
-CREATE TABLE `ps_connections_source` (
-  `id_connections_source` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_connections_source`;
+CREATE TABLE IF NOT EXISTS `ps_connections_source` (
+  `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_connections` int(10) UNSIGNED NOT NULL,
   `http_referer` varchar(255) DEFAULT NULL,
   `request_uri` varchar(255) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_connections_source`),
+  KEY `connections` (`id_connections`),
+  KEY `orderby` (`date_add`),
+  KEY `http_referer` (`http_referer`),
+  KEY `request_uri` (`request_uri`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_connections_source`
@@ -3834,29 +3937,22 @@ CREATE TABLE `ps_connections_source` (
 INSERT INTO `ps_connections_source` (`id_connections_source`, `id_connections`, `http_referer`, `request_uri`, `keywords`, `date_add`) VALUES
 (1, 2, 'http://127.0.0.1:8080/install/index.php', '127.0.0.1:8080/index.php', '', '2023-10-14 10:18:10'),
 (2, 2, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=20&rewrite=testtesttest&controller=product&id_lang=2', '', '2023-10-14 10:18:15'),
-(3, 2, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=20&rewrite=testtesttest&controller=product&id_lang=2', '', '2023-10-14 10:26:57'),
-(4, 5, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-11 21:03:04'),
-(5, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-11 21:03:09'),
-(6, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-11 21:03:17'),
-(7, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-11 21:03:29'),
-(8, 5, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-11 21:03:30'),
-(9, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-11 21:03:39'),
-(10, 5, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-11 21:03:43'),
-(11, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-11 21:08:26'),
-(12, 5, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-11 21:16:40');
+(3, 2, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=20&rewrite=testtesttest&controller=product&id_lang=2', '', '2023-10-14 10:26:57');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_contact`
+-- Table structure for table `ps_contact`
 --
 
-CREATE TABLE `ps_contact` (
-  `id_contact` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_contact`;
+CREATE TABLE IF NOT EXISTS `ps_contact` (
+  `id_contact` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `customer_service` tinyint(1) NOT NULL DEFAULT 0,
-  `position` tinyint(2) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `position` tinyint(2) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_contact`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_contact`
@@ -3869,14 +3965,16 @@ INSERT INTO `ps_contact` (`id_contact`, `email`, `customer_service`, `position`)
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_contact_lang`
+-- Table structure for table `ps_contact_lang`
 --
 
-CREATE TABLE `ps_contact_lang` (
+DROP TABLE IF EXISTS `ps_contact_lang`;
+CREATE TABLE IF NOT EXISTS `ps_contact_lang` (
   `id_contact` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id_contact`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3892,12 +3990,15 @@ INSERT INTO `ps_contact_lang` (`id_contact`, `id_lang`, `name`, `description`) V
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_contact_shop`
+-- Table structure for table `ps_contact_shop`
 --
 
-CREATE TABLE `ps_contact_shop` (
+DROP TABLE IF EXISTS `ps_contact_shop`;
+CREATE TABLE IF NOT EXISTS `ps_contact_shop` (
   `id_contact` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_contact`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3911,11 +4012,12 @@ INSERT INTO `ps_contact_shop` (`id_contact`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_country`
+-- Table structure for table `ps_country`
 --
 
-CREATE TABLE `ps_country` (
-  `id_country` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_country`;
+CREATE TABLE IF NOT EXISTS `ps_country` (
+  `id_country` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_zone` int(10) UNSIGNED NOT NULL,
   `id_currency` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `iso_code` varchar(3) NOT NULL,
@@ -3925,8 +4027,11 @@ CREATE TABLE `ps_country` (
   `need_identification_number` tinyint(1) NOT NULL DEFAULT 0,
   `need_zip_code` tinyint(1) NOT NULL DEFAULT 1,
   `zip_code_format` varchar(12) NOT NULL DEFAULT '',
-  `display_tax_label` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `display_tax_label` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_country`),
+  KEY `country_iso_code` (`iso_code`),
+  KEY `country_` (`id_zone`)
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_country`
@@ -4178,13 +4283,15 @@ INSERT INTO `ps_country` (`id_country`, `id_zone`, `id_currency`, `iso_code`, `c
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_country_lang`
+-- Table structure for table `ps_country_lang`
 --
 
-CREATE TABLE `ps_country_lang` (
+DROP TABLE IF EXISTS `ps_country_lang`;
+CREATE TABLE IF NOT EXISTS `ps_country_lang` (
   `id_country` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_country`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -4678,12 +4785,15 @@ INSERT INTO `ps_country_lang` (`id_country`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_country_shop`
+-- Table structure for table `ps_country_shop`
 --
 
-CREATE TABLE `ps_country_shop` (
+DROP TABLE IF EXISTS `ps_country_shop`;
+CREATE TABLE IF NOT EXISTS `ps_country_shop` (
   `id_country` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_country`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -4936,11 +5046,12 @@ INSERT INTO `ps_country_shop` (`id_country`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_currency`
+-- Table structure for table `ps_currency`
 --
 
-CREATE TABLE `ps_currency` (
-  `id_currency` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_currency`;
+CREATE TABLE IF NOT EXISTS `ps_currency` (
+  `id_currency` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `iso_code` varchar(3) NOT NULL DEFAULT '0',
   `numeric_iso_code` varchar(3) DEFAULT NULL,
@@ -4949,8 +5060,10 @@ CREATE TABLE `ps_currency` (
   `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
   `unofficial` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `modified` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `modified` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_currency`),
+  KEY `currency_iso_code` (`iso_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_currency`
@@ -4962,15 +5075,17 @@ INSERT INTO `ps_currency` (`id_currency`, `name`, `iso_code`, `numeric_iso_code`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_currency_lang`
+-- Table structure for table `ps_currency_lang`
 --
 
-CREATE TABLE `ps_currency_lang` (
+DROP TABLE IF EXISTS `ps_currency_lang`;
+CREATE TABLE IF NOT EXISTS `ps_currency_lang` (
   `id_currency` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `symbol` varchar(255) NOT NULL,
-  `pattern` varchar(255) DEFAULT NULL
+  `pattern` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_currency`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -4984,13 +5099,16 @@ INSERT INTO `ps_currency_lang` (`id_currency`, `id_lang`, `name`, `symbol`, `pat
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_currency_shop`
+-- Table structure for table `ps_currency_shop`
 --
 
-CREATE TABLE `ps_currency_shop` (
+DROP TABLE IF EXISTS `ps_currency_shop`;
+CREATE TABLE IF NOT EXISTS `ps_currency_shop` (
   `id_currency` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `conversion_rate` decimal(13,6) NOT NULL
+  `conversion_rate` decimal(13,6) NOT NULL,
+  PRIMARY KEY (`id_currency`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5003,11 +5121,12 @@ INSERT INTO `ps_currency_shop` (`id_currency`, `id_shop`, `conversion_rate`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer`
+-- Table structure for table `ps_customer`
 --
 
-CREATE TABLE `ps_customer` (
-  `id_customer` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customer`;
+CREATE TABLE IF NOT EXISTS `ps_customer` (
+  `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_gender` int(10) UNSIGNED NOT NULL,
@@ -5039,8 +5158,15 @@ CREATE TABLE `ps_customer` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   `reset_password_token` varchar(40) DEFAULT NULL,
-  `reset_password_validity` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `reset_password_validity` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_customer`),
+  KEY `customer_email` (`email`),
+  KEY `customer_login` (`email`,`passwd`),
+  KEY `id_customer_passwd` (`id_customer`,`passwd`),
+  KEY `id_gender` (`id_gender`),
+  KEY `id_shop_group` (`id_shop_group`),
+  KEY `id_shop` (`id_shop`,`date_add`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_customer`
@@ -5053,12 +5179,16 @@ INSERT INTO `ps_customer` (`id_customer`, `id_shop_group`, `id_shop`, `id_gender
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer_group`
+-- Table structure for table `ps_customer_group`
 --
 
-CREATE TABLE `ps_customer_group` (
+DROP TABLE IF EXISTS `ps_customer_group`;
+CREATE TABLE IF NOT EXISTS `ps_customer_group` (
   `id_customer` int(10) UNSIGNED NOT NULL,
-  `id_group` int(10) UNSIGNED NOT NULL
+  `id_group` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_customer`,`id_group`),
+  KEY `customer_login` (`id_group`),
+  KEY `id_customer` (`id_customer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5072,11 +5202,12 @@ INSERT INTO `ps_customer_group` (`id_customer`, `id_group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer_message`
+-- Table structure for table `ps_customer_message`
 --
 
-CREATE TABLE `ps_customer_message` (
-  `id_customer_message` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customer_message`;
+CREATE TABLE IF NOT EXISTS `ps_customer_message` (
+  `id_customer_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer_thread` int(11) DEFAULT NULL,
   `id_employee` int(10) UNSIGNED DEFAULT NULL,
   `message` mediumtext NOT NULL,
@@ -5086,39 +5217,47 @@ CREATE TABLE `ps_customer_message` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   `private` tinyint(4) NOT NULL DEFAULT 0,
-  `read` tinyint(1) NOT NULL DEFAULT 0
+  `read` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_customer_message`),
+  KEY `id_customer_thread` (`id_customer_thread`),
+  KEY `id_employee` (`id_employee`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer_message_sync_imap`
+-- Table structure for table `ps_customer_message_sync_imap`
 --
 
-CREATE TABLE `ps_customer_message_sync_imap` (
-  `md5_header` varbinary(32) NOT NULL
+DROP TABLE IF EXISTS `ps_customer_message_sync_imap`;
+CREATE TABLE IF NOT EXISTS `ps_customer_message_sync_imap` (
+  `md5_header` varbinary(32) NOT NULL,
+  KEY `md5_header_index` (`md5_header`(4))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer_session`
+-- Table structure for table `ps_customer_session`
 --
 
-CREATE TABLE `ps_customer_session` (
-  `id_customer_session` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customer_session`;
+CREATE TABLE IF NOT EXISTS `ps_customer_session` (
+  `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer` int(10) UNSIGNED DEFAULT NULL,
-  `token` varchar(40) DEFAULT NULL
+  `token` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_customer_session`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customer_thread`
+-- Table structure for table `ps_customer_thread`
 --
 
-CREATE TABLE `ps_customer_thread` (
-  `id_customer_thread` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customer_thread`;
+CREATE TABLE IF NOT EXISTS `ps_customer_thread` (
+  `id_customer_thread` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `id_contact` int(10) UNSIGNED NOT NULL,
@@ -5129,17 +5268,25 @@ CREATE TABLE `ps_customer_thread` (
   `email` varchar(255) NOT NULL,
   `token` varchar(12) DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_customer_thread`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_lang` (`id_lang`),
+  KEY `id_contact` (`id_contact`),
+  KEY `id_customer` (`id_customer`),
+  KEY `id_order` (`id_order`),
+  KEY `id_product` (`id_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customization`
+-- Table structure for table `ps_customization`
 --
 
-CREATE TABLE `ps_customization` (
-  `id_customization` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customization`;
+CREATE TABLE IF NOT EXISTS `ps_customization` (
+  `id_customization` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product_attribute` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_address_delivery` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_cart` int(10) UNSIGNED NOT NULL,
@@ -5147,23 +5294,29 @@ CREATE TABLE `ps_customization` (
   `quantity` int(10) NOT NULL,
   `quantity_refunded` int(11) NOT NULL DEFAULT 0,
   `quantity_returned` int(11) NOT NULL DEFAULT 0,
-  `in_cart` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+  `in_cart` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_customization`,`id_cart`,`id_product`,`id_address_delivery`),
+  KEY `id_product_attribute` (`id_product_attribute`),
+  KEY `id_cart_product` (`id_cart`,`id_product`,`id_product_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customization_field`
+-- Table structure for table `ps_customization_field`
 --
 
-CREATE TABLE `ps_customization_field` (
-  `id_customization_field` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_customization_field`;
+CREATE TABLE IF NOT EXISTS `ps_customization_field` (
+  `id_customization_field` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(10) UNSIGNED NOT NULL,
   `type` tinyint(1) NOT NULL,
   `required` tinyint(1) NOT NULL,
   `is_module` tinyint(1) NOT NULL DEFAULT 0,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_customization_field`),
+  KEY `id_product` (`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_customization_field`
@@ -5175,14 +5328,16 @@ INSERT INTO `ps_customization_field` (`id_customization_field`, `id_product`, `t
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customization_field_lang`
+-- Table structure for table `ps_customization_field_lang`
 --
 
-CREATE TABLE `ps_customization_field_lang` (
+DROP TABLE IF EXISTS `ps_customization_field_lang`;
+CREATE TABLE IF NOT EXISTS `ps_customization_field_lang` (
   `id_customization_field` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_customization_field`,`id_lang`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5196,47 +5351,57 @@ INSERT INTO `ps_customization_field_lang` (`id_customization_field`, `id_lang`, 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_customized_data`
+-- Table structure for table `ps_customized_data`
 --
 
-CREATE TABLE `ps_customized_data` (
+DROP TABLE IF EXISTS `ps_customized_data`;
+CREATE TABLE IF NOT EXISTS `ps_customized_data` (
   `id_customization` int(10) UNSIGNED NOT NULL,
   `type` tinyint(1) NOT NULL,
   `index` int(3) NOT NULL,
   `value` varchar(255) NOT NULL,
   `id_module` int(10) NOT NULL DEFAULT 0,
   `price` decimal(20,6) NOT NULL DEFAULT 0.000000,
-  `weight` decimal(20,6) NOT NULL DEFAULT 0.000000
+  `weight` decimal(20,6) NOT NULL DEFAULT 0.000000,
+  PRIMARY KEY (`id_customization`,`type`,`index`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_date_range`
+-- Table structure for table `ps_date_range`
 --
 
-CREATE TABLE `ps_date_range` (
-  `id_date_range` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_date_range`;
+CREATE TABLE IF NOT EXISTS `ps_date_range` (
+  `id_date_range` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `time_start` datetime NOT NULL,
-  `time_end` datetime NOT NULL
+  `time_end` datetime NOT NULL,
+  PRIMARY KEY (`id_date_range`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_delivery`
+-- Table structure for table `ps_delivery`
 --
 
-CREATE TABLE `ps_delivery` (
-  `id_delivery` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_delivery`;
+CREATE TABLE IF NOT EXISTS `ps_delivery` (
+  `id_delivery` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED DEFAULT NULL,
   `id_shop_group` int(10) UNSIGNED DEFAULT NULL,
   `id_carrier` int(10) UNSIGNED NOT NULL,
   `id_range_price` int(10) UNSIGNED DEFAULT NULL,
   `id_range_weight` int(10) UNSIGNED DEFAULT NULL,
   `id_zone` int(10) UNSIGNED NOT NULL,
-  `price` decimal(20,6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `price` decimal(20,6) NOT NULL,
+  PRIMARY KEY (`id_delivery`),
+  KEY `id_zone` (`id_zone`),
+  KEY `id_carrier` (`id_carrier`,`id_zone`),
+  KEY `id_range_price` (`id_range_price`),
+  KEY `id_range_weight` (`id_range_weight`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_delivery`
@@ -5258,18 +5423,17 @@ INSERT INTO `ps_delivery` (`id_delivery`, `id_shop`, `id_shop_group`, `id_carrie
 (13, NULL, NULL, 4, 0, 3, 1, 2.000000),
 (14, NULL, NULL, 4, 0, 3, 2, 3.000000),
 (15, NULL, NULL, 4, 0, 4, 1, 5.000000),
-(16, NULL, NULL, 4, 0, 4, 2, 6.000000),
-(18, NULL, NULL, 5, NULL, 5, 1, 0.000000),
-(20, NULL, NULL, 6, NULL, 6, 1, 0.000000);
+(16, NULL, NULL, 4, 0, 4, 2, 6.000000);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_emailsubscription`
+-- Table structure for table `ps_emailsubscription`
 --
 
-CREATE TABLE `ps_emailsubscription` (
-  `id` int(6) NOT NULL,
+DROP TABLE IF EXISTS `ps_emailsubscription`;
+CREATE TABLE IF NOT EXISTS `ps_emailsubscription` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop_group` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `email` varchar(255) NOT NULL,
@@ -5277,17 +5441,19 @@ CREATE TABLE `ps_emailsubscription` (
   `ip_registration_newsletter` varchar(15) NOT NULL,
   `http_referer` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
-  `id_lang` int(10) NOT NULL DEFAULT 0
+  `id_lang` int(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_employee`
+-- Table structure for table `ps_employee`
 --
 
-CREATE TABLE `ps_employee` (
-  `id_employee` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_employee`;
+CREATE TABLE IF NOT EXISTS `ps_employee` (
+  `id_employee` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_profile` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `lastname` varchar(255) NOT NULL,
@@ -5315,45 +5481,53 @@ CREATE TABLE `ps_employee` (
   `last_connection_date` date DEFAULT NULL,
   `reset_password_token` varchar(40) DEFAULT NULL,
   `reset_password_validity` datetime DEFAULT NULL,
-  `has_enabled_gravatar` tinyint(3) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `has_enabled_gravatar` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_employee`),
+  KEY `employee_login` (`email`,`passwd`),
+  KEY `id_employee_passwd` (`id_employee`,`passwd`),
+  KEY `id_profile` (`id_profile`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_employee`
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`, `reset_password_token`, `reset_password_validity`, `has_enabled_gravatar`) VALUES
-(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'theme.css', 1, 0, 1, 1, NULL, 0, 0, 0, '2023-11-11', NULL, '0000-00-00 00:00:00', 0);
+(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'theme.css', 1, 0, 1, 1, NULL, 0, 0, 0, '2023-10-14', NULL, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_employee_session`
+-- Table structure for table `ps_employee_session`
 --
 
-CREATE TABLE `ps_employee_session` (
-  `id_employee_session` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_employee_session`;
+CREATE TABLE IF NOT EXISTS `ps_employee_session` (
+  `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_employee` int(10) UNSIGNED DEFAULT NULL,
-  `token` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `token` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_employee_session`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_employee_session`
 --
 
 INSERT INTO `ps_employee_session` (`id_employee_session`, `id_employee`, `token`) VALUES
-(2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b'),
-(3, 1, 'b099c1b7e850e37a18b6302045a38aee13bf1f07');
+(2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_employee_shop`
+-- Table structure for table `ps_employee_shop`
 --
 
-CREATE TABLE `ps_employee_shop` (
+DROP TABLE IF EXISTS `ps_employee_shop`;
+CREATE TABLE IF NOT EXISTS `ps_employee_shop` (
   `id_employee` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_employee`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5366,29 +5540,34 @@ INSERT INTO `ps_employee_shop` (`id_employee`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_fb_category_match`
+-- Table structure for table `ps_fb_category_match`
 --
 
-CREATE TABLE `ps_fb_category_match` (
+DROP TABLE IF EXISTS `ps_fb_category_match`;
+CREATE TABLE IF NOT EXISTS `ps_fb_category_match` (
   `id_category` int(11) NOT NULL,
   `google_category_id` int(64) NOT NULL,
   `google_category_name` varchar(255) NOT NULL,
   `google_category_parent_id` int(64) NOT NULL,
   `google_category_parent_name` varchar(255) NOT NULL,
   `is_parent_category` tinyint(1) DEFAULT NULL,
-  `id_shop` int(11) NOT NULL
+  `id_shop` int(11) NOT NULL,
+  PRIMARY KEY (`id_category`,`id_shop`),
+  KEY `id_category` (`id_category`,`google_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature`
+-- Table structure for table `ps_feature`
 --
 
-CREATE TABLE `ps_feature` (
-  `id_feature` int(10) UNSIGNED NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_feature`;
+CREATE TABLE IF NOT EXISTS `ps_feature` (
+  `id_feature` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_feature`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_feature`
@@ -5401,18 +5580,21 @@ INSERT INTO `ps_feature` (`id_feature`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_flag`
+-- Table structure for table `ps_feature_flag`
 --
 
-CREATE TABLE `ps_feature_flag` (
-  `id_feature_flag` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_feature_flag`;
+CREATE TABLE IF NOT EXISTS `ps_feature_flag` (
+  `id_feature_flag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT 0,
   `label_wording` varchar(191) NOT NULL DEFAULT '',
   `label_domain` varchar(255) NOT NULL DEFAULT '',
   `description_wording` varchar(191) NOT NULL DEFAULT '',
-  `description_domain` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `description_domain` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_feature_flag`),
+  UNIQUE KEY `UNIQ_91700F175E237E06` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_feature_flag`
@@ -5424,13 +5606,16 @@ INSERT INTO `ps_feature_flag` (`id_feature_flag`, `name`, `state`, `label_wordin
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_lang`
+-- Table structure for table `ps_feature_lang`
 --
 
-CREATE TABLE `ps_feature_lang` (
+DROP TABLE IF EXISTS `ps_feature_lang`;
+CREATE TABLE IF NOT EXISTS `ps_feature_lang` (
   `id_feature` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(128) DEFAULT NULL
+  `name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_feature`,`id_lang`),
+  KEY `id_lang` (`id_lang`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5446,13 +5631,17 @@ INSERT INTO `ps_feature_lang` (`id_feature`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_product`
+-- Table structure for table `ps_feature_product`
 --
 
-CREATE TABLE `ps_feature_product` (
+DROP TABLE IF EXISTS `ps_feature_product`;
+CREATE TABLE IF NOT EXISTS `ps_feature_product` (
   `id_feature` int(10) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
-  `id_feature_value` int(10) UNSIGNED NOT NULL
+  `id_feature_value` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_feature`,`id_product`,`id_feature_value`),
+  KEY `id_feature_value` (`id_feature_value`),
+  KEY `id_product` (`id_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5488,12 +5677,15 @@ INSERT INTO `ps_feature_product` (`id_feature`, `id_product`, `id_feature_value`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_shop`
+-- Table structure for table `ps_feature_shop`
 --
 
-CREATE TABLE `ps_feature_shop` (
+DROP TABLE IF EXISTS `ps_feature_shop`;
+CREATE TABLE IF NOT EXISTS `ps_feature_shop` (
   `id_feature` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_feature`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5507,14 +5699,17 @@ INSERT INTO `ps_feature_shop` (`id_feature`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_value`
+-- Table structure for table `ps_feature_value`
 --
 
-CREATE TABLE `ps_feature_value` (
-  `id_feature_value` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_feature_value`;
+CREATE TABLE IF NOT EXISTS `ps_feature_value` (
+  `id_feature_value` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_feature` int(10) UNSIGNED NOT NULL,
-  `custom` tinyint(3) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `custom` tinyint(3) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id_feature_value`),
+  KEY `feature` (`id_feature`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_feature_value`
@@ -5536,13 +5731,15 @@ INSERT INTO `ps_feature_value` (`id_feature_value`, `id_feature`, `custom`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_feature_value_lang`
+-- Table structure for table `ps_feature_value_lang`
 --
 
-CREATE TABLE `ps_feature_value_lang` (
+DROP TABLE IF EXISTS `ps_feature_value_lang`;
+CREATE TABLE IF NOT EXISTS `ps_feature_value_lang` (
   `id_feature_value` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `value` varchar(255) DEFAULT NULL
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_feature_value`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5576,13 +5773,15 @@ INSERT INTO `ps_feature_value_lang` (`id_feature_value`, `id_lang`, `value`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_gender`
+-- Table structure for table `ps_gender`
 --
 
-CREATE TABLE `ps_gender` (
-  `id_gender` int(11) NOT NULL,
-  `type` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_gender`;
+CREATE TABLE IF NOT EXISTS `ps_gender` (
+  `id_gender` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_gender`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_gender`
@@ -5595,13 +5794,16 @@ INSERT INTO `ps_gender` (`id_gender`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_gender_lang`
+-- Table structure for table `ps_gender_lang`
 --
 
-CREATE TABLE `ps_gender_lang` (
+DROP TABLE IF EXISTS `ps_gender_lang`;
+CREATE TABLE IF NOT EXISTS `ps_gender_lang` (
   `id_gender` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_gender`,`id_lang`),
+  KEY `id_gender` (`id_gender`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5617,17 +5819,19 @@ INSERT INTO `ps_gender_lang` (`id_gender`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_group`
+-- Table structure for table `ps_group`
 --
 
-CREATE TABLE `ps_group` (
-  `id_group` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_group`;
+CREATE TABLE IF NOT EXISTS `ps_group` (
+  `id_group` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `reduction` decimal(5,2) NOT NULL DEFAULT 0.00,
   `price_display_method` tinyint(4) NOT NULL DEFAULT 0,
   `show_prices` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_group`
@@ -5641,13 +5845,15 @@ INSERT INTO `ps_group` (`id_group`, `reduction`, `price_display_method`, `show_p
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_group_lang`
+-- Table structure for table `ps_group_lang`
 --
 
-CREATE TABLE `ps_group_lang` (
+DROP TABLE IF EXISTS `ps_group_lang`;
+CREATE TABLE IF NOT EXISTS `ps_group_lang` (
   `id_group` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_group`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5665,25 +5871,31 @@ INSERT INTO `ps_group_lang` (`id_group`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_group_reduction`
+-- Table structure for table `ps_group_reduction`
 --
 
-CREATE TABLE `ps_group_reduction` (
-  `id_group_reduction` mediumint(8) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_group_reduction`;
+CREATE TABLE IF NOT EXISTS `ps_group_reduction` (
+  `id_group_reduction` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_group` int(10) UNSIGNED NOT NULL,
   `id_category` int(10) UNSIGNED NOT NULL,
-  `reduction` decimal(5,4) NOT NULL
+  `reduction` decimal(5,4) NOT NULL,
+  PRIMARY KEY (`id_group_reduction`),
+  UNIQUE KEY `id_group` (`id_group`,`id_category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_group_shop`
+-- Table structure for table `ps_group_shop`
 --
 
-CREATE TABLE `ps_group_shop` (
+DROP TABLE IF EXISTS `ps_group_shop`;
+CREATE TABLE IF NOT EXISTS `ps_group_shop` (
   `id_group` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_group`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5698,10 +5910,11 @@ INSERT INTO `ps_group_shop` (`id_group`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_gsitemap_sitemap`
+-- Table structure for table `ps_gsitemap_sitemap`
 --
 
-CREATE TABLE `ps_gsitemap_sitemap` (
+DROP TABLE IF EXISTS `ps_gsitemap_sitemap`;
+CREATE TABLE IF NOT EXISTS `ps_gsitemap_sitemap` (
   `link` varchar(255) DEFAULT NULL,
   `id_shop` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -5709,11 +5922,12 @@ CREATE TABLE `ps_gsitemap_sitemap` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_guest`
+-- Table structure for table `ps_guest`
 --
 
-CREATE TABLE `ps_guest` (
-  `id_guest` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_guest`;
+CREATE TABLE IF NOT EXISTS `ps_guest` (
+  `id_guest` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_operating_system` int(10) UNSIGNED DEFAULT NULL,
   `id_web_browser` int(10) UNSIGNED DEFAULT NULL,
   `id_customer` int(10) UNSIGNED DEFAULT NULL,
@@ -5728,8 +5942,12 @@ CREATE TABLE `ps_guest` (
   `real_player` tinyint(1) DEFAULT NULL,
   `windows_media` tinyint(1) DEFAULT NULL,
   `accept_language` varchar(8) DEFAULT NULL,
-  `mobile_theme` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `mobile_theme` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_guest`),
+  KEY `id_customer` (`id_customer`),
+  KEY `id_operating_system` (`id_operating_system`),
+  KEY `id_web_browser` (`id_web_browser`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_guest`
@@ -5743,13 +5961,15 @@ INSERT INTO `ps_guest` (`id_guest`, `id_operating_system`, `id_web_browser`, `id
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_homeslider`
+-- Table structure for table `ps_homeslider`
 --
 
-CREATE TABLE `ps_homeslider` (
-  `id_homeslider_slides` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+DROP TABLE IF EXISTS `ps_homeslider`;
+CREATE TABLE IF NOT EXISTS `ps_homeslider` (
+  `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_homeslider_slides`,`id_shop`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_homeslider`
@@ -5763,14 +5983,16 @@ INSERT INTO `ps_homeslider` (`id_homeslider_slides`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_homeslider_slides`
+-- Table structure for table `ps_homeslider_slides`
 --
 
-CREATE TABLE `ps_homeslider_slides` (
-  `id_homeslider_slides` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_homeslider_slides`;
+CREATE TABLE IF NOT EXISTS `ps_homeslider_slides` (
+  `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_homeslider_slides`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_homeslider_slides`
@@ -5784,17 +6006,19 @@ INSERT INTO `ps_homeslider_slides` (`id_homeslider_slides`, `position`, `active`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_homeslider_slides_lang`
+-- Table structure for table `ps_homeslider_slides_lang`
 --
 
-CREATE TABLE `ps_homeslider_slides_lang` (
+DROP TABLE IF EXISTS `ps_homeslider_slides_lang`;
+CREATE TABLE IF NOT EXISTS `ps_homeslider_slides_lang` (
   `id_homeslider_slides` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `legend` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_homeslider_slides`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -5812,17 +6036,20 @@ INSERT INTO `ps_homeslider_slides_lang` (`id_homeslider_slides`, `id_lang`, `tit
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_hook`
+-- Table structure for table `ps_hook`
 --
 
-CREATE TABLE `ps_hook` (
-  `id_hook` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_hook`;
+CREATE TABLE IF NOT EXISTS `ps_hook` (
+  `id_hook` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `position` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `position` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_hook`),
+  UNIQUE KEY `hook_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=751 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_hook`
@@ -6582,14 +6809,17 @@ INSERT INTO `ps_hook` (`id_hook`, `name`, `title`, `description`, `active`, `pos
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_hook_alias`
+-- Table structure for table `ps_hook_alias`
 --
 
-CREATE TABLE `ps_hook_alias` (
-  `id_hook_alias` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_hook_alias`;
+CREATE TABLE IF NOT EXISTS `ps_hook_alias` (
+  `id_hook_alias` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alias` varchar(191) NOT NULL,
-  `name` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` varchar(191) NOT NULL,
+  PRIMARY KEY (`id_hook_alias`),
+  UNIQUE KEY `alias` (`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_hook_alias`
@@ -6688,14 +6918,19 @@ INSERT INTO `ps_hook_alias` (`id_hook_alias`, `alias`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_hook_module`
+-- Table structure for table `ps_hook_module`
 --
 
-CREATE TABLE `ps_hook_module` (
+DROP TABLE IF EXISTS `ps_hook_module`;
+CREATE TABLE IF NOT EXISTS `ps_hook_module` (
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_hook` int(10) UNSIGNED NOT NULL,
-  `position` tinyint(2) UNSIGNED NOT NULL
+  `position` tinyint(2) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_module`,`id_hook`,`id_shop`),
+  KEY `id_hook` (`id_hook`),
+  KEY `id_module` (`id_module`),
+  KEY `position` (`id_shop`,`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -6779,6 +7014,9 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (53, 1, 733, 1),
 (53, 1, 734, 1),
 (54, 1, 735, 1),
+(55, 1, 140, 1),
+(55, 1, 144, 1),
+(55, 1, 736, 1),
 (56, 1, 30, 1),
 (56, 1, 43, 1),
 (56, 1, 46, 1),
@@ -6830,9 +7068,6 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (61, 1, 710, 1),
 (61, 1, 711, 1),
 (61, 1, 712, 1),
-(62, 1, 140, 1),
-(62, 1, 144, 1),
-(62, 1, 736, 1),
 (3, 1, 682, 2),
 (4, 1, 688, 2),
 (5, 1, 689, 2),
@@ -6856,12 +7091,12 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (36, 1, 55, 2),
 (53, 1, 71, 2),
 (54, 1, 47, 2),
+(55, 1, 323, 2),
 (56, 1, 734, 2),
 (58, 1, 46, 2),
 (58, 1, 732, 2),
 (59, 1, 743, 2),
 (61, 1, 14, 2),
-(62, 1, 323, 2),
 (4, 1, 682, 3),
 (5, 1, 688, 3),
 (6, 1, 689, 3),
@@ -6901,12 +7136,12 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (58, 1, 16, 6),
 (60, 1, 683, 6),
 (41, 1, 55, 7),
-(56, 1, 682, 7),
+(55, 1, 682, 7),
 (59, 1, 16, 7),
 (42, 1, 55, 8),
-(57, 1, 682, 8),
+(56, 1, 682, 8),
 (43, 1, 55, 9),
-(62, 1, 682, 9),
+(57, 1, 682, 9),
 (45, 1, 55, 10),
 (46, 1, 55, 11),
 (47, 1, 55, 12),
@@ -6919,29 +7154,38 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_hook_module_exceptions`
+-- Table structure for table `ps_hook_module_exceptions`
 --
 
-CREATE TABLE `ps_hook_module_exceptions` (
-  `id_hook_module_exceptions` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_hook_module_exceptions`;
+CREATE TABLE IF NOT EXISTS `ps_hook_module_exceptions` (
+  `id_hook_module_exceptions` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_hook` int(10) UNSIGNED NOT NULL,
-  `file_name` varchar(255) DEFAULT NULL
+  `file_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_hook_module_exceptions`),
+  KEY `id_module` (`id_module`),
+  KEY `id_hook` (`id_hook`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_image`
+-- Table structure for table `ps_image`
 --
 
-CREATE TABLE `ps_image` (
-  `id_image` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_image`;
+CREATE TABLE IF NOT EXISTS `ps_image` (
+  `id_image` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(10) UNSIGNED NOT NULL,
   `position` smallint(2) UNSIGNED NOT NULL DEFAULT 0,
-  `cover` tinyint(1) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `cover` tinyint(1) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id_image`),
+  UNIQUE KEY `id_product_cover` (`id_product`,`cover`),
+  UNIQUE KEY `idx_product_image` (`id_image`,`id_product`,`cover`),
+  KEY `image_product` (`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_image`
@@ -6976,13 +7220,16 @@ INSERT INTO `ps_image` (`id_image`, `id_product`, `position`, `cover`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_image_lang`
+-- Table structure for table `ps_image_lang`
 --
 
-CREATE TABLE `ps_image_lang` (
+DROP TABLE IF EXISTS `ps_image_lang`;
+CREATE TABLE IF NOT EXISTS `ps_image_lang` (
   `id_image` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `legend` varchar(128) DEFAULT NULL
+  `legend` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_image`,`id_lang`),
+  KEY `id_image` (`id_image`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -7042,14 +7289,18 @@ INSERT INTO `ps_image_lang` (`id_image`, `id_lang`, `legend`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_image_shop`
+-- Table structure for table `ps_image_shop`
 --
 
-CREATE TABLE `ps_image_shop` (
+DROP TABLE IF EXISTS `ps_image_shop`;
+CREATE TABLE IF NOT EXISTS `ps_image_shop` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_image` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `cover` tinyint(1) UNSIGNED DEFAULT NULL
+  `cover` tinyint(1) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id_image`,`id_shop`),
+  UNIQUE KEY `id_product` (`id_product`,`id_shop`,`cover`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -7085,11 +7336,12 @@ INSERT INTO `ps_image_shop` (`id_product`, `id_image`, `id_shop`, `cover`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_image_type`
+-- Table structure for table `ps_image_type`
 --
 
-CREATE TABLE `ps_image_type` (
-  `id_image_type` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_image_type`;
+CREATE TABLE IF NOT EXISTS `ps_image_type` (
+  `id_image_type` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `width` int(10) UNSIGNED NOT NULL,
   `height` int(10) UNSIGNED NOT NULL,
@@ -7097,8 +7349,10 @@ CREATE TABLE `ps_image_type` (
   `categories` tinyint(1) NOT NULL DEFAULT 1,
   `manufacturers` tinyint(1) NOT NULL DEFAULT 1,
   `suppliers` tinyint(1) NOT NULL DEFAULT 1,
-  `stores` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `stores` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_image_type`),
+  KEY `image_type_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_image_type`
@@ -7116,25 +7370,29 @@ INSERT INTO `ps_image_type` (`id_image_type`, `name`, `width`, `height`, `produc
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_import_match`
+-- Table structure for table `ps_import_match`
 --
 
-CREATE TABLE `ps_import_match` (
-  `id_import_match` int(10) NOT NULL,
+DROP TABLE IF EXISTS `ps_import_match`;
+CREATE TABLE IF NOT EXISTS `ps_import_match` (
+  `id_import_match` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `match` text NOT NULL,
-  `skip` int(2) NOT NULL
+  `skip` int(2) NOT NULL,
+  PRIMARY KEY (`id_import_match`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_info`
+-- Table structure for table `ps_info`
 --
 
-CREATE TABLE `ps_info` (
-  `id_info` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+DROP TABLE IF EXISTS `ps_info`;
+CREATE TABLE IF NOT EXISTS `ps_info` (
+  `id_info` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_info`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_info`
@@ -7146,14 +7404,16 @@ INSERT INTO `ps_info` (`id_info`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_info_lang`
+-- Table structure for table `ps_info_lang`
 --
 
-CREATE TABLE `ps_info_lang` (
+DROP TABLE IF EXISTS `ps_info_lang`;
+CREATE TABLE IF NOT EXISTS `ps_info_lang` (
   `id_info` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `text` text NOT NULL
+  `text` text NOT NULL,
+  PRIMARY KEY (`id_info`,`id_lang`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7167,12 +7427,14 @@ INSERT INTO `ps_info_lang` (`id_info`, `id_shop`, `id_lang`, `text`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_info_shop`
+-- Table structure for table `ps_info_shop`
 --
 
-CREATE TABLE `ps_info_shop` (
+DROP TABLE IF EXISTS `ps_info_shop`;
+CREATE TABLE IF NOT EXISTS `ps_info_shop` (
   `id_info` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_info`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7185,11 +7447,12 @@ INSERT INTO `ps_info_shop` (`id_info`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_lang`
+-- Table structure for table `ps_lang`
 --
 
-CREATE TABLE `ps_lang` (
-  `id_lang` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_lang`;
+CREATE TABLE IF NOT EXISTS `ps_lang` (
+  `id_lang` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `iso_code` varchar(2) NOT NULL,
@@ -7197,8 +7460,9 @@ CREATE TABLE `ps_lang` (
   `locale` varchar(5) NOT NULL,
   `date_format_lite` varchar(32) NOT NULL,
   `date_format_full` varchar(32) NOT NULL,
-  `is_rtl` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `is_rtl` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_lang`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_lang`
@@ -7211,12 +7475,16 @@ INSERT INTO `ps_lang` (`id_lang`, `name`, `active`, `iso_code`, `language_code`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_lang_shop`
+-- Table structure for table `ps_lang_shop`
 --
 
-CREATE TABLE `ps_lang_shop` (
+DROP TABLE IF EXISTS `ps_lang_shop`;
+CREATE TABLE IF NOT EXISTS `ps_lang_shop` (
   `id_lang` int(11) NOT NULL,
-  `id_shop` int(11) NOT NULL
+  `id_shop` int(11) NOT NULL,
+  PRIMARY KEY (`id_lang`,`id_shop`),
+  KEY `IDX_2F43BFC7BA299860` (`id_lang`),
+  KEY `IDX_2F43BFC7274A50A0` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -7230,11 +7498,12 @@ INSERT INTO `ps_lang_shop` (`id_lang`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_category`
+-- Table structure for table `ps_layered_category`
 --
 
-CREATE TABLE `ps_layered_category` (
-  `id_layered_category` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_layered_category`;
+CREATE TABLE IF NOT EXISTS `ps_layered_category` (
+  `id_layered_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) UNSIGNED NOT NULL,
   `controller` varchar(64) NOT NULL,
   `id_category` int(10) UNSIGNED NOT NULL,
@@ -7242,8 +7511,11 @@ CREATE TABLE `ps_layered_category` (
   `type` enum('category','id_feature','id_attribute_group','availability','condition','manufacturer','weight','price') NOT NULL,
   `position` int(10) UNSIGNED NOT NULL,
   `filter_type` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `filter_show_limit` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `filter_show_limit` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_layered_category`),
+  KEY `id_category_shop` (`id_category`,`id_shop`,`type`,`id_value`,`position`),
+  KEY `id_category` (`id_category`,`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_layered_category`
@@ -7350,16 +7622,18 @@ INSERT INTO `ps_layered_category` (`id_layered_category`, `id_shop`, `controller
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_filter`
+-- Table structure for table `ps_layered_filter`
 --
 
-CREATE TABLE `ps_layered_filter` (
-  `id_layered_filter` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_layered_filter`;
+CREATE TABLE IF NOT EXISTS `ps_layered_filter` (
+  `id_layered_filter` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `filters` longtext DEFAULT NULL,
   `n_categories` int(10) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_layered_filter`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_layered_filter`
@@ -7371,23 +7645,28 @@ INSERT INTO `ps_layered_filter` (`id_layered_filter`, `name`, `filters`, `n_cate
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_filter_block`
+-- Table structure for table `ps_layered_filter_block`
 --
 
-CREATE TABLE `ps_layered_filter_block` (
+DROP TABLE IF EXISTS `ps_layered_filter_block`;
+CREATE TABLE IF NOT EXISTS `ps_layered_filter_block` (
   `hash` char(32) NOT NULL DEFAULT '',
-  `data` text DEFAULT NULL
+  `data` text DEFAULT NULL,
+  PRIMARY KEY (`hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_filter_shop`
+-- Table structure for table `ps_layered_filter_shop`
 --
 
-CREATE TABLE `ps_layered_filter_shop` (
+DROP TABLE IF EXISTS `ps_layered_filter_shop`;
+CREATE TABLE IF NOT EXISTS `ps_layered_filter_shop` (
   `id_layered_filter` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_layered_filter`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7400,12 +7679,14 @@ INSERT INTO `ps_layered_filter_shop` (`id_layered_filter`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_attribute_group`
+-- Table structure for table `ps_layered_indexable_attribute_group`
 --
 
-CREATE TABLE `ps_layered_indexable_attribute_group` (
+DROP TABLE IF EXISTS `ps_layered_indexable_attribute_group`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_attribute_group` (
   `id_attribute_group` int(11) NOT NULL,
-  `indexable` tinyint(1) NOT NULL DEFAULT 0
+  `indexable` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_attribute_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7421,38 +7702,44 @@ INSERT INTO `ps_layered_indexable_attribute_group` (`id_attribute_group`, `index
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_attribute_group_lang_value`
+-- Table structure for table `ps_layered_indexable_attribute_group_lang_value`
 --
 
-CREATE TABLE `ps_layered_indexable_attribute_group_lang_value` (
+DROP TABLE IF EXISTS `ps_layered_indexable_attribute_group_lang_value`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_attribute_group_lang_value` (
   `id_attribute_group` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
   `url_name` varchar(128) DEFAULT NULL,
-  `meta_title` varchar(128) DEFAULT NULL
+  `meta_title` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_attribute_group`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_attribute_lang_value`
+-- Table structure for table `ps_layered_indexable_attribute_lang_value`
 --
 
-CREATE TABLE `ps_layered_indexable_attribute_lang_value` (
+DROP TABLE IF EXISTS `ps_layered_indexable_attribute_lang_value`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_attribute_lang_value` (
   `id_attribute` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
   `url_name` varchar(128) DEFAULT NULL,
-  `meta_title` varchar(128) DEFAULT NULL
+  `meta_title` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_attribute`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_feature`
+-- Table structure for table `ps_layered_indexable_feature`
 --
 
-CREATE TABLE `ps_layered_indexable_feature` (
+DROP TABLE IF EXISTS `ps_layered_indexable_feature`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_feature` (
   `id_feature` int(11) NOT NULL,
-  `indexable` tinyint(1) NOT NULL DEFAULT 0
+  `indexable` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_feature`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7466,42 +7753,51 @@ INSERT INTO `ps_layered_indexable_feature` (`id_feature`, `indexable`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_feature_lang_value`
+-- Table structure for table `ps_layered_indexable_feature_lang_value`
 --
 
-CREATE TABLE `ps_layered_indexable_feature_lang_value` (
+DROP TABLE IF EXISTS `ps_layered_indexable_feature_lang_value`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_feature_lang_value` (
   `id_feature` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
   `url_name` varchar(128) NOT NULL,
-  `meta_title` varchar(128) DEFAULT NULL
+  `meta_title` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_feature`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_indexable_feature_value_lang_value`
+-- Table structure for table `ps_layered_indexable_feature_value_lang_value`
 --
 
-CREATE TABLE `ps_layered_indexable_feature_value_lang_value` (
+DROP TABLE IF EXISTS `ps_layered_indexable_feature_value_lang_value`;
+CREATE TABLE IF NOT EXISTS `ps_layered_indexable_feature_value_lang_value` (
   `id_feature_value` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
   `url_name` varchar(128) DEFAULT NULL,
-  `meta_title` varchar(128) DEFAULT NULL
+  `meta_title` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_feature_value`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_price_index`
+-- Table structure for table `ps_layered_price_index`
 --
 
-CREATE TABLE `ps_layered_price_index` (
+DROP TABLE IF EXISTS `ps_layered_price_index`;
+CREATE TABLE IF NOT EXISTS `ps_layered_price_index` (
   `id_product` int(11) NOT NULL,
   `id_currency` int(11) NOT NULL,
   `id_shop` int(11) NOT NULL,
   `price_min` decimal(20,6) NOT NULL,
   `price_max` decimal(20,6) NOT NULL,
-  `id_country` int(11) NOT NULL
+  `id_country` int(11) NOT NULL,
+  PRIMARY KEY (`id_product`,`id_currency`,`id_shop`,`id_country`),
+  KEY `id_currency` (`id_currency`),
+  KEY `price_min` (`price_min`),
+  KEY `price_max` (`price_max`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7533,14 +7829,17 @@ INSERT INTO `ps_layered_price_index` (`id_product`, `id_currency`, `id_shop`, `p
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_layered_product_attribute`
+-- Table structure for table `ps_layered_product_attribute`
 --
 
-CREATE TABLE `ps_layered_product_attribute` (
+DROP TABLE IF EXISTS `ps_layered_product_attribute`;
+CREATE TABLE IF NOT EXISTS `ps_layered_product_attribute` (
   `id_attribute` int(10) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_attribute_group` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1
+  `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_attribute`,`id_product`,`id_shop`),
+  UNIQUE KEY `id_attribute_group` (`id_attribute_group`,`id_attribute`,`id_product`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7589,62 +7888,70 @@ INSERT INTO `ps_layered_product_attribute` (`id_attribute`, `id_product`, `id_at
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_linksmenutop`
+-- Table structure for table `ps_linksmenutop`
 --
 
-CREATE TABLE `ps_linksmenutop` (
-  `id_linksmenutop` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_linksmenutop`;
+CREATE TABLE IF NOT EXISTS `ps_linksmenutop` (
+  `id_linksmenutop` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `new_window` tinyint(1) NOT NULL
+  `new_window` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_linksmenutop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_linksmenutop_lang`
+-- Table structure for table `ps_linksmenutop_lang`
 --
 
-CREATE TABLE `ps_linksmenutop_lang` (
+DROP TABLE IF EXISTS `ps_linksmenutop_lang`;
+CREATE TABLE IF NOT EXISTS `ps_linksmenutop_lang` (
   `id_linksmenutop` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
   `label` varchar(128) NOT NULL,
-  `link` varchar(128) NOT NULL
+  `link` varchar(128) NOT NULL,
+  KEY `id_linksmenutop` (`id_linksmenutop`,`id_lang`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_link_block`
+-- Table structure for table `ps_link_block`
 --
 
-CREATE TABLE `ps_link_block` (
-  `id_link_block` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_link_block`;
+CREATE TABLE IF NOT EXISTS `ps_link_block` (
+  `id_link_block` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_hook` int(1) UNSIGNED DEFAULT NULL,
   `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `content` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `content` text DEFAULT NULL,
+  PRIMARY KEY (`id_link_block`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_link_block`
 --
 
 INSERT INTO `ps_link_block` (`id_link_block`, `id_hook`, `position`, `content`) VALUES
-(3, 41, 0, '{\"cms\":[\"2\",\"3\",\"4\"],\"static\":[false],\"product\":[false],\"category\":[false]}'),
-(4, 41, 0, '{\"cms\":[false],\"static\":[false],\"product\":[false],\"category\":[false]}'),
-(5, 41, 0, '{\"cms\":[\"1\",\"5\"],\"static\":[false],\"product\":[false],\"category\":[false]}');
+(1, 41, 0, '{\"cms\":[false],\"product\":[\"prices-drop\",\"new-products\",\"best-sales\"],\"static\":[false]}'),
+(2, 41, 1, '{\"cms\":[\"1\",\"2\",\"3\",\"4\",\"5\"],\"product\":[false],\"static\":[\"contact\",\"sitemap\",\"stores\"]}');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_link_block_lang`
+-- Table structure for table `ps_link_block_lang`
 --
 
-CREATE TABLE `ps_link_block_lang` (
+DROP TABLE IF EXISTS `ps_link_block_lang`;
+CREATE TABLE IF NOT EXISTS `ps_link_block_lang` (
   `id_link_block` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(40) NOT NULL DEFAULT '',
-  `custom_content` text DEFAULT NULL
+  `custom_content` text DEFAULT NULL,
+  PRIMARY KEY (`id_link_block`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -7652,42 +7959,42 @@ CREATE TABLE `ps_link_block_lang` (
 --
 
 INSERT INTO `ps_link_block_lang` (`id_link_block`, `id_lang`, `name`, `custom_content`) VALUES
-(3, 1, 'BUTYXL.PL', NULL),
-(3, 2, 'BUTYXL.PL', NULL),
-(4, 1, 'POMOC', NULL),
-(4, 2, 'POMOC', NULL),
-(5, 1, 'INFORMACJE', NULL),
-(5, 2, 'INFORMACJE', NULL);
+(1, 1, 'Products', NULL),
+(1, 2, 'Products', NULL),
+(2, 1, 'Our company', NULL),
+(2, 2, 'Our company', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_link_block_shop`
+-- Table structure for table `ps_link_block_shop`
 --
 
-CREATE TABLE `ps_link_block_shop` (
-  `id_link_block` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_link_block_shop`;
+CREATE TABLE IF NOT EXISTS `ps_link_block_shop` (
+  `id_link_block` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_link_block`,`id_shop`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_link_block_shop`
 --
 
 INSERT INTO `ps_link_block_shop` (`id_link_block`, `id_shop`, `position`) VALUES
-(3, 1, 2),
-(4, 1, 3),
-(5, 1, 4);
+(1, 1, 0),
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_log`
+-- Table structure for table `ps_log`
 --
 
-CREATE TABLE `ps_log` (
-  `id_log` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_log`;
+CREATE TABLE IF NOT EXISTS `ps_log` (
+  `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `severity` tinyint(1) NOT NULL,
   `error_code` int(11) DEFAULT NULL,
   `message` text NOT NULL,
@@ -7699,8 +8006,9 @@ CREATE TABLE `ps_log` (
   `in_all_shops` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `id_employee` int(10) UNSIGNED DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_log`)
+) ENGINE=InnoDB AUTO_INCREMENT=343 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_log`
@@ -8049,44 +8357,41 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (339, 1, 0, 'Back office connection from 172.22.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-10-14 10:14:40', '2023-10-14 10:14:40'),
 (340, 1, 0, 'Product modification', 'Product', 20, 1, NULL, 1, 0, 1, '2023-10-14 10:17:51', '2023-10-14 10:17:51'),
 (341, 1, 0, 'Product modification', 'Product', 20, 1, NULL, 1, 0, 1, '2023-10-14 10:17:57', '2023-10-14 10:17:57'),
-(342, 1, 0, 'Back office connection from 172.23.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-10-14 10:26:32', '2023-10-14 10:26:32'),
-(343, 1, 0, 'Back office connection from 172.19.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-11 20:31:47', '2023-11-11 20:31:47'),
-(344, 1, 0, 'Carrier deletion', 'Carrier', 4, 1, NULL, 1, 0, 1, '2023-11-11 20:47:10', '2023-11-11 20:47:10'),
-(345, 1, 0, 'Carrier deletion', 'Carrier', 3, 1, NULL, 1, 0, 1, '2023-11-11 20:47:16', '2023-11-11 20:47:16'),
-(346, 1, 0, 'Carrier deletion', 'Carrier', 2, 1, NULL, 1, 0, 1, '2023-11-11 20:47:20', '2023-11-11 20:47:20'),
-(347, 1, 0, 'Exporting mail with theme modern for language Polski (Polish)', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:05:45', '2023-11-11 21:05:45'),
-(348, 1, 0, 'Core output folder: /var/www/html/mails', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:05:45', '2023-11-11 21:05:45'),
-(349, 1, 0, 'Modules output folder: /var/www/html/modules/', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:05:45', '2023-11-11 21:05:45'),
-(350, 1, 0, 'Protect vendor folder in module ps_mbo', '', 0, 1, NULL, 1, 0, 1, '2023-11-11 21:06:25', '2023-11-11 21:06:25');
+(342, 1, 0, 'Back office connection from 172.23.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-10-14 10:26:32', '2023-10-14 10:26:32');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_mail`
+-- Table structure for table `ps_mail`
 --
 
-CREATE TABLE `ps_mail` (
-  `id_mail` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_mail`;
+CREATE TABLE IF NOT EXISTS `ps_mail` (
+  `id_mail` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `recipient` varchar(126) NOT NULL,
   `template` varchar(62) NOT NULL,
   `subject` varchar(254) NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
-  `date_add` timestamp NOT NULL DEFAULT current_timestamp()
+  `date_add` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_mail`),
+  KEY `recipient` (`recipient`(10))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_manufacturer`
+-- Table structure for table `ps_manufacturer`
 --
 
-CREATE TABLE `ps_manufacturer` (
-  `id_manufacturer` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_manufacturer`;
+CREATE TABLE IF NOT EXISTS `ps_manufacturer` (
+  `id_manufacturer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_manufacturer`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_manufacturer`
@@ -8099,17 +8404,19 @@ INSERT INTO `ps_manufacturer` (`id_manufacturer`, `name`, `date_add`, `date_upd`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_manufacturer_lang`
+-- Table structure for table `ps_manufacturer_lang`
 --
 
-CREATE TABLE `ps_manufacturer_lang` (
+DROP TABLE IF EXISTS `ps_manufacturer_lang`;
+CREATE TABLE IF NOT EXISTS `ps_manufacturer_lang` (
   `id_manufacturer` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `description` text DEFAULT NULL,
   `short_description` text DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(512) DEFAULT NULL
+  `meta_description` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id_manufacturer`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8125,12 +8432,15 @@ INSERT INTO `ps_manufacturer_lang` (`id_manufacturer`, `id_lang`, `description`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_manufacturer_shop`
+-- Table structure for table `ps_manufacturer_shop`
 --
 
-CREATE TABLE `ps_manufacturer_shop` (
+DROP TABLE IF EXISTS `ps_manufacturer_shop`;
+CREATE TABLE IF NOT EXISTS `ps_manufacturer_shop` (
   `id_manufacturer` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_manufacturer`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8144,56 +8454,69 @@ INSERT INTO `ps_manufacturer_shop` (`id_manufacturer`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_memcached_servers`
+-- Table structure for table `ps_memcached_servers`
 --
 
-CREATE TABLE `ps_memcached_servers` (
-  `id_memcached_server` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_memcached_servers`;
+CREATE TABLE IF NOT EXISTS `ps_memcached_servers` (
+  `id_memcached_server` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip` varchar(254) NOT NULL,
   `port` int(11) UNSIGNED NOT NULL,
-  `weight` int(11) UNSIGNED NOT NULL
+  `weight` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_memcached_server`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_message`
+-- Table structure for table `ps_message`
 --
 
-CREATE TABLE `ps_message` (
-  `id_message` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_message`;
+CREATE TABLE IF NOT EXISTS `ps_message` (
+  `id_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cart` int(10) UNSIGNED DEFAULT NULL,
   `id_customer` int(10) UNSIGNED NOT NULL,
   `id_employee` int(10) UNSIGNED DEFAULT NULL,
   `id_order` int(10) UNSIGNED NOT NULL,
   `message` text NOT NULL,
   `private` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_message`),
+  KEY `message_order` (`id_order`),
+  KEY `id_cart` (`id_cart`),
+  KEY `id_customer` (`id_customer`),
+  KEY `id_employee` (`id_employee`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_message_readed`
+-- Table structure for table `ps_message_readed`
 --
 
-CREATE TABLE `ps_message_readed` (
+DROP TABLE IF EXISTS `ps_message_readed`;
+CREATE TABLE IF NOT EXISTS `ps_message_readed` (
   `id_message` int(10) UNSIGNED NOT NULL,
   `id_employee` int(10) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_message`,`id_employee`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_meta`
+-- Table structure for table `ps_meta`
 --
 
-CREATE TABLE `ps_meta` (
-  `id_meta` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_meta`;
+CREATE TABLE IF NOT EXISTS `ps_meta` (
+  `id_meta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `page` varchar(64) NOT NULL,
-  `configurable` tinyint(1) UNSIGNED NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `configurable` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_meta`),
+  UNIQUE KEY `page` (`page`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_meta`
@@ -8244,17 +8567,21 @@ INSERT INTO `ps_meta` (`id_meta`, `page`, `configurable`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_meta_lang`
+-- Table structure for table `ps_meta_lang`
 --
 
-CREATE TABLE `ps_meta_lang` (
+DROP TABLE IF EXISTS `ps_meta_lang`;
+CREATE TABLE IF NOT EXISTS `ps_meta_lang` (
   `id_meta` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `title` varchar(128) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
-  `url_rewrite` varchar(254) NOT NULL
+  `url_rewrite` varchar(254) NOT NULL,
+  PRIMARY KEY (`id_meta`,`id_shop`,`id_lang`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_lang` (`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8330,15 +8657,19 @@ INSERT INTO `ps_meta_lang` (`id_meta`, `id_shop`, `id_lang`, `title`, `descripti
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module`
+-- Table structure for table `ps_module`
 --
 
-CREATE TABLE `ps_module` (
-  `id_module` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_module`;
+CREATE TABLE IF NOT EXISTS `ps_module` (
+  `id_module` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `version` varchar(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `version` varchar(8) NOT NULL,
+  PRIMARY KEY (`id_module`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_module`
@@ -8398,23 +8729,25 @@ INSERT INTO `ps_module` (`id_module`, `name`, `active`, `version`) VALUES
 (52, 'statsstock', 1, '2.0.1'),
 (53, 'welcome', 1, '6.0.9'),
 (54, 'psgdpr', 1, '1.4.3'),
+(55, 'ps_mbo', 1, '2.3.3'),
 (56, 'ps_checkout', 1, '7.3.4.0'),
 (57, 'ps_metrics', 1, '4.0.2'),
 (58, 'ps_facebook', 1, '1.31.1'),
 (59, 'psxmarketingwithgoogle', 1, '1.61.1'),
 (60, 'blockreassurance', 1, '5.1.2'),
-(61, 'ps_facetedsearch', 1, '3.12.1'),
-(62, 'ps_mbo', 1, '2.3.3');
+(61, 'ps_facetedsearch', 1, '3.12.1');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_access`
+-- Table structure for table `ps_module_access`
 --
 
-CREATE TABLE `ps_module_access` (
+DROP TABLE IF EXISTS `ps_module_access`;
+CREATE TABLE IF NOT EXISTS `ps_module_access` (
   `id_profile` int(10) UNSIGNED NOT NULL,
-  `id_authorization_role` int(10) UNSIGNED NOT NULL
+  `id_authorization_role` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_profile`,`id_authorization_role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8634,6 +8967,10 @@ INSERT INTO `ps_module_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 734),
 (1, 735),
 (1, 736),
+(1, 761),
+(1, 762),
+(1, 763),
+(1, 764),
 (1, 765),
 (1, 766),
 (1, 767),
@@ -8657,22 +8994,20 @@ INSERT INTO `ps_module_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 825),
 (1, 826),
 (1, 827),
-(1, 828),
-(1, 845),
-(1, 846),
-(1, 847),
-(1, 848);
+(1, 828);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_carrier`
+-- Table structure for table `ps_module_carrier`
 --
 
-CREATE TABLE `ps_module_carrier` (
+DROP TABLE IF EXISTS `ps_module_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_module_carrier` (
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
-  `id_reference` int(11) NOT NULL
+  `id_reference` int(11) NOT NULL,
+  PRIMARY KEY (`id_module`,`id_shop`,`id_reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8684,31 +9019,27 @@ INSERT INTO `ps_module_carrier` (`id_module`, `id_shop`, `id_reference`) VALUES
 (14, 1, 2),
 (14, 1, 3),
 (14, 1, 4),
-(14, 1, 5),
-(14, 1, 6),
 (35, 1, 1),
 (35, 1, 2),
 (35, 1, 3),
 (35, 1, 4),
-(35, 1, 5),
-(35, 1, 6),
 (56, 1, 1),
 (56, 1, 2),
 (56, 1, 3),
-(56, 1, 4),
-(56, 1, 5),
-(56, 1, 6);
+(56, 1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_country`
+-- Table structure for table `ps_module_country`
 --
 
-CREATE TABLE `ps_module_country` (
+DROP TABLE IF EXISTS `ps_module_country`;
+CREATE TABLE IF NOT EXISTS `ps_module_country` (
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
-  `id_country` int(10) UNSIGNED NOT NULL
+  `id_country` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_module`,`id_shop`,`id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8922,13 +9253,16 @@ INSERT INTO `ps_module_country` (`id_module`, `id_shop`, `id_country`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_currency`
+-- Table structure for table `ps_module_currency`
 --
 
-CREATE TABLE `ps_module_currency` (
+DROP TABLE IF EXISTS `ps_module_currency`;
+CREATE TABLE IF NOT EXISTS `ps_module_currency` (
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
-  `id_currency` int(11) NOT NULL
+  `id_currency` int(11) NOT NULL,
+  PRIMARY KEY (`id_module`,`id_shop`,`id_currency`),
+  KEY `id_module` (`id_module`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -8943,13 +9277,15 @@ INSERT INTO `ps_module_currency` (`id_module`, `id_shop`, `id_currency`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_group`
+-- Table structure for table `ps_module_group`
 --
 
-CREATE TABLE `ps_module_group` (
+DROP TABLE IF EXISTS `ps_module_group`;
+CREATE TABLE IF NOT EXISTS `ps_module_group` (
   `id_module` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
-  `id_group` int(11) UNSIGNED NOT NULL
+  `id_group` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_module`,`id_shop`,`id_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9116,6 +9452,9 @@ INSERT INTO `ps_module_group` (`id_module`, `id_shop`, `id_group`) VALUES
 (54, 1, 1),
 (54, 1, 2),
 (54, 1, 3),
+(55, 1, 1),
+(55, 1, 2),
+(55, 1, 3),
 (56, 1, 1),
 (56, 1, 2),
 (56, 1, 3),
@@ -9133,56 +9472,54 @@ INSERT INTO `ps_module_group` (`id_module`, `id_shop`, `id_group`) VALUES
 (60, 1, 3),
 (61, 1, 1),
 (61, 1, 2),
-(61, 1, 3),
-(62, 1, 1),
-(62, 1, 2),
-(62, 1, 3);
+(61, 1, 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_history`
+-- Table structure for table `ps_module_history`
 --
 
-CREATE TABLE `ps_module_history` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_module_history`;
+CREATE TABLE IF NOT EXISTS `ps_module_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_employee` int(11) NOT NULL,
   `id_module` int(11) NOT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `ps_module_history`
---
-
-INSERT INTO `ps_module_history` (`id`, `id_employee`, `id_module`, `date_add`, `date_upd`) VALUES
-(1, 1, 28, '2023-11-11 21:17:53', '2023-11-11 21:17:53');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_preference`
+-- Table structure for table `ps_module_preference`
 --
 
-CREATE TABLE `ps_module_preference` (
-  `id_module_preference` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_module_preference`;
+CREATE TABLE IF NOT EXISTS `ps_module_preference` (
+  `id_module_preference` int(11) NOT NULL AUTO_INCREMENT,
   `id_employee` int(11) NOT NULL,
   `module` varchar(191) NOT NULL,
   `interest` tinyint(1) DEFAULT NULL,
-  `favorite` tinyint(1) DEFAULT NULL
+  `favorite` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id_module_preference`),
+  UNIQUE KEY `employee_module` (`id_employee`,`module`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_module_shop`
+-- Table structure for table `ps_module_shop`
 --
 
-CREATE TABLE `ps_module_shop` (
+DROP TABLE IF EXISTS `ps_module_shop`;
+CREATE TABLE IF NOT EXISTS `ps_module_shop` (
   `id_module` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `enable_device` tinyint(1) NOT NULL DEFAULT 7
+  `enable_device` tinyint(1) NOT NULL DEFAULT 7,
+  PRIMARY KEY (`id_module`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9243,24 +9580,26 @@ INSERT INTO `ps_module_shop` (`id_module`, `id_shop`, `enable_device`) VALUES
 (52, 1, 7),
 (53, 1, 7),
 (54, 1, 7),
+(55, 1, 7),
 (56, 1, 7),
 (57, 1, 7),
 (58, 1, 7),
 (59, 1, 7),
 (60, 1, 7),
-(61, 1, 7),
-(62, 1, 7);
+(61, 1, 7);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_operating_system`
+-- Table structure for table `ps_operating_system`
 --
 
-CREATE TABLE `ps_operating_system` (
-  `id_operating_system` int(10) UNSIGNED NOT NULL,
-  `name` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_operating_system`;
+CREATE TABLE IF NOT EXISTS `ps_operating_system` (
+  `id_operating_system` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id_operating_system`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_operating_system`
@@ -9280,11 +9619,12 @@ INSERT INTO `ps_operating_system` (`id_operating_system`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_orders`
+-- Table structure for table `ps_orders`
 --
 
-CREATE TABLE `ps_orders` (
-  `id_order` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_orders`;
+CREATE TABLE IF NOT EXISTS `ps_orders` (
+  `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `reference` varchar(9) DEFAULT NULL,
   `id_shop_group` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
@@ -9330,8 +9670,22 @@ CREATE TABLE `ps_orders` (
   `valid` int(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `note` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `note` text DEFAULT NULL,
+  PRIMARY KEY (`id_order`),
+  KEY `reference` (`reference`),
+  KEY `id_customer` (`id_customer`),
+  KEY `id_cart` (`id_cart`),
+  KEY `invoice_number` (`invoice_number`),
+  KEY `id_carrier` (`id_carrier`),
+  KEY `id_lang` (`id_lang`),
+  KEY `id_currency` (`id_currency`),
+  KEY `id_address_delivery` (`id_address_delivery`),
+  KEY `id_address_invoice` (`id_address_invoice`),
+  KEY `id_shop_group` (`id_shop_group`),
+  KEY `current_state` (`current_state`),
+  KEY `id_shop` (`id_shop`),
+  KEY `date_add` (`date_add`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_orders`
@@ -9347,11 +9701,12 @@ INSERT INTO `ps_orders` (`id_order`, `reference`, `id_shop_group`, `id_shop`, `i
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_carrier`
+-- Table structure for table `ps_order_carrier`
 --
 
-CREATE TABLE `ps_order_carrier` (
-  `id_order_carrier` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_order_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_order_carrier` (
+  `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT,
   `id_order` int(11) UNSIGNED NOT NULL,
   `id_carrier` int(11) UNSIGNED NOT NULL,
   `id_order_invoice` int(11) UNSIGNED DEFAULT NULL,
@@ -9359,8 +9714,12 @@ CREATE TABLE `ps_order_carrier` (
   `shipping_cost_tax_excl` decimal(20,6) DEFAULT NULL,
   `shipping_cost_tax_incl` decimal(20,6) DEFAULT NULL,
   `tracking_number` varchar(64) DEFAULT NULL,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_order_carrier`),
+  KEY `id_order` (`id_order`),
+  KEY `id_carrier` (`id_carrier`),
+  KEY `id_order_invoice` (`id_order_invoice`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_carrier`
@@ -9376,11 +9735,12 @@ INSERT INTO `ps_order_carrier` (`id_order_carrier`, `id_order`, `id_carrier`, `i
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_cart_rule`
+-- Table structure for table `ps_order_cart_rule`
 --
 
-CREATE TABLE `ps_order_cart_rule` (
-  `id_order_cart_rule` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_cart_rule`;
+CREATE TABLE IF NOT EXISTS `ps_order_cart_rule` (
+  `id_order_cart_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_order` int(10) UNSIGNED NOT NULL,
   `id_cart_rule` int(10) UNSIGNED NOT NULL,
   `id_order_invoice` int(10) UNSIGNED DEFAULT 0,
@@ -9388,17 +9748,21 @@ CREATE TABLE `ps_order_cart_rule` (
   `value` decimal(20,6) NOT NULL DEFAULT 0.000000,
   `value_tax_excl` decimal(20,6) NOT NULL DEFAULT 0.000000,
   `free_shipping` tinyint(1) NOT NULL DEFAULT 0,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_order_cart_rule`),
+  KEY `id_order` (`id_order`),
+  KEY `id_cart_rule` (`id_cart_rule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_detail`
+-- Table structure for table `ps_order_detail`
 --
 
-CREATE TABLE `ps_order_detail` (
-  `id_order_detail` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_detail`;
+CREATE TABLE IF NOT EXISTS `ps_order_detail` (
+  `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_order` int(10) UNSIGNED NOT NULL,
   `id_order_invoice` int(11) DEFAULT NULL,
   `id_warehouse` int(10) UNSIGNED DEFAULT 0,
@@ -9446,8 +9810,14 @@ CREATE TABLE `ps_order_detail` (
   `original_product_price` decimal(20,6) NOT NULL DEFAULT 0.000000,
   `original_wholesale_price` decimal(20,6) NOT NULL DEFAULT 0.000000,
   `total_refunded_tax_excl` decimal(20,6) NOT NULL DEFAULT 0.000000,
-  `total_refunded_tax_incl` decimal(20,6) NOT NULL DEFAULT 0.000000
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `total_refunded_tax_incl` decimal(20,6) NOT NULL DEFAULT 0.000000,
+  PRIMARY KEY (`id_order_detail`),
+  KEY `order_detail_order` (`id_order`),
+  KEY `product_id` (`product_id`,`product_attribute_id`),
+  KEY `product_attribute_id` (`product_attribute_id`),
+  KEY `id_tax_rules_group` (`id_tax_rules_group`),
+  KEY `id_order_id_order_detail` (`id_order`,`id_order_detail`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_detail`
@@ -9465,29 +9835,37 @@ INSERT INTO `ps_order_detail` (`id_order_detail`, `id_order`, `id_order_invoice`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_detail_tax`
+-- Table structure for table `ps_order_detail_tax`
 --
 
-CREATE TABLE `ps_order_detail_tax` (
+DROP TABLE IF EXISTS `ps_order_detail_tax`;
+CREATE TABLE IF NOT EXISTS `ps_order_detail_tax` (
   `id_order_detail` int(11) NOT NULL,
   `id_tax` int(11) NOT NULL,
   `unit_amount` decimal(16,6) NOT NULL DEFAULT 0.000000,
-  `total_amount` decimal(16,6) NOT NULL DEFAULT 0.000000
+  `total_amount` decimal(16,6) NOT NULL DEFAULT 0.000000,
+  KEY `id_order_detail` (`id_order_detail`),
+  KEY `id_tax` (`id_tax`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_history`
+-- Table structure for table `ps_order_history`
 --
 
-CREATE TABLE `ps_order_history` (
-  `id_order_history` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_history`;
+CREATE TABLE IF NOT EXISTS `ps_order_history` (
+  `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_employee` int(10) UNSIGNED NOT NULL,
   `id_order` int(10) UNSIGNED NOT NULL,
   `id_order_state` int(10) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_order_history`),
+  KEY `order_history_order` (`id_order`),
+  KEY `id_employee` (`id_employee`),
+  KEY `id_order_state` (`id_order_state`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_history`
@@ -9505,11 +9883,12 @@ INSERT INTO `ps_order_history` (`id_order_history`, `id_employee`, `id_order`, `
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_invoice`
+-- Table structure for table `ps_order_invoice`
 --
 
-CREATE TABLE `ps_order_invoice` (
-  `id_order_invoice` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_invoice`;
+CREATE TABLE IF NOT EXISTS `ps_order_invoice` (
+  `id_order_invoice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_order` int(11) NOT NULL,
   `number` int(11) NOT NULL,
   `delivery_number` int(11) NOT NULL,
@@ -9527,44 +9906,54 @@ CREATE TABLE `ps_order_invoice` (
   `total_wrapping_tax_incl` decimal(20,6) NOT NULL DEFAULT 0.000000,
   `shop_address` text DEFAULT NULL,
   `note` text DEFAULT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_order_invoice`),
+  KEY `id_order` (`id_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_invoice_payment`
+-- Table structure for table `ps_order_invoice_payment`
 --
 
-CREATE TABLE `ps_order_invoice_payment` (
+DROP TABLE IF EXISTS `ps_order_invoice_payment`;
+CREATE TABLE IF NOT EXISTS `ps_order_invoice_payment` (
   `id_order_invoice` int(11) UNSIGNED NOT NULL,
   `id_order_payment` int(11) UNSIGNED NOT NULL,
-  `id_order` int(11) UNSIGNED NOT NULL
+  `id_order` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_order_invoice`,`id_order_payment`),
+  KEY `order_payment` (`id_order_payment`),
+  KEY `id_order` (`id_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_invoice_tax`
+-- Table structure for table `ps_order_invoice_tax`
 --
 
-CREATE TABLE `ps_order_invoice_tax` (
+DROP TABLE IF EXISTS `ps_order_invoice_tax`;
+CREATE TABLE IF NOT EXISTS `ps_order_invoice_tax` (
   `id_order_invoice` int(11) NOT NULL,
   `type` varchar(15) NOT NULL,
   `id_tax` int(11) NOT NULL,
-  `amount` decimal(10,6) NOT NULL DEFAULT 0.000000
+  `amount` decimal(10,6) NOT NULL DEFAULT 0.000000,
+  KEY `id_tax` (`id_tax`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_message`
+-- Table structure for table `ps_order_message`
 --
 
-CREATE TABLE `ps_order_message` (
-  `id_order_message` int(10) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_order_message`;
+CREATE TABLE IF NOT EXISTS `ps_order_message` (
+  `id_order_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_order_message`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_message`
@@ -9576,14 +9965,16 @@ INSERT INTO `ps_order_message` (`id_order_message`, `date_add`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_message_lang`
+-- Table structure for table `ps_order_message_lang`
 --
 
-CREATE TABLE `ps_order_message_lang` (
+DROP TABLE IF EXISTS `ps_order_message_lang`;
+CREATE TABLE IF NOT EXISTS `ps_order_message_lang` (
   `id_order_message` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(128) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  PRIMARY KEY (`id_order_message`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9597,11 +9988,12 @@ INSERT INTO `ps_order_message_lang` (`id_order_message`, `id_lang`, `name`, `mes
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_payment`
+-- Table structure for table `ps_order_payment`
 --
 
-CREATE TABLE `ps_order_payment` (
-  `id_order_payment` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_order_payment`;
+CREATE TABLE IF NOT EXISTS `ps_order_payment` (
+  `id_order_payment` int(11) NOT NULL AUTO_INCREMENT,
   `order_reference` varchar(9) DEFAULT NULL,
   `id_currency` int(10) UNSIGNED NOT NULL,
   `amount` decimal(20,6) NOT NULL,
@@ -9612,48 +10004,58 @@ CREATE TABLE `ps_order_payment` (
   `card_brand` varchar(254) DEFAULT NULL,
   `card_expiration` char(7) DEFAULT NULL,
   `card_holder` varchar(254) DEFAULT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_order_payment`),
+  KEY `order_reference` (`order_reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_return`
+-- Table structure for table `ps_order_return`
 --
 
-CREATE TABLE `ps_order_return` (
-  `id_order_return` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_return`;
+CREATE TABLE IF NOT EXISTS `ps_order_return` (
+  `id_order_return` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer` int(10) UNSIGNED NOT NULL,
   `id_order` int(10) UNSIGNED NOT NULL,
   `state` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
   `question` text NOT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_order_return`),
+  KEY `order_return_customer` (`id_customer`),
+  KEY `id_order` (`id_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_return_detail`
+-- Table structure for table `ps_order_return_detail`
 --
 
-CREATE TABLE `ps_order_return_detail` (
+DROP TABLE IF EXISTS `ps_order_return_detail`;
+CREATE TABLE IF NOT EXISTS `ps_order_return_detail` (
   `id_order_return` int(10) UNSIGNED NOT NULL,
   `id_order_detail` int(10) UNSIGNED NOT NULL,
   `id_customization` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `product_quantity` int(10) UNSIGNED NOT NULL DEFAULT 0
+  `product_quantity` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_order_return`,`id_order_detail`,`id_customization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_return_state`
+-- Table structure for table `ps_order_return_state`
 --
 
-CREATE TABLE `ps_order_return_state` (
-  `id_order_return_state` int(10) UNSIGNED NOT NULL,
-  `color` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_order_return_state`;
+CREATE TABLE IF NOT EXISTS `ps_order_return_state` (
+  `id_order_return_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `color` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id_order_return_state`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_return_state`
@@ -9669,13 +10071,15 @@ INSERT INTO `ps_order_return_state` (`id_order_return_state`, `color`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_return_state_lang`
+-- Table structure for table `ps_order_return_state_lang`
 --
 
-CREATE TABLE `ps_order_return_state_lang` (
+DROP TABLE IF EXISTS `ps_order_return_state_lang`;
+CREATE TABLE IF NOT EXISTS `ps_order_return_state_lang` (
   `id_order_return_state` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_order_return_state`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9697,11 +10101,12 @@ INSERT INTO `ps_order_return_state_lang` (`id_order_return_state`, `id_lang`, `n
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_slip`
+-- Table structure for table `ps_order_slip`
 --
 
-CREATE TABLE `ps_order_slip` (
-  `id_order_slip` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_slip`;
+CREATE TABLE IF NOT EXISTS `ps_order_slip` (
+  `id_order_slip` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `conversion_rate` decimal(13,6) NOT NULL DEFAULT 1.000000,
   `id_customer` int(10) UNSIGNED NOT NULL,
   `id_order` int(10) UNSIGNED NOT NULL,
@@ -9715,16 +10120,20 @@ CREATE TABLE `ps_order_slip` (
   `partial` tinyint(1) NOT NULL,
   `order_slip_type` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_order_slip`),
+  KEY `order_slip_customer` (`id_customer`),
+  KEY `id_order` (`id_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_slip_detail`
+-- Table structure for table `ps_order_slip_detail`
 --
 
-CREATE TABLE `ps_order_slip_detail` (
+DROP TABLE IF EXISTS `ps_order_slip_detail`;
+CREATE TABLE IF NOT EXISTS `ps_order_slip_detail` (
   `id_order_slip` int(10) UNSIGNED NOT NULL,
   `id_order_detail` int(10) UNSIGNED NOT NULL,
   `product_quantity` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -9733,17 +10142,19 @@ CREATE TABLE `ps_order_slip_detail` (
   `total_price_tax_excl` decimal(20,6) DEFAULT NULL,
   `total_price_tax_incl` decimal(20,6) DEFAULT NULL,
   `amount_tax_excl` decimal(20,6) DEFAULT NULL,
-  `amount_tax_incl` decimal(20,6) DEFAULT NULL
+  `amount_tax_incl` decimal(20,6) DEFAULT NULL,
+  PRIMARY KEY (`id_order_slip`,`id_order_detail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_state`
+-- Table structure for table `ps_order_state`
 --
 
-CREATE TABLE `ps_order_state` (
-  `id_order_state` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_order_state`;
+CREATE TABLE IF NOT EXISTS `ps_order_state` (
+  `id_order_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `invoice` tinyint(1) UNSIGNED DEFAULT 0,
   `send_email` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `module_name` varchar(255) DEFAULT NULL,
@@ -9756,8 +10167,10 @@ CREATE TABLE `ps_order_state` (
   `paid` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `pdf_invoice` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `pdf_delivery` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_order_state`),
+  KEY `module_name` (`module_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_order_state`
@@ -9785,14 +10198,16 @@ INSERT INTO `ps_order_state` (`id_order_state`, `invoice`, `send_email`, `module
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_order_state_lang`
+-- Table structure for table `ps_order_state_lang`
 --
 
-CREATE TABLE `ps_order_state_lang` (
+DROP TABLE IF EXISTS `ps_order_state_lang`;
+CREATE TABLE IF NOT EXISTS `ps_order_state_lang` (
   `id_order_state` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `name` varchar(64) NOT NULL,
-  `template` varchar(64) NOT NULL
+  `template` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_order_state`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9838,14 +10253,17 @@ INSERT INTO `ps_order_state_lang` (`id_order_state`, `id_lang`, `name`, `templat
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_pack`
+-- Table structure for table `ps_pack`
 --
 
-CREATE TABLE `ps_pack` (
+DROP TABLE IF EXISTS `ps_pack`;
+CREATE TABLE IF NOT EXISTS `ps_pack` (
   `id_product_pack` int(10) UNSIGNED NOT NULL,
   `id_product_item` int(10) UNSIGNED NOT NULL,
   `id_product_attribute_item` int(10) UNSIGNED NOT NULL,
-  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_product_pack`,`id_product_item`,`id_product_attribute_item`),
+  KEY `product_item` (`id_product_item`,`id_product_attribute_item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -9859,14 +10277,18 @@ INSERT INTO `ps_pack` (`id_product_pack`, `id_product_item`, `id_product_attribu
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_page`
+-- Table structure for table `ps_page`
 --
 
-CREATE TABLE `ps_page` (
-  `id_page` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_page`;
+CREATE TABLE IF NOT EXISTS `ps_page` (
+  `id_page` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_page_type` int(10) UNSIGNED NOT NULL,
-  `id_object` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_object` int(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id_page`),
+  KEY `id_page_type` (`id_page_type`),
+  KEY `id_object` (`id_object`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_page`
@@ -9878,28 +10300,34 @@ INSERT INTO `ps_page` (`id_page`, `id_page_type`, `id_object`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_pagenotfound`
+-- Table structure for table `ps_pagenotfound`
 --
 
-CREATE TABLE `ps_pagenotfound` (
-  `id_pagenotfound` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_pagenotfound`;
+CREATE TABLE IF NOT EXISTS `ps_pagenotfound` (
+  `id_pagenotfound` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop_group` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `request_uri` varchar(256) NOT NULL,
   `http_referer` varchar(256) NOT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_pagenotfound`),
+  KEY `date_add` (`date_add`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_page_type`
+-- Table structure for table `ps_page_type`
 --
 
-CREATE TABLE `ps_page_type` (
-  `id_page_type` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_page_type`;
+CREATE TABLE IF NOT EXISTS `ps_page_type` (
+  `id_page_type` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_page_type`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_page_type`
@@ -9911,25 +10339,28 @@ INSERT INTO `ps_page_type` (`id_page_type`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_page_viewed`
+-- Table structure for table `ps_page_viewed`
 --
 
-CREATE TABLE `ps_page_viewed` (
+DROP TABLE IF EXISTS `ps_page_viewed`;
+CREATE TABLE IF NOT EXISTS `ps_page_viewed` (
   `id_page` int(10) UNSIGNED NOT NULL,
   `id_shop_group` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `id_date_range` int(10) UNSIGNED NOT NULL,
-  `counter` int(10) UNSIGNED NOT NULL
+  `counter` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_page`,`id_date_range`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product`
+-- Table structure for table `ps_product`
 --
 
-CREATE TABLE `ps_product` (
-  `id_product` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product`;
+CREATE TABLE IF NOT EXISTS `ps_product` (
+  `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_supplier` int(10) UNSIGNED DEFAULT NULL,
   `id_manufacturer` int(10) UNSIGNED DEFAULT NULL,
   `id_category_default` int(10) UNSIGNED DEFAULT NULL,
@@ -9983,8 +10414,17 @@ CREATE TABLE `ps_product` (
   `advanced_stock_management` tinyint(1) NOT NULL DEFAULT 0,
   `pack_stock_type` int(11) UNSIGNED NOT NULL DEFAULT 3,
   `state` int(11) UNSIGNED NOT NULL DEFAULT 1,
-  `product_type` enum('standard','pack','virtual','combinations','') NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `product_type` enum('standard','pack','virtual','combinations','') NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_product`),
+  KEY `reference_idx` (`reference`),
+  KEY `supplier_reference_idx` (`supplier_reference`),
+  KEY `product_supplier` (`id_supplier`),
+  KEY `product_manufacturer` (`id_manufacturer`,`id_product`),
+  KEY `id_category_default` (`id_category_default`),
+  KEY `indexed` (`indexed`),
+  KEY `date_add` (`date_add`),
+  KEY `state` (`state`,`date_upd`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_product`
@@ -10015,22 +10455,25 @@ INSERT INTO `ps_product` (`id_product`, `id_supplier`, `id_manufacturer`, `id_ca
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_attachment`
+-- Table structure for table `ps_product_attachment`
 --
 
-CREATE TABLE `ps_product_attachment` (
+DROP TABLE IF EXISTS `ps_product_attachment`;
+CREATE TABLE IF NOT EXISTS `ps_product_attachment` (
   `id_product` int(10) UNSIGNED NOT NULL,
-  `id_attachment` int(10) UNSIGNED NOT NULL
+  `id_attachment` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product`,`id_attachment`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_attribute`
+-- Table structure for table `ps_product_attribute`
 --
 
-CREATE TABLE `ps_product_attribute` (
-  `id_product_attribute` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product_attribute`;
+CREATE TABLE IF NOT EXISTS `ps_product_attribute` (
+  `id_product_attribute` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(10) UNSIGNED NOT NULL,
   `reference` varchar(64) DEFAULT NULL,
   `supplier_reference` varchar(64) DEFAULT NULL,
@@ -10049,8 +10492,14 @@ CREATE TABLE `ps_product_attribute` (
   `minimal_quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `low_stock_threshold` int(10) DEFAULT NULL,
   `low_stock_alert` tinyint(1) NOT NULL DEFAULT 0,
-  `available_date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `available_date` date DEFAULT NULL,
+  PRIMARY KEY (`id_product_attribute`),
+  UNIQUE KEY `product_default` (`id_product`,`default_on`),
+  KEY `product_attribute_product` (`id_product`),
+  KEY `reference` (`reference`),
+  KEY `supplier_reference` (`supplier_reference`),
+  KEY `id_product_id_product_attribute` (`id_product_attribute`,`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_product_attribute`
@@ -10100,12 +10549,15 @@ INSERT INTO `ps_product_attribute` (`id_product_attribute`, `id_product`, `refer
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_attribute_combination`
+-- Table structure for table `ps_product_attribute_combination`
 --
 
-CREATE TABLE `ps_product_attribute_combination` (
+DROP TABLE IF EXISTS `ps_product_attribute_combination`;
+CREATE TABLE IF NOT EXISTS `ps_product_attribute_combination` (
   `id_attribute` int(10) UNSIGNED NOT NULL,
-  `id_product_attribute` int(10) UNSIGNED NOT NULL
+  `id_product_attribute` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_attribute`,`id_product_attribute`),
+  KEY `id_product_attribute` (`id_product_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10164,12 +10616,15 @@ INSERT INTO `ps_product_attribute_combination` (`id_attribute`, `id_product_attr
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_attribute_image`
+-- Table structure for table `ps_product_attribute_image`
 --
 
-CREATE TABLE `ps_product_attribute_image` (
+DROP TABLE IF EXISTS `ps_product_attribute_image`;
+CREATE TABLE IF NOT EXISTS `ps_product_attribute_image` (
   `id_product_attribute` int(10) UNSIGNED NOT NULL,
-  `id_image` int(10) UNSIGNED NOT NULL
+  `id_image` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_attribute`,`id_image`),
+  KEY `id_image` (`id_image`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10220,10 +10675,11 @@ INSERT INTO `ps_product_attribute_image` (`id_product_attribute`, `id_image`) VA
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_attribute_shop`
+-- Table structure for table `ps_product_attribute_shop`
 --
 
-CREATE TABLE `ps_product_attribute_shop` (
+DROP TABLE IF EXISTS `ps_product_attribute_shop`;
+CREATE TABLE IF NOT EXISTS `ps_product_attribute_shop` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_product_attribute` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL,
@@ -10236,7 +10692,9 @@ CREATE TABLE `ps_product_attribute_shop` (
   `minimal_quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `low_stock_threshold` int(10) DEFAULT NULL,
   `low_stock_alert` tinyint(1) NOT NULL DEFAULT 0,
-  `available_date` date DEFAULT NULL
+  `available_date` date DEFAULT NULL,
+  PRIMARY KEY (`id_product_attribute`,`id_shop`),
+  UNIQUE KEY `id_product` (`id_product`,`id_shop`,`default_on`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10287,23 +10745,26 @@ INSERT INTO `ps_product_attribute_shop` (`id_product`, `id_product_attribute`, `
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_carrier`
+-- Table structure for table `ps_product_carrier`
 --
 
-CREATE TABLE `ps_product_carrier` (
+DROP TABLE IF EXISTS `ps_product_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_product_carrier` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_carrier_reference` int(10) UNSIGNED NOT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product`,`id_carrier_reference`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment`
+-- Table structure for table `ps_product_comment`
 --
 
-CREATE TABLE `ps_product_comment` (
-  `id_product_comment` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product_comment`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment` (
+  `id_product_comment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_customer` int(10) UNSIGNED NOT NULL,
   `id_guest` int(10) UNSIGNED DEFAULT NULL,
@@ -10313,20 +10774,26 @@ CREATE TABLE `ps_product_comment` (
   `grade` float UNSIGNED NOT NULL,
   `validate` tinyint(1) NOT NULL,
   `deleted` tinyint(1) NOT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_product_comment`),
+  KEY `id_product` (`id_product`),
+  KEY `id_customer` (`id_customer`),
+  KEY `id_guest` (`id_guest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_criterion`
+-- Table structure for table `ps_product_comment_criterion`
 --
 
-CREATE TABLE `ps_product_comment_criterion` (
-  `id_product_comment_criterion` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product_comment_criterion`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_criterion` (
+  `id_product_comment_criterion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product_comment_criterion_type` tinyint(1) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_product_comment_criterion`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_product_comment_criterion`
@@ -10338,24 +10805,29 @@ INSERT INTO `ps_product_comment_criterion` (`id_product_comment_criterion`, `id_
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_criterion_category`
+-- Table structure for table `ps_product_comment_criterion_category`
 --
 
-CREATE TABLE `ps_product_comment_criterion_category` (
+DROP TABLE IF EXISTS `ps_product_comment_criterion_category`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_criterion_category` (
   `id_product_comment_criterion` int(10) UNSIGNED NOT NULL,
-  `id_category` int(10) UNSIGNED NOT NULL
+  `id_category` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_comment_criterion`,`id_category`),
+  KEY `id_category` (`id_category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_criterion_lang`
+-- Table structure for table `ps_product_comment_criterion_lang`
 --
 
-CREATE TABLE `ps_product_comment_criterion_lang` (
+DROP TABLE IF EXISTS `ps_product_comment_criterion_lang`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_criterion_lang` (
   `id_product_comment_criterion` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_product_comment_criterion`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -10369,69 +10841,82 @@ INSERT INTO `ps_product_comment_criterion_lang` (`id_product_comment_criterion`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_criterion_product`
+-- Table structure for table `ps_product_comment_criterion_product`
 --
 
-CREATE TABLE `ps_product_comment_criterion_product` (
+DROP TABLE IF EXISTS `ps_product_comment_criterion_product`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_criterion_product` (
   `id_product` int(10) UNSIGNED NOT NULL,
-  `id_product_comment_criterion` int(10) UNSIGNED NOT NULL
+  `id_product_comment_criterion` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product`,`id_product_comment_criterion`),
+  KEY `id_product_comment_criterion` (`id_product_comment_criterion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_grade`
+-- Table structure for table `ps_product_comment_grade`
 --
 
-CREATE TABLE `ps_product_comment_grade` (
+DROP TABLE IF EXISTS `ps_product_comment_grade`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_grade` (
   `id_product_comment` int(10) UNSIGNED NOT NULL,
   `id_product_comment_criterion` int(10) UNSIGNED NOT NULL,
-  `grade` int(10) UNSIGNED NOT NULL
+  `grade` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_comment`,`id_product_comment_criterion`),
+  KEY `id_product_comment_criterion` (`id_product_comment_criterion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_comment_report`
+-- Table structure for table `ps_product_comment_report`
 --
 
-CREATE TABLE `ps_product_comment_report` (
-  `id_product_comment` int(10) UNSIGNED NOT NULL,
-  `id_customer` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `ps_product_comment_usefulness`
---
-
-CREATE TABLE `ps_product_comment_usefulness` (
+DROP TABLE IF EXISTS `ps_product_comment_report`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_report` (
   `id_product_comment` int(10) UNSIGNED NOT NULL,
   `id_customer` int(10) UNSIGNED NOT NULL,
-  `usefulness` tinyint(1) UNSIGNED NOT NULL
+  PRIMARY KEY (`id_product_comment`,`id_customer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_country_tax`
+-- Table structure for table `ps_product_comment_usefulness`
 --
 
-CREATE TABLE `ps_product_country_tax` (
+DROP TABLE IF EXISTS `ps_product_comment_usefulness`;
+CREATE TABLE IF NOT EXISTS `ps_product_comment_usefulness` (
+  `id_product_comment` int(10) UNSIGNED NOT NULL,
+  `id_customer` int(10) UNSIGNED NOT NULL,
+  `usefulness` tinyint(1) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_comment`,`id_customer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ps_product_country_tax`
+--
+
+DROP TABLE IF EXISTS `ps_product_country_tax`;
+CREATE TABLE IF NOT EXISTS `ps_product_country_tax` (
   `id_product` int(11) NOT NULL,
   `id_country` int(11) NOT NULL,
-  `id_tax` int(11) NOT NULL
+  `id_tax` int(11) NOT NULL,
+  PRIMARY KEY (`id_product`,`id_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_download`
+-- Table structure for table `ps_product_download`
 --
 
-CREATE TABLE `ps_product_download` (
-  `id_product_download` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product_download`;
+CREATE TABLE IF NOT EXISTS `ps_product_download` (
+  `id_product_download` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(10) UNSIGNED NOT NULL,
   `display_filename` varchar(255) DEFAULT NULL,
   `filename` varchar(255) DEFAULT NULL,
@@ -10440,28 +10925,32 @@ CREATE TABLE `ps_product_download` (
   `nb_days_accessible` int(10) UNSIGNED DEFAULT NULL,
   `nb_downloadable` int(10) UNSIGNED DEFAULT 1,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `is_shareable` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+  `is_shareable` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_product_download`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_group_reduction_cache`
+-- Table structure for table `ps_product_group_reduction_cache`
 --
 
-CREATE TABLE `ps_product_group_reduction_cache` (
+DROP TABLE IF EXISTS `ps_product_group_reduction_cache`;
+CREATE TABLE IF NOT EXISTS `ps_product_group_reduction_cache` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_group` int(10) UNSIGNED NOT NULL,
-  `reduction` decimal(5,4) NOT NULL
+  `reduction` decimal(5,4) NOT NULL,
+  PRIMARY KEY (`id_product`,`id_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_lang`
+-- Table structure for table `ps_product_lang`
 --
 
-CREATE TABLE `ps_product_lang` (
+DROP TABLE IF EXISTS `ps_product_lang`;
+CREATE TABLE IF NOT EXISTS `ps_product_lang` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
@@ -10475,7 +10964,10 @@ CREATE TABLE `ps_product_lang` (
   `available_now` varchar(255) DEFAULT NULL,
   `available_later` varchar(255) DEFAULT NULL,
   `delivery_in_stock` varchar(255) DEFAULT NULL,
-  `delivery_out_stock` varchar(255) DEFAULT NULL
+  `delivery_out_stock` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_product`,`id_shop`,`id_lang`),
+  KEY `id_lang` (`id_lang`),
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10527,23 +11019,27 @@ INSERT INTO `ps_product_lang` (`id_product`, `id_shop`, `id_lang`, `description`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_sale`
+-- Table structure for table `ps_product_sale`
 --
 
-CREATE TABLE `ps_product_sale` (
+DROP TABLE IF EXISTS `ps_product_sale`;
+CREATE TABLE IF NOT EXISTS `ps_product_sale` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `sale_nbr` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `date_upd` date DEFAULT NULL
+  `date_upd` date DEFAULT NULL,
+  PRIMARY KEY (`id_product`),
+  KEY `quantity` (`quantity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_shop`
+-- Table structure for table `ps_product_shop`
 --
 
-CREATE TABLE `ps_product_shop` (
+DROP TABLE IF EXISTS `ps_product_shop`;
+CREATE TABLE IF NOT EXISTS `ps_product_shop` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED NOT NULL,
   `id_category_default` int(10) UNSIGNED DEFAULT NULL,
@@ -10576,7 +11072,11 @@ CREATE TABLE `ps_product_shop` (
   `advanced_stock_management` tinyint(1) NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `pack_stock_type` int(11) UNSIGNED NOT NULL DEFAULT 3
+  `pack_stock_type` int(11) UNSIGNED NOT NULL DEFAULT 3,
+  PRIMARY KEY (`id_product`,`id_shop`),
+  KEY `id_category_default` (`id_category_default`),
+  KEY `date_add` (`date_add`,`active`,`visibility`),
+  KEY `indexed` (`indexed`,`active`,`id_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10608,18 +11108,22 @@ INSERT INTO `ps_product_shop` (`id_product`, `id_shop`, `id_category_default`, `
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_supplier`
+-- Table structure for table `ps_product_supplier`
 --
 
-CREATE TABLE `ps_product_supplier` (
-  `id_product_supplier` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_product_supplier`;
+CREATE TABLE IF NOT EXISTS `ps_product_supplier` (
+  `id_product_supplier` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_product_attribute` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `id_supplier` int(11) UNSIGNED NOT NULL,
   `product_supplier_reference` varchar(64) DEFAULT NULL,
   `product_supplier_price_te` decimal(20,6) NOT NULL DEFAULT 0.000000,
-  `id_currency` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_currency` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product_supplier`),
+  UNIQUE KEY `id_product` (`id_product`,`id_product_attribute`,`id_supplier`),
+  KEY `id_supplier` (`id_supplier`,`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_product_supplier`
@@ -10700,24 +11204,30 @@ INSERT INTO `ps_product_supplier` (`id_product_supplier`, `id_product`, `id_prod
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_product_tag`
+-- Table structure for table `ps_product_tag`
 --
 
-CREATE TABLE `ps_product_tag` (
+DROP TABLE IF EXISTS `ps_product_tag`;
+CREATE TABLE IF NOT EXISTS `ps_product_tag` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_tag` int(10) UNSIGNED NOT NULL,
-  `id_lang` int(10) UNSIGNED NOT NULL
+  `id_lang` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_product`,`id_tag`),
+  KEY `id_tag` (`id_tag`),
+  KEY `id_lang` (`id_lang`,`id_tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_profile`
+-- Table structure for table `ps_profile`
 --
 
-CREATE TABLE `ps_profile` (
-  `id_profile` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_profile`;
+CREATE TABLE IF NOT EXISTS `ps_profile` (
+  `id_profile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_profile`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_profile`
@@ -10732,13 +11242,15 @@ INSERT INTO `ps_profile` (`id_profile`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_profile_lang`
+-- Table structure for table `ps_profile_lang`
 --
 
-CREATE TABLE `ps_profile_lang` (
+DROP TABLE IF EXISTS `ps_profile_lang`;
+CREATE TABLE IF NOT EXISTS `ps_profile_lang` (
   `id_lang` int(10) UNSIGNED NOT NULL,
   `id_profile` int(10) UNSIGNED NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`id_profile`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10758,11 +11270,12 @@ INSERT INTO `ps_profile_lang` (`id_lang`, `id_profile`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_pscheckout_cart`
+-- Table structure for table `ps_pscheckout_cart`
 --
 
-CREATE TABLE `ps_pscheckout_cart` (
-  `id_pscheckout_cart` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_pscheckout_cart`;
+CREATE TABLE IF NOT EXISTS `ps_pscheckout_cart` (
+  `id_pscheckout_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cart` int(10) UNSIGNED NOT NULL,
   `paypal_intent` varchar(20) DEFAULT 'CAPTURE',
   `paypal_order` varchar(20) DEFAULT NULL,
@@ -10774,20 +11287,24 @@ CREATE TABLE `ps_pscheckout_cart` (
   `isExpressCheckout` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `isHostedFields` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_pscheckout_cart`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_pscheckout_funding_source`
+-- Table structure for table `ps_pscheckout_funding_source`
 --
 
-CREATE TABLE `ps_pscheckout_funding_source` (
+DROP TABLE IF EXISTS `ps_pscheckout_funding_source`;
+CREATE TABLE IF NOT EXISTS `ps_pscheckout_funding_source` (
   `name` varchar(20) NOT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `position` tinyint(2) UNSIGNED NOT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`name`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -10810,69 +11327,80 @@ INSERT INTO `ps_pscheckout_funding_source` (`name`, `active`, `position`, `id_sh
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_pscheckout_order_matrice`
+-- Table structure for table `ps_pscheckout_order_matrice`
 --
 
-CREATE TABLE `ps_pscheckout_order_matrice` (
-  `id_order_matrice` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_pscheckout_order_matrice`;
+CREATE TABLE IF NOT EXISTS `ps_pscheckout_order_matrice` (
+  `id_order_matrice` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_order_prestashop` int(10) UNSIGNED NOT NULL,
-  `id_order_paypal` varchar(20) NOT NULL
+  `id_order_paypal` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_order_matrice`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_psgdpr_consent`
+-- Table structure for table `ps_psgdpr_consent`
 --
 
-CREATE TABLE `ps_psgdpr_consent` (
-  `id_gdpr_consent` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_psgdpr_consent`;
+CREATE TABLE IF NOT EXISTS `ps_psgdpr_consent` (
+  `id_gdpr_consent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_module` int(10) UNSIGNED NOT NULL,
   `active` int(10) NOT NULL,
   `error` int(10) DEFAULT NULL,
   `error_message` text DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_gdpr_consent`,`id_module`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_psgdpr_consent_lang`
+-- Table structure for table `ps_psgdpr_consent_lang`
 --
 
-CREATE TABLE `ps_psgdpr_consent_lang` (
-  `id_gdpr_consent` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_psgdpr_consent_lang`;
+CREATE TABLE IF NOT EXISTS `ps_psgdpr_consent_lang` (
+  `id_gdpr_consent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `message` text DEFAULT NULL,
-  `id_shop` int(10) UNSIGNED NOT NULL
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_gdpr_consent`,`id_lang`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_psgdpr_log`
+-- Table structure for table `ps_psgdpr_log`
 --
 
-CREATE TABLE `ps_psgdpr_log` (
-  `id_gdpr_log` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_psgdpr_log`;
+CREATE TABLE IF NOT EXISTS `ps_psgdpr_log` (
+  `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer` int(10) UNSIGNED DEFAULT NULL,
   `id_guest` int(10) UNSIGNED DEFAULT NULL,
   `client_name` varchar(250) DEFAULT NULL,
   `id_module` int(10) UNSIGNED NOT NULL,
   `request_type` int(10) NOT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_gdpr_log`),
+  KEY `id_customer` (`id_customer`),
+  KEY `idx_id_customer` (`id_customer`,`id_guest`,`client_name`,`id_module`,`date_add`,`date_upd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_psreassurance`
+-- Table structure for table `ps_psreassurance`
 --
 
-CREATE TABLE `ps_psreassurance` (
-  `id_psreassurance` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_psreassurance`;
+CREATE TABLE IF NOT EXISTS `ps_psreassurance` (
+  `id_psreassurance` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `icon` varchar(255) DEFAULT NULL,
   `custom_icon` varchar(255) DEFAULT NULL,
   `status` int(10) UNSIGNED NOT NULL,
@@ -10880,8 +11408,9 @@ CREATE TABLE `ps_psreassurance` (
   `type_link` int(10) UNSIGNED DEFAULT NULL,
   `id_cms` int(10) UNSIGNED DEFAULT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `date_upd` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_psreassurance`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_psreassurance`
@@ -10895,15 +11424,17 @@ INSERT INTO `ps_psreassurance` (`id_psreassurance`, `icon`, `custom_icon`, `stat
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_psreassurance_lang`
+-- Table structure for table `ps_psreassurance_lang`
 --
 
-CREATE TABLE `ps_psreassurance_lang` (
+DROP TABLE IF EXISTS `ps_psreassurance_lang`;
+CREATE TABLE IF NOT EXISTS `ps_psreassurance_lang` (
   `id_psreassurance` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL
+  `link` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_psreassurance`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -10921,14 +11452,16 @@ INSERT INTO `ps_psreassurance_lang` (`id_psreassurance`, `id_lang`, `title`, `de
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_quick_access`
+-- Table structure for table `ps_quick_access`
 --
 
-CREATE TABLE `ps_quick_access` (
-  `id_quick_access` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_quick_access`;
+CREATE TABLE IF NOT EXISTS `ps_quick_access` (
+  `id_quick_access` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `new_window` tinyint(1) NOT NULL DEFAULT 0,
-  `link` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `link` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_quick_access`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_quick_access`
@@ -10945,13 +11478,15 @@ INSERT INTO `ps_quick_access` (`id_quick_access`, `new_window`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_quick_access_lang`
+-- Table structure for table `ps_quick_access_lang`
 --
 
-CREATE TABLE `ps_quick_access_lang` (
+DROP TABLE IF EXISTS `ps_quick_access_lang`;
+CREATE TABLE IF NOT EXISTS `ps_quick_access_lang` (
   `id_quick_access` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_quick_access`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -10975,15 +11510,18 @@ INSERT INTO `ps_quick_access_lang` (`id_quick_access`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_range_price`
+-- Table structure for table `ps_range_price`
 --
 
-CREATE TABLE `ps_range_price` (
-  `id_range_price` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_range_price`;
+CREATE TABLE IF NOT EXISTS `ps_range_price` (
+  `id_range_price` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_carrier` int(10) UNSIGNED NOT NULL,
   `delimiter1` decimal(20,6) NOT NULL,
-  `delimiter2` decimal(20,6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `delimiter2` decimal(20,6) NOT NULL,
+  PRIMARY KEY (`id_range_price`),
+  UNIQUE KEY `id_carrier` (`id_carrier`,`delimiter1`,`delimiter2`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_range_price`
@@ -10998,15 +11536,18 @@ INSERT INTO `ps_range_price` (`id_range_price`, `id_carrier`, `delimiter1`, `del
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_range_weight`
+-- Table structure for table `ps_range_weight`
 --
 
-CREATE TABLE `ps_range_weight` (
-  `id_range_weight` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_range_weight`;
+CREATE TABLE IF NOT EXISTS `ps_range_weight` (
+  `id_range_weight` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_carrier` int(10) UNSIGNED NOT NULL,
   `delimiter1` decimal(20,6) NOT NULL,
-  `delimiter2` decimal(20,6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `delimiter2` decimal(20,6) NOT NULL,
+  PRIMARY KEY (`id_range_weight`),
+  UNIQUE KEY `id_carrier` (`id_carrier`,`delimiter1`,`delimiter2`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_range_weight`
@@ -11016,18 +11557,17 @@ INSERT INTO `ps_range_weight` (`id_range_weight`, `id_carrier`, `delimiter1`, `d
 (1, 2, 0.000000, 10000.000000),
 (2, 4, 0.000000, 1.000000),
 (3, 4, 1.000000, 3.000000),
-(4, 4, 3.000000, 10000.000000),
-(5, 5, 0.000000, 50.000000),
-(6, 6, 0.000000, 50.000000);
+(4, 4, 3.000000, 10000.000000);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_referrer`
+-- Table structure for table `ps_referrer`
 --
 
-CREATE TABLE `ps_referrer` (
-  `id_referrer` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_referrer`;
+CREATE TABLE IF NOT EXISTS `ps_referrer` (
+  `id_referrer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `passwd` varchar(255) DEFAULT NULL,
   `http_referer_regexp` varchar(64) DEFAULT NULL,
@@ -11041,28 +11581,32 @@ CREATE TABLE `ps_referrer` (
   `base_fee` decimal(5,2) NOT NULL DEFAULT 0.00,
   `percent_fee` decimal(5,2) NOT NULL DEFAULT 0.00,
   `click_fee` decimal(5,2) NOT NULL DEFAULT 0.00,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_referrer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_referrer_cache`
+-- Table structure for table `ps_referrer_cache`
 --
 
-CREATE TABLE `ps_referrer_cache` (
+DROP TABLE IF EXISTS `ps_referrer_cache`;
+CREATE TABLE IF NOT EXISTS `ps_referrer_cache` (
   `id_connections_source` int(11) UNSIGNED NOT NULL,
-  `id_referrer` int(11) UNSIGNED NOT NULL
+  `id_referrer` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_connections_source`,`id_referrer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_referrer_shop`
+-- Table structure for table `ps_referrer_shop`
 --
 
-CREATE TABLE `ps_referrer_shop` (
-  `id_referrer` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_referrer_shop`;
+CREATE TABLE IF NOT EXISTS `ps_referrer_shop` (
+  `id_referrer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `cache_visitors` int(11) DEFAULT NULL,
   `cache_visits` int(11) DEFAULT NULL,
@@ -11071,44 +11615,52 @@ CREATE TABLE `ps_referrer_shop` (
   `cache_orders` int(11) DEFAULT NULL,
   `cache_sales` decimal(17,2) DEFAULT NULL,
   `cache_reg_rate` decimal(5,4) DEFAULT NULL,
-  `cache_order_rate` decimal(5,4) DEFAULT NULL
+  `cache_order_rate` decimal(5,4) DEFAULT NULL,
+  PRIMARY KEY (`id_referrer`,`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_request_sql`
+-- Table structure for table `ps_request_sql`
 --
 
-CREATE TABLE `ps_request_sql` (
-  `id_request_sql` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_request_sql`;
+CREATE TABLE IF NOT EXISTS `ps_request_sql` (
+  `id_request_sql` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `sql` text NOT NULL
+  `sql` text NOT NULL,
+  PRIMARY KEY (`id_request_sql`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_required_field`
+-- Table structure for table `ps_required_field`
 --
 
-CREATE TABLE `ps_required_field` (
-  `id_required_field` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_required_field`;
+CREATE TABLE IF NOT EXISTS `ps_required_field` (
+  `id_required_field` int(11) NOT NULL AUTO_INCREMENT,
   `object_name` varchar(32) NOT NULL,
-  `field_name` varchar(32) NOT NULL
+  `field_name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_required_field`),
+  KEY `object_name` (`object_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_risk`
+-- Table structure for table `ps_risk`
 --
 
-CREATE TABLE `ps_risk` (
-  `id_risk` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_risk`;
+CREATE TABLE IF NOT EXISTS `ps_risk` (
+  `id_risk` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `percent` tinyint(3) NOT NULL,
-  `color` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `color` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id_risk`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_risk`
@@ -11123,13 +11675,16 @@ INSERT INTO `ps_risk` (`id_risk`, `percent`, `color`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_risk_lang`
+-- Table structure for table `ps_risk_lang`
 --
 
-CREATE TABLE `ps_risk_lang` (
+DROP TABLE IF EXISTS `ps_risk_lang`;
+CREATE TABLE IF NOT EXISTS `ps_risk_lang` (
   `id_risk` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_risk`,`id_lang`),
+  KEY `id_risk` (`id_risk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -11149,14 +11704,16 @@ INSERT INTO `ps_risk_lang` (`id_risk`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_search_engine`
+-- Table structure for table `ps_search_engine`
 --
 
-CREATE TABLE `ps_search_engine` (
-  `id_search_engine` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_search_engine`;
+CREATE TABLE IF NOT EXISTS `ps_search_engine` (
+  `id_search_engine` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `server` varchar(64) NOT NULL,
-  `getvar` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `getvar` varchar(16) NOT NULL,
+  PRIMARY KEY (`id_search_engine`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_search_engine`
@@ -11205,13 +11762,16 @@ INSERT INTO `ps_search_engine` (`id_search_engine`, `server`, `getvar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_search_index`
+-- Table structure for table `ps_search_index`
 --
 
-CREATE TABLE `ps_search_index` (
+DROP TABLE IF EXISTS `ps_search_index`;
+CREATE TABLE IF NOT EXISTS `ps_search_index` (
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_word` int(11) UNSIGNED NOT NULL,
-  `weight` smallint(4) UNSIGNED NOT NULL DEFAULT 1
+  `weight` smallint(4) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_word`,`id_product`),
+  KEY `id_product` (`id_product`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -12565,15 +13125,18 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_search_word`
+-- Table structure for table `ps_search_word`
 --
 
-CREATE TABLE `ps_search_word` (
-  `id_word` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_search_word`;
+CREATE TABLE IF NOT EXISTS `ps_search_word` (
+  `id_word` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `word` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `word` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_word`),
+  UNIQUE KEY `id_lang` (`id_lang`,`id_shop`,`word`)
+) ENGINE=InnoDB AUTO_INCREMENT=1340 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_search_word`
@@ -13027,19 +13590,22 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_shop`
+-- Table structure for table `ps_shop`
 --
 
-CREATE TABLE `ps_shop` (
-  `id_shop` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_shop`;
+CREATE TABLE IF NOT EXISTS `ps_shop` (
+  `id_shop` int(11) NOT NULL AUTO_INCREMENT,
   `id_shop_group` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `color` varchar(50) NOT NULL,
   `id_category` int(11) NOT NULL,
   `theme_name` varchar(255) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_shop`),
+  KEY `IDX_CBDFBB9EF5C9E40` (`id_shop_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_shop`
@@ -13051,19 +13617,21 @@ INSERT INTO `ps_shop` (`id_shop`, `id_shop_group`, `name`, `color`, `id_category
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_shop_group`
+-- Table structure for table `ps_shop_group`
 --
 
-CREATE TABLE `ps_shop_group` (
-  `id_shop_group` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_shop_group`;
+CREATE TABLE IF NOT EXISTS `ps_shop_group` (
+  `id_shop_group` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `color` varchar(50) NOT NULL,
   `share_customer` tinyint(1) NOT NULL,
   `share_order` tinyint(1) NOT NULL,
   `share_stock` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_shop_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_shop_group`
@@ -13075,19 +13643,22 @@ INSERT INTO `ps_shop_group` (`id_shop_group`, `name`, `color`, `share_customer`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_shop_url`
+-- Table structure for table `ps_shop_url`
 --
 
-CREATE TABLE `ps_shop_url` (
-  `id_shop_url` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_shop_url`;
+CREATE TABLE IF NOT EXISTS `ps_shop_url` (
+  `id_shop_url` int(11) NOT NULL AUTO_INCREMENT,
   `id_shop` int(11) NOT NULL,
   `domain` varchar(150) NOT NULL,
   `domain_ssl` varchar(150) NOT NULL,
   `physical_uri` varchar(64) NOT NULL,
   `virtual_uri` varchar(64) NOT NULL,
   `main` tinyint(1) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_shop_url`),
+  KEY `IDX_279F19DA274A50A0` (`id_shop`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_shop_url`
@@ -13099,50 +13670,60 @@ INSERT INTO `ps_shop_url` (`id_shop_url`, `id_shop`, `domain`, `domain_ssl`, `ph
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_smarty_cache`
+-- Table structure for table `ps_smarty_cache`
 --
 
-CREATE TABLE `ps_smarty_cache` (
+DROP TABLE IF EXISTS `ps_smarty_cache`;
+CREATE TABLE IF NOT EXISTS `ps_smarty_cache` (
   `id_smarty_cache` char(40) NOT NULL,
   `name` char(40) NOT NULL,
   `cache_id` varchar(254) DEFAULT NULL,
   `modified` timestamp NOT NULL DEFAULT current_timestamp(),
-  `content` longtext NOT NULL
+  `content` longtext NOT NULL,
+  PRIMARY KEY (`id_smarty_cache`),
+  KEY `name` (`name`),
+  KEY `cache_id` (`cache_id`),
+  KEY `modified` (`modified`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_smarty_last_flush`
+-- Table structure for table `ps_smarty_last_flush`
 --
 
-CREATE TABLE `ps_smarty_last_flush` (
+DROP TABLE IF EXISTS `ps_smarty_last_flush`;
+CREATE TABLE IF NOT EXISTS `ps_smarty_last_flush` (
   `type` enum('compile','template') NOT NULL,
-  `last_flush` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `last_flush` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_smarty_lazy_cache`
+-- Table structure for table `ps_smarty_lazy_cache`
 --
 
-CREATE TABLE `ps_smarty_lazy_cache` (
+DROP TABLE IF EXISTS `ps_smarty_lazy_cache`;
+CREATE TABLE IF NOT EXISTS `ps_smarty_lazy_cache` (
   `template_hash` varchar(32) NOT NULL DEFAULT '',
   `cache_id` varchar(191) NOT NULL DEFAULT '',
   `compile_id` varchar(32) NOT NULL DEFAULT '',
   `filepath` varchar(255) NOT NULL DEFAULT '',
-  `last_update` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `last_update` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`template_hash`,`cache_id`,`compile_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_specific_price`
+-- Table structure for table `ps_specific_price`
 --
 
-CREATE TABLE `ps_specific_price` (
-  `id_specific_price` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_specific_price`;
+CREATE TABLE IF NOT EXISTS `ps_specific_price` (
+  `id_specific_price` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_specific_price_rule` int(11) UNSIGNED NOT NULL,
   `id_cart` int(11) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
@@ -13159,8 +13740,19 @@ CREATE TABLE `ps_specific_price` (
   `reduction_tax` tinyint(1) NOT NULL DEFAULT 1,
   `reduction_type` enum('amount','percentage') NOT NULL,
   `from` datetime NOT NULL,
-  `to` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `to` datetime NOT NULL,
+  PRIMARY KEY (`id_specific_price`),
+  UNIQUE KEY `id_product_2` (`id_product`,`id_product_attribute`,`id_customer`,`id_cart`,`from`,`to`,`id_shop`,`id_shop_group`,`id_currency`,`id_country`,`id_group`,`from_quantity`,`id_specific_price_rule`),
+  KEY `id_product` (`id_product`,`id_shop`,`id_currency`,`id_country`,`id_group`,`id_customer`,`from_quantity`,`from`,`to`),
+  KEY `from_quantity` (`from_quantity`),
+  KEY `id_specific_price_rule` (`id_specific_price_rule`),
+  KEY `id_cart` (`id_cart`),
+  KEY `id_product_attribute` (`id_product_attribute`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_customer` (`id_customer`),
+  KEY `from` (`from`),
+  KEY `to` (`to`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_specific_price`
@@ -13173,14 +13765,17 @@ INSERT INTO `ps_specific_price` (`id_specific_price`, `id_specific_price_rule`, 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_specific_price_priority`
+-- Table structure for table `ps_specific_price_priority`
 --
 
-CREATE TABLE `ps_specific_price_priority` (
-  `id_specific_price_priority` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_specific_price_priority`;
+CREATE TABLE IF NOT EXISTS `ps_specific_price_priority` (
+  `id_specific_price_priority` int(11) NOT NULL AUTO_INCREMENT,
   `id_product` int(11) NOT NULL,
-  `priority` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `priority` varchar(80) NOT NULL,
+  PRIMARY KEY (`id_specific_price_priority`,`id_product`),
+  UNIQUE KEY `id_product` (`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_specific_price_priority`
@@ -13192,11 +13787,12 @@ INSERT INTO `ps_specific_price_priority` (`id_specific_price_priority`, `id_prod
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_specific_price_rule`
+-- Table structure for table `ps_specific_price_rule`
 --
 
-CREATE TABLE `ps_specific_price_rule` (
-  `id_specific_price_rule` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_specific_price_rule`;
+CREATE TABLE IF NOT EXISTS `ps_specific_price_rule` (
+  `id_specific_price_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `id_currency` int(10) UNSIGNED NOT NULL,
@@ -13208,48 +13804,60 @@ CREATE TABLE `ps_specific_price_rule` (
   `reduction_tax` tinyint(1) NOT NULL DEFAULT 1,
   `reduction_type` enum('amount','percentage') NOT NULL,
   `from` datetime NOT NULL,
-  `to` datetime NOT NULL
+  `to` datetime NOT NULL,
+  PRIMARY KEY (`id_specific_price_rule`),
+  KEY `id_product` (`id_shop`,`id_currency`,`id_country`,`id_group`,`from_quantity`,`from`,`to`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_specific_price_rule_condition`
+-- Table structure for table `ps_specific_price_rule_condition`
 --
 
-CREATE TABLE `ps_specific_price_rule_condition` (
-  `id_specific_price_rule_condition` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_specific_price_rule_condition`;
+CREATE TABLE IF NOT EXISTS `ps_specific_price_rule_condition` (
+  `id_specific_price_rule_condition` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_specific_price_rule_condition_group` int(11) UNSIGNED NOT NULL,
   `type` varchar(255) NOT NULL,
-  `value` varchar(255) NOT NULL
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_specific_price_rule_condition`),
+  KEY `id_specific_price_rule_condition_group` (`id_specific_price_rule_condition_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_specific_price_rule_condition_group`
+-- Table structure for table `ps_specific_price_rule_condition_group`
 --
 
-CREATE TABLE `ps_specific_price_rule_condition_group` (
-  `id_specific_price_rule_condition_group` int(11) UNSIGNED NOT NULL,
-  `id_specific_price_rule` int(11) UNSIGNED NOT NULL
+DROP TABLE IF EXISTS `ps_specific_price_rule_condition_group`;
+CREATE TABLE IF NOT EXISTS `ps_specific_price_rule_condition_group` (
+  `id_specific_price_rule_condition_group` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_specific_price_rule` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_specific_price_rule_condition_group`,`id_specific_price_rule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_state`
+-- Table structure for table `ps_state`
 --
 
-CREATE TABLE `ps_state` (
-  `id_state` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_state`;
+CREATE TABLE IF NOT EXISTS `ps_state` (
+  `id_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_country` int(11) UNSIGNED NOT NULL,
   `id_zone` int(11) UNSIGNED NOT NULL,
   `name` varchar(80) NOT NULL,
   `iso_code` varchar(7) NOT NULL,
   `tax_behavior` smallint(1) NOT NULL DEFAULT 0,
-  `active` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_state`),
+  KEY `id_country` (`id_country`),
+  KEY `name` (`name`),
+  KEY `id_zone` (`id_zone`)
+) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_state`
@@ -13612,17 +14220,19 @@ INSERT INTO `ps_state` (`id_state`, `id_country`, `id_zone`, `name`, `iso_code`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_statssearch`
+-- Table structure for table `ps_statssearch`
 --
 
-CREATE TABLE `ps_statssearch` (
-  `id_statssearch` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_statssearch`;
+CREATE TABLE IF NOT EXISTS `ps_statssearch` (
+  `id_statssearch` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_shop` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `id_shop_group` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `keywords` varchar(255) NOT NULL,
   `results` int(6) NOT NULL DEFAULT 0,
-  `date_add` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_statssearch`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ps_statssearch`
@@ -13638,11 +14248,12 @@ INSERT INTO `ps_statssearch` (`id_statssearch`, `id_shop`, `id_shop_group`, `key
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_stock`
+-- Table structure for table `ps_stock`
 --
 
-CREATE TABLE `ps_stock` (
-  `id_stock` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_stock`;
+CREATE TABLE IF NOT EXISTS `ps_stock` (
+  `id_stock` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_warehouse` int(11) UNSIGNED NOT NULL,
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_product_attribute` int(11) UNSIGNED NOT NULL,
@@ -13653,17 +14264,22 @@ CREATE TABLE `ps_stock` (
   `mpn` varchar(40) DEFAULT NULL,
   `physical_quantity` int(11) UNSIGNED NOT NULL,
   `usable_quantity` int(11) UNSIGNED NOT NULL,
-  `price_te` decimal(20,6) DEFAULT 0.000000
+  `price_te` decimal(20,6) DEFAULT 0.000000,
+  PRIMARY KEY (`id_stock`),
+  KEY `id_warehouse` (`id_warehouse`),
+  KEY `id_product` (`id_product`),
+  KEY `id_product_attribute` (`id_product_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_stock_available`
+-- Table structure for table `ps_stock_available`
 --
 
-CREATE TABLE `ps_stock_available` (
-  `id_stock_available` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_stock_available`;
+CREATE TABLE IF NOT EXISTS `ps_stock_available` (
+  `id_stock_available` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_product_attribute` int(11) UNSIGNED NOT NULL,
   `id_shop` int(11) UNSIGNED NOT NULL,
@@ -13673,8 +14289,14 @@ CREATE TABLE `ps_stock_available` (
   `reserved_quantity` int(11) NOT NULL DEFAULT 0,
   `depends_on_stock` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `out_of_stock` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `location` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `location` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_stock_available`),
+  UNIQUE KEY `product_sqlstock` (`id_product`,`id_product_attribute`,`id_shop`,`id_shop_group`),
+  KEY `id_shop` (`id_shop`),
+  KEY `id_shop_group` (`id_shop_group`),
+  KEY `id_product` (`id_product`),
+  KEY `id_product_attribute` (`id_product_attribute`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_stock_available`
@@ -13744,11 +14366,12 @@ INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_produc
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_stock_mvt`
+-- Table structure for table `ps_stock_mvt`
 --
 
-CREATE TABLE `ps_stock_mvt` (
-  `id_stock_mvt` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `ps_stock_mvt`;
+CREATE TABLE IF NOT EXISTS `ps_stock_mvt` (
+  `id_stock_mvt` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_stock` int(11) NOT NULL,
   `id_order` int(11) DEFAULT NULL,
   `id_supply_order` int(11) DEFAULT NULL,
@@ -13762,8 +14385,11 @@ CREATE TABLE `ps_stock_mvt` (
   `price_te` decimal(20,6) DEFAULT 0.000000,
   `last_wa` decimal(20,6) DEFAULT 0.000000,
   `current_wa` decimal(20,6) DEFAULT 0.000000,
-  `referer` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `referer` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_stock_mvt`),
+  KEY `id_stock` (`id_stock`),
+  KEY `id_stock_mvt_reason` (`id_stock_mvt_reason`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_stock_mvt`
@@ -13775,16 +14401,18 @@ INSERT INTO `ps_stock_mvt` (`id_stock_mvt`, `id_stock`, `id_order`, `id_supply_o
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_stock_mvt_reason`
+-- Table structure for table `ps_stock_mvt_reason`
 --
 
-CREATE TABLE `ps_stock_mvt_reason` (
-  `id_stock_mvt_reason` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_stock_mvt_reason`;
+CREATE TABLE IF NOT EXISTS `ps_stock_mvt_reason` (
+  `id_stock_mvt_reason` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `sign` tinyint(1) NOT NULL DEFAULT 1,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_stock_mvt_reason`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_stock_mvt_reason`
@@ -13807,13 +14435,15 @@ INSERT INTO `ps_stock_mvt_reason` (`id_stock_mvt_reason`, `sign`, `date_add`, `d
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_stock_mvt_reason_lang`
+-- Table structure for table `ps_stock_mvt_reason_lang`
 --
 
-CREATE TABLE `ps_stock_mvt_reason_lang` (
+DROP TABLE IF EXISTS `ps_stock_mvt_reason_lang`;
+CREATE TABLE IF NOT EXISTS `ps_stock_mvt_reason_lang` (
   `id_stock_mvt_reason` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  PRIMARY KEY (`id_stock_mvt_reason`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -13849,11 +14479,12 @@ INSERT INTO `ps_stock_mvt_reason_lang` (`id_stock_mvt_reason`, `id_lang`, `name`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_store`
+-- Table structure for table `ps_store`
 --
 
-CREATE TABLE `ps_store` (
-  `id_store` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_store`;
+CREATE TABLE IF NOT EXISTS `ps_store` (
+  `id_store` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_country` int(10) UNSIGNED NOT NULL,
   `id_state` int(10) UNSIGNED DEFAULT NULL,
   `city` varchar(64) NOT NULL,
@@ -13865,8 +14496,9 @@ CREATE TABLE `ps_store` (
   `email` varchar(255) DEFAULT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_store`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_store`
@@ -13882,17 +14514,19 @@ INSERT INTO `ps_store` (`id_store`, `id_country`, `id_state`, `city`, `postcode`
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_store_lang`
+-- Table structure for table `ps_store_lang`
 --
 
-CREATE TABLE `ps_store_lang` (
+DROP TABLE IF EXISTS `ps_store_lang`;
+CREATE TABLE IF NOT EXISTS `ps_store_lang` (
   `id_store` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `address1` varchar(255) NOT NULL,
   `address2` varchar(255) DEFAULT NULL,
   `hours` text DEFAULT NULL,
-  `note` text DEFAULT NULL
+  `note` text DEFAULT NULL,
+  PRIMARY KEY (`id_store`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -13914,12 +14548,15 @@ INSERT INTO `ps_store_lang` (`id_store`, `id_lang`, `name`, `address1`, `address
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_store_shop`
+-- Table structure for table `ps_store_shop`
 --
 
-CREATE TABLE `ps_store_shop` (
+DROP TABLE IF EXISTS `ps_store_shop`;
+CREATE TABLE IF NOT EXISTS `ps_store_shop` (
   `id_store` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_store`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -13936,16 +14573,18 @@ INSERT INTO `ps_store_shop` (`id_store`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supplier`
+-- Table structure for table `ps_supplier`
 --
 
-CREATE TABLE `ps_supplier` (
-  `id_supplier` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supplier`;
+CREATE TABLE IF NOT EXISTS `ps_supplier` (
+  `id_supplier` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_supplier`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_supplier`
@@ -13958,16 +14597,18 @@ INSERT INTO `ps_supplier` (`id_supplier`, `name`, `date_add`, `date_upd`, `activ
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supplier_lang`
+-- Table structure for table `ps_supplier_lang`
 --
 
-CREATE TABLE `ps_supplier_lang` (
+DROP TABLE IF EXISTS `ps_supplier_lang`;
+CREATE TABLE IF NOT EXISTS `ps_supplier_lang` (
   `id_supplier` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
   `description` text DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
-  `meta_description` varchar(512) DEFAULT NULL
+  `meta_description` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id_supplier`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -13983,12 +14624,15 @@ INSERT INTO `ps_supplier_lang` (`id_supplier`, `id_lang`, `description`, `meta_t
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supplier_shop`
+-- Table structure for table `ps_supplier_shop`
 --
 
-CREATE TABLE `ps_supplier_shop` (
+DROP TABLE IF EXISTS `ps_supplier_shop`;
+CREATE TABLE IF NOT EXISTS `ps_supplier_shop` (
   `id_supplier` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_supplier`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -14002,11 +14646,12 @@ INSERT INTO `ps_supplier_shop` (`id_supplier`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order`
+-- Table structure for table `ps_supply_order`
 --
 
-CREATE TABLE `ps_supply_order` (
-  `id_supply_order` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supply_order`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order` (
+  `id_supply_order` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_supplier` int(11) UNSIGNED NOT NULL,
   `supplier_name` varchar(64) NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
@@ -14024,17 +14669,22 @@ CREATE TABLE `ps_supply_order` (
   `total_ti` decimal(20,6) DEFAULT 0.000000,
   `discount_rate` decimal(20,6) DEFAULT 0.000000,
   `discount_value_te` decimal(20,6) DEFAULT 0.000000,
-  `is_template` tinyint(1) DEFAULT 0
+  `is_template` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id_supply_order`),
+  KEY `id_supplier` (`id_supplier`),
+  KEY `id_warehouse` (`id_warehouse`),
+  KEY `reference` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order_detail`
+-- Table structure for table `ps_supply_order_detail`
 --
 
-CREATE TABLE `ps_supply_order_detail` (
-  `id_supply_order_detail` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supply_order_detail`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order_detail` (
+  `id_supply_order_detail` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_supply_order` int(11) UNSIGNED NOT NULL,
   `id_currency` int(11) UNSIGNED NOT NULL,
   `id_product` int(11) UNSIGNED NOT NULL,
@@ -14058,57 +14708,72 @@ CREATE TABLE `ps_supply_order_detail` (
   `tax_value` decimal(20,6) DEFAULT 0.000000,
   `price_ti` decimal(20,6) DEFAULT 0.000000,
   `tax_value_with_order_discount` decimal(20,6) DEFAULT 0.000000,
-  `price_with_order_discount_te` decimal(20,6) DEFAULT 0.000000
+  `price_with_order_discount_te` decimal(20,6) DEFAULT 0.000000,
+  PRIMARY KEY (`id_supply_order_detail`),
+  KEY `id_supply_order` (`id_supply_order`,`id_product`),
+  KEY `id_product_attribute` (`id_product_attribute`),
+  KEY `id_product_product_attribute` (`id_product`,`id_product_attribute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order_history`
+-- Table structure for table `ps_supply_order_history`
 --
 
-CREATE TABLE `ps_supply_order_history` (
-  `id_supply_order_history` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supply_order_history`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order_history` (
+  `id_supply_order_history` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_supply_order` int(11) UNSIGNED NOT NULL,
   `id_employee` int(11) UNSIGNED NOT NULL,
   `employee_lastname` varchar(255) DEFAULT '',
   `employee_firstname` varchar(255) DEFAULT '',
   `id_state` int(11) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_supply_order_history`),
+  KEY `id_supply_order` (`id_supply_order`),
+  KEY `id_employee` (`id_employee`),
+  KEY `id_state` (`id_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order_receipt_history`
+-- Table structure for table `ps_supply_order_receipt_history`
 --
 
-CREATE TABLE `ps_supply_order_receipt_history` (
-  `id_supply_order_receipt_history` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supply_order_receipt_history`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order_receipt_history` (
+  `id_supply_order_receipt_history` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_supply_order_detail` int(11) UNSIGNED NOT NULL,
   `id_employee` int(11) UNSIGNED NOT NULL,
   `employee_lastname` varchar(255) DEFAULT '',
   `employee_firstname` varchar(255) DEFAULT '',
   `id_supply_order_state` int(11) UNSIGNED NOT NULL,
   `quantity` int(11) UNSIGNED NOT NULL,
-  `date_add` datetime NOT NULL
+  `date_add` datetime NOT NULL,
+  PRIMARY KEY (`id_supply_order_receipt_history`),
+  KEY `id_supply_order_detail` (`id_supply_order_detail`),
+  KEY `id_supply_order_state` (`id_supply_order_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order_state`
+-- Table structure for table `ps_supply_order_state`
 --
 
-CREATE TABLE `ps_supply_order_state` (
-  `id_supply_order_state` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_supply_order_state`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order_state` (
+  `id_supply_order_state` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `delivery_note` tinyint(1) NOT NULL DEFAULT 0,
   `editable` tinyint(1) NOT NULL DEFAULT 0,
   `receipt_state` tinyint(1) NOT NULL DEFAULT 0,
   `pending_receipt` tinyint(1) NOT NULL DEFAULT 0,
   `enclosed` tinyint(1) NOT NULL DEFAULT 0,
-  `color` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `color` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id_supply_order_state`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_supply_order_state`
@@ -14125,13 +14790,15 @@ INSERT INTO `ps_supply_order_state` (`id_supply_order_state`, `delivery_note`, `
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_supply_order_state_lang`
+-- Table structure for table `ps_supply_order_state_lang`
 --
 
-CREATE TABLE `ps_supply_order_state_lang` (
+DROP TABLE IF EXISTS `ps_supply_order_state_lang`;
+CREATE TABLE IF NOT EXISTS `ps_supply_order_state_lang` (
   `id_supply_order_state` int(11) UNSIGNED NOT NULL,
   `id_lang` int(11) UNSIGNED NOT NULL,
-  `name` varchar(128) DEFAULT NULL
+  `name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_supply_order_state`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -14155,11 +14822,12 @@ INSERT INTO `ps_supply_order_state_lang` (`id_supply_order_state`, `id_lang`, `n
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tab`
+-- Table structure for table `ps_tab`
 --
 
-CREATE TABLE `ps_tab` (
-  `id_tab` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_tab`;
+CREATE TABLE IF NOT EXISTS `ps_tab` (
+  `id_tab` int(11) NOT NULL AUTO_INCREMENT,
   `id_parent` int(11) NOT NULL,
   `position` int(11) NOT NULL,
   `module` varchar(64) DEFAULT NULL,
@@ -14170,8 +14838,9 @@ CREATE TABLE `ps_tab` (
   `hide_host_mode` tinyint(1) NOT NULL,
   `icon` varchar(32) DEFAULT NULL,
   `wording` varchar(255) DEFAULT NULL,
-  `wording_domain` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `wording_domain` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_tab`)
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `ps_tab`
@@ -14226,17 +14895,17 @@ INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`,
 (46, 44, 1, NULL, 'AdminModulesNotifications', NULL, 1, 1, 0, '', 'Alerts', 'Admin.Navigation.Menu'),
 (47, 44, 2, NULL, 'AdminModulesUpdates', NULL, 1, 1, 0, '', 'Updates', 'Admin.Navigation.Menu'),
 (48, 43, 0, '', 'AdminParentModulesCatalog', '', 1, 1, 0, '', 'Marketplace', 'Modules.Mbo.Global'),
-(49, 48, 1, '', 'AdminModulesCatalog', '', 0, 1, 0, '', 'Marketplace', 'Modules.Mbo.Global'),
-(50, 48, 2, '', 'AdminAddonsCatalog', '', 0, 1, 0, '', 'Modules in the spotlight', 'Modules.Mbo.Modulesselection'),
+(49, 48, 0, '', 'AdminModulesCatalog', '', 0, 1, 0, '', 'Marketplace', 'Modules.Mbo.Global'),
+(50, 48, 1, '', 'AdminAddonsCatalog', '', 0, 1, 0, '', 'Modules in the spotlight', 'Modules.Mbo.Modulesselection'),
 (51, 43, 2, NULL, 'AdminModules', NULL, 0, 1, 0, '', '', ''),
 (52, 42, 1, NULL, 'AdminParentThemes', NULL, 1, 1, 0, 'desktop_mac', 'Design', 'Admin.Navigation.Menu'),
 (53, 130, 1, '', 'AdminThemes', '', 1, 1, 0, '', 'Theme & Logo', 'Admin.Navigation.Menu'),
-(54, 52, 2, '', 'AdminThemesCatalog', '', 0, 1, 0, '', 'Theme Catalog', 'Admin.Navigation.Menu'),
-(55, 52, 3, NULL, 'AdminParentMailTheme', NULL, 1, 1, 0, '', 'Email Theme', 'Admin.Navigation.Menu'),
+(54, 52, 1, '', 'AdminThemesCatalog', '', 0, 1, 0, '', 'Theme Catalog', 'Admin.Navigation.Menu'),
+(55, 52, 2, NULL, 'AdminParentMailTheme', NULL, 1, 1, 0, '', 'Email Theme', 'Admin.Navigation.Menu'),
 (56, 55, 0, NULL, 'AdminMailTheme', NULL, 1, 1, 0, '', 'Email Theme', 'Admin.Navigation.Menu'),
-(57, 52, 4, NULL, 'AdminCmsContent', NULL, 1, 1, 0, '', 'Pages', 'Admin.Navigation.Menu'),
-(58, 52, 5, NULL, 'AdminModulesPositions', NULL, 1, 1, 0, '', 'Positions', 'Admin.Navigation.Menu'),
-(59, 52, 6, NULL, 'AdminImages', NULL, 1, 1, 0, '', 'Image Settings', 'Admin.Navigation.Menu'),
+(57, 52, 3, NULL, 'AdminCmsContent', NULL, 1, 1, 0, '', 'Pages', 'Admin.Navigation.Menu'),
+(58, 52, 4, NULL, 'AdminModulesPositions', NULL, 1, 1, 0, '', 'Positions', 'Admin.Navigation.Menu'),
+(59, 52, 5, NULL, 'AdminImages', NULL, 1, 1, 0, '', 'Image Settings', 'Admin.Navigation.Menu'),
 (60, 42, 2, NULL, 'AdminParentShipping', NULL, 1, 1, 0, 'local_shipping', 'Shipping', 'Admin.Navigation.Menu'),
 (61, 60, 0, NULL, 'AdminCarriers', NULL, 1, 1, 0, '', 'Carriers', 'Admin.Navigation.Menu'),
 (62, 60, 1, NULL, 'AdminShipping', NULL, 1, 1, 0, '', 'Preferences', 'Admin.Navigation.Menu'),
@@ -14298,46 +14967,50 @@ INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`,
 (118, 103, 9, NULL, 'AdminShopGroup', NULL, 0, 1, 0, '', 'Multistore', 'Admin.Navigation.Menu'),
 (119, 103, 10, NULL, 'AdminShopUrl', NULL, 0, 1, 0, '', 'Multistore', 'Admin.Navigation.Menu'),
 (120, 103, 11, NULL, 'AdminFeatureFlag', NULL, 1, 1, 0, '', 'Experimental Features', 'Admin.Navigation.Menu'),
-(121, -1, 1, NULL, 'AdminQuickAccesses', NULL, 1, 1, 0, '', 'Quick Access', 'Admin.Navigation.Menu'),
+(121, -1, 0, NULL, 'AdminQuickAccesses', NULL, 1, 1, 0, '', 'Quick Access', 'Admin.Navigation.Menu'),
 (122, 0, 4, NULL, 'DEFAULT', NULL, 1, 1, 0, '', 'More', 'Admin.Navigation.Menu'),
-(123, -1, 2, NULL, 'AdminPatterns', NULL, 1, 1, 0, '', '', ''),
+(123, -1, 1, NULL, 'AdminPatterns', NULL, 1, 1, 0, '', '', ''),
 (124, 43, 3, 'blockwishlist', 'WishlistConfigurationAdminParentController', '', 0, 1, 0, '', NULL, NULL),
 (125, 124, 1, 'blockwishlist', 'WishlistConfigurationAdminController', '', 1, 1, 0, '', NULL, NULL),
 (126, 124, 2, 'blockwishlist', 'WishlistStatisticsAdminController', '', 1, 1, 0, '', NULL, NULL),
-(127, -1, 3, 'dashgoals', 'AdminDashgoals', '', 1, 1, 0, '', NULL, NULL),
-(128, -1, 4, 'ps_faviconnotificationbo', 'AdminConfigureFaviconBo', '', 1, 1, 0, '', NULL, NULL),
-(129, 52, 7, 'ps_linklist', 'AdminLinkWidget', 'admin_link_block_list', 1, 1, 0, '', 'Link List', 'Modules.Linklist.Admin'),
-(130, 52, 1, '', 'AdminThemesParent', '', 1, 1, 0, '', 'Theme & Logo', 'Admin.Navigation.Menu'),
+(127, -1, 2, 'dashgoals', 'AdminDashgoals', '', 1, 1, 0, '', NULL, NULL),
+(128, -1, 3, 'ps_faviconnotificationbo', 'AdminConfigureFaviconBo', '', 1, 1, 0, '', NULL, NULL),
+(129, 52, 6, 'ps_linklist', 'AdminLinkWidget', 'admin_link_block_list', 1, 1, 0, '', 'Link List', 'Modules.Linklist.Admin'),
+(130, 52, 0, '', 'AdminThemesParent', '', 1, 1, 0, '', 'Theme & Logo', 'Admin.Navigation.Menu'),
 (131, 130, 2, 'ps_themecusto', 'AdminPsThemeCustoConfiguration', '', 1, 1, 0, '', NULL, NULL),
 (132, 130, 3, 'ps_themecusto', 'AdminPsThemeCustoAdvanced', '', 1, 1, 0, '', NULL, NULL),
 (133, 0, 5, 'welcome', 'AdminWelcome', '', 1, 1, 0, '', NULL, NULL),
-(134, -1, 5, 'psgdpr', 'AdminAjaxPsgdpr', '', 1, 1, 0, '', NULL, NULL),
-(135, -1, 6, 'psgdpr', 'AdminDownloadInvoicesPsgdpr', '', 1, 1, 0, '', NULL, NULL),
-(140, -1, 7, 'ps_checkout', 'AdminAjaxPrestashopCheckout', '', 1, 1, 0, '', NULL, NULL),
-(141, -1, 8, 'ps_checkout', 'AdminPaypalOnboardingPrestashopCheckout', '', 1, 1, 0, '', NULL, NULL),
+(134, -1, 4, 'psgdpr', 'AdminAjaxPsgdpr', '', 1, 1, 0, '', NULL, NULL),
+(135, -1, 5, 'psgdpr', 'AdminDownloadInvoicesPsgdpr', '', 1, 1, 0, '', NULL, NULL),
+(136, 48, 0, 'ps_mbo', 'AdminPsMboModule', '', 1, 1, 0, '', NULL, NULL),
+(137, 48, 1, 'ps_mbo', 'AdminPsMboAddons', '', 1, 1, 0, '', 'Modules in the spotlight', 'Modules.Mbo.Modulesselection'),
+(138, -1, 0, 'ps_mbo', 'AdminPsMboRecommended', '', 1, 1, 0, '', 'Recommended Modules and Services', 'Modules.Mbo.Recommendedmodulesandservices'),
+(139, 52, 1, 'ps_mbo', 'AdminPsMboTheme', '', 1, 1, 0, '', NULL, NULL),
+(140, -1, 6, 'ps_checkout', 'AdminAjaxPrestashopCheckout', '', 1, 1, 0, '', NULL, NULL),
+(141, -1, 7, 'ps_checkout', 'AdminPaypalOnboardingPrestashopCheckout', '', 1, 1, 0, '', NULL, NULL),
 (142, 32, 1, 'ps_metrics', 'AdminMetricsLegacyStatsController', '', 1, 1, 0, '', NULL, NULL),
 (143, 32, 2, 'ps_metrics', 'AdminMetricsController', '', 1, 1, 0, '', NULL, NULL),
 (144, 42, 5, '', 'Marketing', '', 1, 1, 0, 'campaign', NULL, NULL),
 (145, 144, 1, 'ps_facebook', 'AdminPsfacebookModule', '', 1, 1, 0, '', NULL, NULL),
-(146, -1, 9, 'ps_facebook', 'AdminAjaxPsfacebook', '', 1, 1, 0, '', NULL, NULL),
+(146, -1, 8, 'ps_facebook', 'AdminAjaxPsfacebook', '', 1, 1, 0, '', NULL, NULL),
 (147, 144, 2, 'psxmarketingwithgoogle', 'AdminPsxMktgWithGoogleModule', '', 1, 1, 0, '', NULL, NULL),
-(148, -1, 10, 'psxmarketingwithgoogle', 'AdminAjaxPsxMktgWithGoogle', '', 1, 1, 0, '', NULL, NULL),
-(149, 0, 6, 'blockreassurance', 'AdminBlockListing', '', 0, 1, 0, '', NULL, NULL),
-(150, 48, 1, 'ps_mbo', 'AdminPsMboModule', '', 1, 1, 0, '', NULL, NULL),
-(151, 48, 2, 'ps_mbo', 'AdminPsMboAddons', '', 1, 1, 0, '', 'Modules in the spotlight', 'Modules.Mbo.Modulesselection'),
-(152, -1, 0, 'ps_mbo', 'AdminPsMboRecommended', '', 1, 1, 0, '', 'Recommended Modules and Services', 'Modules.Mbo.Recommendedmodulesandservices'),
-(153, 52, 2, 'ps_mbo', 'AdminPsMboTheme', '', 1, 1, 0, '', NULL, NULL);
+(148, -1, 9, 'psxmarketingwithgoogle', 'AdminAjaxPsxMktgWithGoogle', '', 1, 1, 0, '', NULL, NULL),
+(149, 0, 6, 'blockreassurance', 'AdminBlockListing', '', 0, 1, 0, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tab_lang`
+-- Table structure for table `ps_tab_lang`
 --
 
-CREATE TABLE `ps_tab_lang` (
+DROP TABLE IF EXISTS `ps_tab_lang`;
+CREATE TABLE IF NOT EXISTS `ps_tab_lang` (
   `id_tab` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`id_tab`,`id_lang`),
+  KEY `IDX_CFD9262DED47AB56` (`id_tab`),
+  KEY `IDX_CFD9262DBA299860` (`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -14607,6 +15280,14 @@ INSERT INTO `ps_tab_lang` (`id_tab`, `id_lang`, `name`) VALUES
 (134, 2, 'Official GDPR compliance'),
 (135, 1, 'Official GDPR compliance'),
 (135, 2, 'Official GDPR compliance'),
+(136, 1, 'Marketplace'),
+(136, 2, 'Marketplace'),
+(137, 1, 'Modules in the spotlight'),
+(137, 2, 'Modules in the spotlight'),
+(138, 1, 'Recommended Modules and Services'),
+(138, 2, 'Recommended Modules and Services'),
+(139, 1, 'Theme Catalog'),
+(139, 2, 'Katalog'),
 (140, 1, 'PrestaShop Checkout'),
 (140, 2, 'PrestaShop Checkout'),
 (141, 1, 'PrestaShop Checkout'),
@@ -14626,67 +15307,71 @@ INSERT INTO `ps_tab_lang` (`id_tab`, `id_lang`, `name`) VALUES
 (148, 1, 'psxmarketingwithgoogle'),
 (148, 2, 'psxmarketingwithgoogle'),
 (149, 1, 'AdminBlockListing'),
-(149, 2, 'AdminBlockListing'),
-(150, 1, 'Marketplace'),
-(150, 2, 'Marketplace'),
-(151, 1, 'Modules in the spotlight'),
-(151, 2, 'Modules in the spotlight'),
-(152, 1, 'Recommended Modules and Services'),
-(152, 2, 'Recommended Modules and Services'),
-(153, 1, 'Theme Catalog'),
-(153, 2, 'Katalog');
+(149, 2, 'AdminBlockListing');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tab_module_preference`
+-- Table structure for table `ps_tab_module_preference`
 --
 
-CREATE TABLE `ps_tab_module_preference` (
-  `id_tab_module_preference` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_tab_module_preference`;
+CREATE TABLE IF NOT EXISTS `ps_tab_module_preference` (
+  `id_tab_module_preference` int(11) NOT NULL AUTO_INCREMENT,
   `id_employee` int(11) NOT NULL,
   `id_tab` int(11) NOT NULL,
-  `module` varchar(191) NOT NULL
+  `module` varchar(191) NOT NULL,
+  PRIMARY KEY (`id_tab_module_preference`),
+  UNIQUE KEY `employee_module` (`id_employee`,`id_tab`,`module`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tag`
+-- Table structure for table `ps_tag`
 --
 
-CREATE TABLE `ps_tag` (
-  `id_tag` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_tag`;
+CREATE TABLE IF NOT EXISTS `ps_tag` (
+  `id_tag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_tag`),
+  KEY `tag_name` (`name`),
+  KEY `id_lang` (`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tag_count`
+-- Table structure for table `ps_tag_count`
 --
 
-CREATE TABLE `ps_tag_count` (
+DROP TABLE IF EXISTS `ps_tag_count`;
+CREATE TABLE IF NOT EXISTS `ps_tag_count` (
   `id_group` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_tag` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_lang` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `id_shop` int(11) UNSIGNED NOT NULL DEFAULT 0,
-  `counter` int(10) UNSIGNED NOT NULL DEFAULT 0
+  `counter` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_group`,`id_tag`),
+  KEY `id_group` (`id_group`,`id_lang`,`id_shop`,`counter`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tax`
+-- Table structure for table `ps_tax`
 --
 
-CREATE TABLE `ps_tax` (
-  `id_tax` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_tax`;
+CREATE TABLE IF NOT EXISTS `ps_tax` (
+  `id_tax` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `rate` decimal(10,3) NOT NULL,
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_tax`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_tax`
@@ -14728,13 +15413,15 @@ INSERT INTO `ps_tax` (`id_tax`, `rate`, `active`, `deleted`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tax_lang`
+-- Table structure for table `ps_tax_lang`
 --
 
-CREATE TABLE `ps_tax_lang` (
+DROP TABLE IF EXISTS `ps_tax_lang`;
+CREATE TABLE IF NOT EXISTS `ps_tax_lang` (
   `id_tax` int(10) UNSIGNED NOT NULL,
   `id_lang` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_tax`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -14808,11 +15495,12 @@ INSERT INTO `ps_tax_lang` (`id_tax`, `id_lang`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tax_rule`
+-- Table structure for table `ps_tax_rule`
 --
 
-CREATE TABLE `ps_tax_rule` (
-  `id_tax_rule` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_tax_rule`;
+CREATE TABLE IF NOT EXISTS `ps_tax_rule` (
+  `id_tax_rule` int(11) NOT NULL AUTO_INCREMENT,
   `id_tax_rules_group` int(11) NOT NULL,
   `id_country` int(11) NOT NULL,
   `id_state` int(11) NOT NULL,
@@ -14820,8 +15508,12 @@ CREATE TABLE `ps_tax_rule` (
   `zipcode_to` varchar(12) NOT NULL,
   `id_tax` int(11) NOT NULL,
   `behavior` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_tax_rule`),
+  KEY `id_tax_rules_group` (`id_tax_rules_group`),
+  KEY `id_tax` (`id_tax`),
+  KEY `category_getproducts` (`id_tax_rules_group`,`id_country`,`id_state`,`zipcode_from`)
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_tax_rule`
@@ -14970,17 +15662,19 @@ INSERT INTO `ps_tax_rule` (`id_tax_rule`, `id_tax_rules_group`, `id_country`, `i
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tax_rules_group`
+-- Table structure for table `ps_tax_rules_group`
 --
 
-CREATE TABLE `ps_tax_rules_group` (
-  `id_tax_rules_group` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_tax_rules_group`;
+CREATE TABLE IF NOT EXISTS `ps_tax_rules_group` (
+  `id_tax_rules_group` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `active` int(11) NOT NULL,
   `deleted` tinyint(1) UNSIGNED NOT NULL,
   `date_add` datetime NOT NULL,
-  `date_upd` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`id_tax_rules_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_tax_rules_group`
@@ -14996,12 +15690,15 @@ INSERT INTO `ps_tax_rules_group` (`id_tax_rules_group`, `name`, `active`, `delet
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_tax_rules_group_shop`
+-- Table structure for table `ps_tax_rules_group_shop`
 --
 
-CREATE TABLE `ps_tax_rules_group_shop` (
+DROP TABLE IF EXISTS `ps_tax_rules_group_shop`;
+CREATE TABLE IF NOT EXISTS `ps_tax_rules_group_shop` (
   `id_tax_rules_group` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_tax_rules_group`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -15018,13 +15715,15 @@ INSERT INTO `ps_tax_rules_group_shop` (`id_tax_rules_group`, `id_shop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_timezone`
+-- Table structure for table `ps_timezone`
 --
 
-CREATE TABLE `ps_timezone` (
-  `id_timezone` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_timezone`;
+CREATE TABLE IF NOT EXISTS `ps_timezone` (
+  `id_timezone` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_timezone`)
+) ENGINE=InnoDB AUTO_INCREMENT=561 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_timezone`
@@ -15595,121 +16294,152 @@ INSERT INTO `ps_timezone` (`id_timezone`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_translation`
+-- Table structure for table `ps_translation`
 --
 
-CREATE TABLE `ps_translation` (
-  `id_translation` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_translation`;
+CREATE TABLE IF NOT EXISTS `ps_translation` (
+  `id_translation` int(11) NOT NULL AUTO_INCREMENT,
   `id_lang` int(11) NOT NULL,
   `key` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `translation` text NOT NULL,
   `domain` varchar(80) NOT NULL,
-  `theme` varchar(32) DEFAULT NULL
+  `theme` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id_translation`),
+  KEY `IDX_ADEBEB36BA299860` (`id_lang`),
+  KEY `key` (`domain`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_warehouse`
+-- Table structure for table `ps_warehouse`
 --
 
-CREATE TABLE `ps_warehouse` (
-  `id_warehouse` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_warehouse`;
+CREATE TABLE IF NOT EXISTS `ps_warehouse` (
+  `id_warehouse` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_currency` int(11) UNSIGNED NOT NULL,
   `id_address` int(11) UNSIGNED NOT NULL,
   `id_employee` int(11) UNSIGNED NOT NULL,
   `reference` varchar(64) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `management_type` enum('WA','FIFO','LIFO') NOT NULL DEFAULT 'WA',
-  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+  `deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_warehouse`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_warehouse_carrier`
+-- Table structure for table `ps_warehouse_carrier`
 --
 
-CREATE TABLE `ps_warehouse_carrier` (
+DROP TABLE IF EXISTS `ps_warehouse_carrier`;
+CREATE TABLE IF NOT EXISTS `ps_warehouse_carrier` (
   `id_carrier` int(11) UNSIGNED NOT NULL,
-  `id_warehouse` int(11) UNSIGNED NOT NULL
+  `id_warehouse` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_warehouse`,`id_carrier`),
+  KEY `id_warehouse` (`id_warehouse`),
+  KEY `id_carrier` (`id_carrier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_warehouse_product_location`
+-- Table structure for table `ps_warehouse_product_location`
 --
 
-CREATE TABLE `ps_warehouse_product_location` (
-  `id_warehouse_product_location` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_warehouse_product_location`;
+CREATE TABLE IF NOT EXISTS `ps_warehouse_product_location` (
+  `id_warehouse_product_location` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_product` int(11) UNSIGNED NOT NULL,
   `id_product_attribute` int(11) UNSIGNED NOT NULL,
   `id_warehouse` int(11) UNSIGNED NOT NULL,
-  `location` varchar(64) DEFAULT NULL
+  `location` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id_warehouse_product_location`),
+  UNIQUE KEY `id_product` (`id_product`,`id_product_attribute`,`id_warehouse`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_warehouse_shop`
+-- Table structure for table `ps_warehouse_shop`
 --
 
-CREATE TABLE `ps_warehouse_shop` (
+DROP TABLE IF EXISTS `ps_warehouse_shop`;
+CREATE TABLE IF NOT EXISTS `ps_warehouse_shop` (
   `id_shop` int(11) UNSIGNED NOT NULL,
-  `id_warehouse` int(11) UNSIGNED NOT NULL
+  `id_warehouse` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_warehouse`,`id_shop`),
+  KEY `id_warehouse` (`id_warehouse`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_webservice_account`
+-- Table structure for table `ps_webservice_account`
 --
 
-CREATE TABLE `ps_webservice_account` (
-  `id_webservice_account` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_webservice_account`;
+CREATE TABLE IF NOT EXISTS `ps_webservice_account` (
+  `id_webservice_account` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(32) NOT NULL,
   `description` text DEFAULT NULL,
   `class_name` varchar(50) NOT NULL DEFAULT 'WebserviceRequest',
   `is_module` tinyint(2) NOT NULL DEFAULT 0,
   `module_name` varchar(50) DEFAULT NULL,
-  `active` tinyint(2) NOT NULL
+  `active` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id_webservice_account`),
+  KEY `key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_webservice_account_shop`
+-- Table structure for table `ps_webservice_account_shop`
 --
 
-CREATE TABLE `ps_webservice_account_shop` (
+DROP TABLE IF EXISTS `ps_webservice_account_shop`;
+CREATE TABLE IF NOT EXISTS `ps_webservice_account_shop` (
   `id_webservice_account` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_webservice_account`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_webservice_permission`
+-- Table structure for table `ps_webservice_permission`
 --
 
-CREATE TABLE `ps_webservice_permission` (
-  `id_webservice_permission` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ps_webservice_permission`;
+CREATE TABLE IF NOT EXISTS `ps_webservice_permission` (
+  `id_webservice_permission` int(11) NOT NULL AUTO_INCREMENT,
   `resource` varchar(50) NOT NULL,
   `method` enum('GET','POST','PUT','DELETE','HEAD') NOT NULL,
-  `id_webservice_account` int(11) NOT NULL
+  `id_webservice_account` int(11) NOT NULL,
+  PRIMARY KEY (`id_webservice_permission`),
+  UNIQUE KEY `resource_2` (`resource`,`method`,`id_webservice_account`),
+  KEY `resource` (`resource`),
+  KEY `method` (`method`),
+  KEY `id_webservice_account` (`id_webservice_account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_web_browser`
+-- Table structure for table `ps_web_browser`
 --
 
-CREATE TABLE `ps_web_browser` (
-  `id_web_browser` int(10) UNSIGNED NOT NULL,
-  `name` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `ps_web_browser`;
+CREATE TABLE IF NOT EXISTS `ps_web_browser` (
+  `id_web_browser` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id_web_browser`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_web_browser`
@@ -15731,11 +16461,12 @@ INSERT INTO `ps_web_browser` (`id_web_browser`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_wishlist`
+-- Table structure for table `ps_wishlist`
 --
 
-CREATE TABLE `ps_wishlist` (
-  `id_wishlist` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_wishlist`;
+CREATE TABLE IF NOT EXISTS `ps_wishlist` (
+  `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_customer` int(10) UNSIGNED NOT NULL,
   `id_shop` int(10) UNSIGNED DEFAULT 1,
   `id_shop_group` int(10) UNSIGNED DEFAULT 1,
@@ -15744,31 +16475,35 @@ CREATE TABLE `ps_wishlist` (
   `counter` int(10) UNSIGNED DEFAULT NULL,
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
-  `default` int(10) UNSIGNED DEFAULT 0
+  `default` int(10) UNSIGNED DEFAULT 0,
+  PRIMARY KEY (`id_wishlist`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_wishlist_product`
+-- Table structure for table `ps_wishlist_product`
 --
 
-CREATE TABLE `ps_wishlist_product` (
-  `id_wishlist_product` int(10) NOT NULL,
+DROP TABLE IF EXISTS `ps_wishlist_product`;
+CREATE TABLE IF NOT EXISTS `ps_wishlist_product` (
+  `id_wishlist_product` int(10) NOT NULL AUTO_INCREMENT,
   `id_wishlist` int(10) UNSIGNED NOT NULL,
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_product_attribute` int(10) UNSIGNED NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
-  `priority` int(10) UNSIGNED NOT NULL
+  `priority` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_wishlist_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_wishlist_product_cart`
+-- Table structure for table `ps_wishlist_product_cart`
 --
 
-CREATE TABLE `ps_wishlist_product_cart` (
+DROP TABLE IF EXISTS `ps_wishlist_product_cart`;
+CREATE TABLE IF NOT EXISTS `ps_wishlist_product_cart` (
   `id_wishlist_product` int(10) UNSIGNED NOT NULL,
   `id_cart` int(10) UNSIGNED NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
@@ -15778,14 +16513,16 @@ CREATE TABLE `ps_wishlist_product_cart` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_zone`
+-- Table structure for table `ps_zone`
 --
 
-CREATE TABLE `ps_zone` (
-  `id_zone` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ps_zone`;
+CREATE TABLE IF NOT EXISTS `ps_zone` (
+  `id_zone` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_zone`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ps_zone`
@@ -15804,12 +16541,15 @@ INSERT INTO `ps_zone` (`id_zone`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ps_zone_shop`
+-- Table structure for table `ps_zone_shop`
 --
 
-CREATE TABLE `ps_zone_shop` (
+DROP TABLE IF EXISTS `ps_zone_shop`;
+CREATE TABLE IF NOT EXISTS `ps_zone_shop` (
   `id_zone` int(11) UNSIGNED NOT NULL,
-  `id_shop` int(11) UNSIGNED NOT NULL
+  `id_shop` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_zone`,`id_shop`),
+  KEY `id_shop` (`id_shop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -15825,2847 +16565,6 @@ INSERT INTO `ps_zone_shop` (`id_zone`, `id_shop`) VALUES
 (6, 1),
 (7, 1),
 (8, 1);
-
---
--- Indeksy dla zrzutów tabel
---
-
---
--- Indeksy dla tabeli `ps_access`
---
-ALTER TABLE `ps_access`
-  ADD PRIMARY KEY (`id_profile`,`id_authorization_role`);
-
---
--- Indeksy dla tabeli `ps_accessory`
---
-ALTER TABLE `ps_accessory`
-  ADD KEY `accessory_product` (`id_product_1`,`id_product_2`);
-
---
--- Indeksy dla tabeli `ps_address`
---
-ALTER TABLE `ps_address`
-  ADD PRIMARY KEY (`id_address`),
-  ADD KEY `address_customer` (`id_customer`),
-  ADD KEY `id_country` (`id_country`),
-  ADD KEY `id_state` (`id_state`),
-  ADD KEY `id_manufacturer` (`id_manufacturer`),
-  ADD KEY `id_supplier` (`id_supplier`),
-  ADD KEY `id_warehouse` (`id_warehouse`);
-
---
--- Indeksy dla tabeli `ps_address_format`
---
-ALTER TABLE `ps_address_format`
-  ADD PRIMARY KEY (`id_country`);
-
---
--- Indeksy dla tabeli `ps_admin_filter`
---
-ALTER TABLE `ps_admin_filter`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `admin_filter_search_id_idx` (`employee`,`shop`,`controller`,`action`,`filter_id`);
-
---
--- Indeksy dla tabeli `ps_alias`
---
-ALTER TABLE `ps_alias`
-  ADD PRIMARY KEY (`id_alias`),
-  ADD UNIQUE KEY `alias` (`alias`);
-
---
--- Indeksy dla tabeli `ps_attachment`
---
-ALTER TABLE `ps_attachment`
-  ADD PRIMARY KEY (`id_attachment`);
-
---
--- Indeksy dla tabeli `ps_attachment_lang`
---
-ALTER TABLE `ps_attachment_lang`
-  ADD PRIMARY KEY (`id_attachment`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_attribute`
---
-ALTER TABLE `ps_attribute`
-  ADD PRIMARY KEY (`id_attribute`),
-  ADD KEY `attribute_group` (`id_attribute_group`);
-
---
--- Indeksy dla tabeli `ps_attribute_group`
---
-ALTER TABLE `ps_attribute_group`
-  ADD PRIMARY KEY (`id_attribute_group`);
-
---
--- Indeksy dla tabeli `ps_attribute_group_lang`
---
-ALTER TABLE `ps_attribute_group_lang`
-  ADD PRIMARY KEY (`id_attribute_group`,`id_lang`),
-  ADD KEY `IDX_4653726C67A664FB` (`id_attribute_group`),
-  ADD KEY `IDX_4653726CBA299860` (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_attribute_group_shop`
---
-ALTER TABLE `ps_attribute_group_shop`
-  ADD PRIMARY KEY (`id_attribute_group`,`id_shop`),
-  ADD KEY `IDX_DB30BAAC67A664FB` (`id_attribute_group`),
-  ADD KEY `IDX_DB30BAAC274A50A0` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_attribute_impact`
---
-ALTER TABLE `ps_attribute_impact`
-  ADD PRIMARY KEY (`id_attribute_impact`),
-  ADD UNIQUE KEY `id_product` (`id_product`,`id_attribute`);
-
---
--- Indeksy dla tabeli `ps_attribute_lang`
---
-ALTER TABLE `ps_attribute_lang`
-  ADD PRIMARY KEY (`id_attribute`,`id_lang`),
-  ADD KEY `IDX_3ABE46A77A4F53DC` (`id_attribute`),
-  ADD KEY `IDX_3ABE46A7BA299860` (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_attribute_shop`
---
-ALTER TABLE `ps_attribute_shop`
-  ADD PRIMARY KEY (`id_attribute`,`id_shop`),
-  ADD KEY `IDX_A7DD8E677A4F53DC` (`id_attribute`),
-  ADD KEY `IDX_A7DD8E67274A50A0` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_authorization_role`
---
-ALTER TABLE `ps_authorization_role`
-  ADD PRIMARY KEY (`id_authorization_role`),
-  ADD UNIQUE KEY `slug` (`slug`);
-
---
--- Indeksy dla tabeli `ps_blockwishlist_statistics`
---
-ALTER TABLE `ps_blockwishlist_statistics`
-  ADD PRIMARY KEY (`id_statistics`);
-
---
--- Indeksy dla tabeli `ps_carrier`
---
-ALTER TABLE `ps_carrier`
-  ADD PRIMARY KEY (`id_carrier`),
-  ADD KEY `deleted` (`deleted`,`active`),
-  ADD KEY `id_tax_rules_group` (`id_tax_rules_group`),
-  ADD KEY `reference` (`id_reference`,`deleted`,`active`);
-
---
--- Indeksy dla tabeli `ps_carrier_group`
---
-ALTER TABLE `ps_carrier_group`
-  ADD PRIMARY KEY (`id_carrier`,`id_group`);
-
---
--- Indeksy dla tabeli `ps_carrier_lang`
---
-ALTER TABLE `ps_carrier_lang`
-  ADD PRIMARY KEY (`id_lang`,`id_shop`,`id_carrier`);
-
---
--- Indeksy dla tabeli `ps_carrier_shop`
---
-ALTER TABLE `ps_carrier_shop`
-  ADD PRIMARY KEY (`id_carrier`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_carrier_tax_rules_group_shop`
---
-ALTER TABLE `ps_carrier_tax_rules_group_shop`
-  ADD PRIMARY KEY (`id_carrier`,`id_tax_rules_group`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_carrier_zone`
---
-ALTER TABLE `ps_carrier_zone`
-  ADD PRIMARY KEY (`id_carrier`,`id_zone`);
-
---
--- Indeksy dla tabeli `ps_cart`
---
-ALTER TABLE `ps_cart`
-  ADD PRIMARY KEY (`id_cart`),
-  ADD KEY `cart_customer` (`id_customer`),
-  ADD KEY `id_address_delivery` (`id_address_delivery`),
-  ADD KEY `id_address_invoice` (`id_address_invoice`),
-  ADD KEY `id_carrier` (`id_carrier`),
-  ADD KEY `id_lang` (`id_lang`),
-  ADD KEY `id_currency` (`id_currency`),
-  ADD KEY `id_guest` (`id_guest`),
-  ADD KEY `id_shop_group` (`id_shop_group`),
-  ADD KEY `id_shop_2` (`id_shop`,`date_upd`),
-  ADD KEY `id_shop` (`id_shop`,`date_add`);
-
---
--- Indeksy dla tabeli `ps_cart_cart_rule`
---
-ALTER TABLE `ps_cart_cart_rule`
-  ADD PRIMARY KEY (`id_cart`,`id_cart_rule`),
-  ADD KEY `id_cart_rule` (`id_cart_rule`);
-
---
--- Indeksy dla tabeli `ps_cart_product`
---
-ALTER TABLE `ps_cart_product`
-  ADD PRIMARY KEY (`id_cart`,`id_product`,`id_product_attribute`,`id_customization`,`id_address_delivery`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`),
-  ADD KEY `id_cart_order` (`id_cart`,`date_add`,`id_product`,`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_cart_rule`
---
-ALTER TABLE `ps_cart_rule`
-  ADD PRIMARY KEY (`id_cart_rule`),
-  ADD KEY `id_customer` (`id_customer`,`active`,`date_to`),
-  ADD KEY `group_restriction` (`group_restriction`,`active`,`date_to`),
-  ADD KEY `id_customer_2` (`id_customer`,`active`,`highlight`,`date_to`),
-  ADD KEY `group_restriction_2` (`group_restriction`,`active`,`highlight`,`date_to`),
-  ADD KEY `date_from` (`date_from`),
-  ADD KEY `date_to` (`date_to`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_carrier`
---
-ALTER TABLE `ps_cart_rule_carrier`
-  ADD PRIMARY KEY (`id_cart_rule`,`id_carrier`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_combination`
---
-ALTER TABLE `ps_cart_rule_combination`
-  ADD PRIMARY KEY (`id_cart_rule_1`,`id_cart_rule_2`),
-  ADD KEY `id_cart_rule_1` (`id_cart_rule_1`),
-  ADD KEY `id_cart_rule_2` (`id_cart_rule_2`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_country`
---
-ALTER TABLE `ps_cart_rule_country`
-  ADD PRIMARY KEY (`id_cart_rule`,`id_country`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_group`
---
-ALTER TABLE `ps_cart_rule_group`
-  ADD PRIMARY KEY (`id_cart_rule`,`id_group`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_lang`
---
-ALTER TABLE `ps_cart_rule_lang`
-  ADD PRIMARY KEY (`id_cart_rule`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_product_rule`
---
-ALTER TABLE `ps_cart_rule_product_rule`
-  ADD PRIMARY KEY (`id_product_rule`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_product_rule_group`
---
-ALTER TABLE `ps_cart_rule_product_rule_group`
-  ADD PRIMARY KEY (`id_product_rule_group`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_product_rule_value`
---
-ALTER TABLE `ps_cart_rule_product_rule_value`
-  ADD PRIMARY KEY (`id_product_rule`,`id_item`);
-
---
--- Indeksy dla tabeli `ps_cart_rule_shop`
---
-ALTER TABLE `ps_cart_rule_shop`
-  ADD PRIMARY KEY (`id_cart_rule`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_category`
---
-ALTER TABLE `ps_category`
-  ADD PRIMARY KEY (`id_category`),
-  ADD KEY `category_parent` (`id_parent`),
-  ADD KEY `nleftrightactive` (`nleft`,`nright`,`active`),
-  ADD KEY `level_depth` (`level_depth`),
-  ADD KEY `nright` (`nright`),
-  ADD KEY `activenleft` (`active`,`nleft`),
-  ADD KEY `activenright` (`active`,`nright`);
-
---
--- Indeksy dla tabeli `ps_category_group`
---
-ALTER TABLE `ps_category_group`
-  ADD PRIMARY KEY (`id_category`,`id_group`),
-  ADD KEY `id_category` (`id_category`),
-  ADD KEY `id_group` (`id_group`);
-
---
--- Indeksy dla tabeli `ps_category_lang`
---
-ALTER TABLE `ps_category_lang`
-  ADD PRIMARY KEY (`id_category`,`id_shop`,`id_lang`),
-  ADD KEY `category_name` (`name`);
-
---
--- Indeksy dla tabeli `ps_category_product`
---
-ALTER TABLE `ps_category_product`
-  ADD PRIMARY KEY (`id_category`,`id_product`),
-  ADD KEY `id_product` (`id_product`),
-  ADD KEY `id_category` (`id_category`,`position`);
-
---
--- Indeksy dla tabeli `ps_category_shop`
---
-ALTER TABLE `ps_category_shop`
-  ADD PRIMARY KEY (`id_category`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_cms`
---
-ALTER TABLE `ps_cms`
-  ADD PRIMARY KEY (`id_cms`);
-
---
--- Indeksy dla tabeli `ps_cms_category`
---
-ALTER TABLE `ps_cms_category`
-  ADD PRIMARY KEY (`id_cms_category`),
-  ADD KEY `category_parent` (`id_parent`);
-
---
--- Indeksy dla tabeli `ps_cms_category_lang`
---
-ALTER TABLE `ps_cms_category_lang`
-  ADD PRIMARY KEY (`id_cms_category`,`id_shop`,`id_lang`),
-  ADD KEY `category_name` (`name`);
-
---
--- Indeksy dla tabeli `ps_cms_category_shop`
---
-ALTER TABLE `ps_cms_category_shop`
-  ADD PRIMARY KEY (`id_cms_category`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_cms_lang`
---
-ALTER TABLE `ps_cms_lang`
-  ADD PRIMARY KEY (`id_cms`,`id_shop`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_cms_role`
---
-ALTER TABLE `ps_cms_role`
-  ADD PRIMARY KEY (`id_cms_role`,`id_cms`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- Indeksy dla tabeli `ps_cms_role_lang`
---
-ALTER TABLE `ps_cms_role_lang`
-  ADD PRIMARY KEY (`id_cms_role`,`id_lang`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_cms_shop`
---
-ALTER TABLE `ps_cms_shop`
-  ADD PRIMARY KEY (`id_cms`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_configuration`
---
-ALTER TABLE `ps_configuration`
-  ADD PRIMARY KEY (`id_configuration`),
-  ADD KEY `name` (`name`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_shop_group` (`id_shop_group`);
-
---
--- Indeksy dla tabeli `ps_configuration_kpi`
---
-ALTER TABLE `ps_configuration_kpi`
-  ADD PRIMARY KEY (`id_configuration_kpi`),
-  ADD KEY `name` (`name`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_shop_group` (`id_shop_group`);
-
---
--- Indeksy dla tabeli `ps_configuration_kpi_lang`
---
-ALTER TABLE `ps_configuration_kpi_lang`
-  ADD PRIMARY KEY (`id_configuration_kpi`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_configuration_lang`
---
-ALTER TABLE `ps_configuration_lang`
-  ADD PRIMARY KEY (`id_configuration`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_connections`
---
-ALTER TABLE `ps_connections`
-  ADD PRIMARY KEY (`id_connections`),
-  ADD KEY `id_guest` (`id_guest`),
-  ADD KEY `date_add` (`date_add`),
-  ADD KEY `id_page` (`id_page`);
-
---
--- Indeksy dla tabeli `ps_connections_page`
---
-ALTER TABLE `ps_connections_page`
-  ADD PRIMARY KEY (`id_connections`,`id_page`,`time_start`);
-
---
--- Indeksy dla tabeli `ps_connections_source`
---
-ALTER TABLE `ps_connections_source`
-  ADD PRIMARY KEY (`id_connections_source`),
-  ADD KEY `connections` (`id_connections`),
-  ADD KEY `orderby` (`date_add`),
-  ADD KEY `http_referer` (`http_referer`),
-  ADD KEY `request_uri` (`request_uri`);
-
---
--- Indeksy dla tabeli `ps_contact`
---
-ALTER TABLE `ps_contact`
-  ADD PRIMARY KEY (`id_contact`);
-
---
--- Indeksy dla tabeli `ps_contact_lang`
---
-ALTER TABLE `ps_contact_lang`
-  ADD PRIMARY KEY (`id_contact`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_contact_shop`
---
-ALTER TABLE `ps_contact_shop`
-  ADD PRIMARY KEY (`id_contact`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_country`
---
-ALTER TABLE `ps_country`
-  ADD PRIMARY KEY (`id_country`),
-  ADD KEY `country_iso_code` (`iso_code`),
-  ADD KEY `country_` (`id_zone`);
-
---
--- Indeksy dla tabeli `ps_country_lang`
---
-ALTER TABLE `ps_country_lang`
-  ADD PRIMARY KEY (`id_country`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_country_shop`
---
-ALTER TABLE `ps_country_shop`
-  ADD PRIMARY KEY (`id_country`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_currency`
---
-ALTER TABLE `ps_currency`
-  ADD PRIMARY KEY (`id_currency`),
-  ADD KEY `currency_iso_code` (`iso_code`);
-
---
--- Indeksy dla tabeli `ps_currency_lang`
---
-ALTER TABLE `ps_currency_lang`
-  ADD PRIMARY KEY (`id_currency`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_currency_shop`
---
-ALTER TABLE `ps_currency_shop`
-  ADD PRIMARY KEY (`id_currency`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_customer`
---
-ALTER TABLE `ps_customer`
-  ADD PRIMARY KEY (`id_customer`),
-  ADD KEY `customer_email` (`email`),
-  ADD KEY `customer_login` (`email`,`passwd`),
-  ADD KEY `id_customer_passwd` (`id_customer`,`passwd`),
-  ADD KEY `id_gender` (`id_gender`),
-  ADD KEY `id_shop_group` (`id_shop_group`),
-  ADD KEY `id_shop` (`id_shop`,`date_add`);
-
---
--- Indeksy dla tabeli `ps_customer_group`
---
-ALTER TABLE `ps_customer_group`
-  ADD PRIMARY KEY (`id_customer`,`id_group`),
-  ADD KEY `customer_login` (`id_group`),
-  ADD KEY `id_customer` (`id_customer`);
-
---
--- Indeksy dla tabeli `ps_customer_message`
---
-ALTER TABLE `ps_customer_message`
-  ADD PRIMARY KEY (`id_customer_message`),
-  ADD KEY `id_customer_thread` (`id_customer_thread`),
-  ADD KEY `id_employee` (`id_employee`);
-
---
--- Indeksy dla tabeli `ps_customer_message_sync_imap`
---
-ALTER TABLE `ps_customer_message_sync_imap`
-  ADD KEY `md5_header_index` (`md5_header`(4));
-
---
--- Indeksy dla tabeli `ps_customer_session`
---
-ALTER TABLE `ps_customer_session`
-  ADD PRIMARY KEY (`id_customer_session`);
-
---
--- Indeksy dla tabeli `ps_customer_thread`
---
-ALTER TABLE `ps_customer_thread`
-  ADD PRIMARY KEY (`id_customer_thread`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_lang` (`id_lang`),
-  ADD KEY `id_contact` (`id_contact`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_order` (`id_order`),
-  ADD KEY `id_product` (`id_product`);
-
---
--- Indeksy dla tabeli `ps_customization`
---
-ALTER TABLE `ps_customization`
-  ADD PRIMARY KEY (`id_customization`,`id_cart`,`id_product`,`id_address_delivery`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`),
-  ADD KEY `id_cart_product` (`id_cart`,`id_product`,`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_customization_field`
---
-ALTER TABLE `ps_customization_field`
-  ADD PRIMARY KEY (`id_customization_field`),
-  ADD KEY `id_product` (`id_product`);
-
---
--- Indeksy dla tabeli `ps_customization_field_lang`
---
-ALTER TABLE `ps_customization_field_lang`
-  ADD PRIMARY KEY (`id_customization_field`,`id_lang`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_customized_data`
---
-ALTER TABLE `ps_customized_data`
-  ADD PRIMARY KEY (`id_customization`,`type`,`index`);
-
---
--- Indeksy dla tabeli `ps_date_range`
---
-ALTER TABLE `ps_date_range`
-  ADD PRIMARY KEY (`id_date_range`);
-
---
--- Indeksy dla tabeli `ps_delivery`
---
-ALTER TABLE `ps_delivery`
-  ADD PRIMARY KEY (`id_delivery`),
-  ADD KEY `id_zone` (`id_zone`),
-  ADD KEY `id_carrier` (`id_carrier`,`id_zone`),
-  ADD KEY `id_range_price` (`id_range_price`),
-  ADD KEY `id_range_weight` (`id_range_weight`);
-
---
--- Indeksy dla tabeli `ps_emailsubscription`
---
-ALTER TABLE `ps_emailsubscription`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeksy dla tabeli `ps_employee`
---
-ALTER TABLE `ps_employee`
-  ADD PRIMARY KEY (`id_employee`),
-  ADD KEY `employee_login` (`email`,`passwd`),
-  ADD KEY `id_employee_passwd` (`id_employee`,`passwd`),
-  ADD KEY `id_profile` (`id_profile`);
-
---
--- Indeksy dla tabeli `ps_employee_session`
---
-ALTER TABLE `ps_employee_session`
-  ADD PRIMARY KEY (`id_employee_session`);
-
---
--- Indeksy dla tabeli `ps_employee_shop`
---
-ALTER TABLE `ps_employee_shop`
-  ADD PRIMARY KEY (`id_employee`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_fb_category_match`
---
-ALTER TABLE `ps_fb_category_match`
-  ADD PRIMARY KEY (`id_category`,`id_shop`),
-  ADD KEY `id_category` (`id_category`,`google_category_id`);
-
---
--- Indeksy dla tabeli `ps_feature`
---
-ALTER TABLE `ps_feature`
-  ADD PRIMARY KEY (`id_feature`);
-
---
--- Indeksy dla tabeli `ps_feature_flag`
---
-ALTER TABLE `ps_feature_flag`
-  ADD PRIMARY KEY (`id_feature_flag`),
-  ADD UNIQUE KEY `UNIQ_91700F175E237E06` (`name`);
-
---
--- Indeksy dla tabeli `ps_feature_lang`
---
-ALTER TABLE `ps_feature_lang`
-  ADD PRIMARY KEY (`id_feature`,`id_lang`),
-  ADD KEY `id_lang` (`id_lang`,`name`);
-
---
--- Indeksy dla tabeli `ps_feature_product`
---
-ALTER TABLE `ps_feature_product`
-  ADD PRIMARY KEY (`id_feature`,`id_product`,`id_feature_value`),
-  ADD KEY `id_feature_value` (`id_feature_value`),
-  ADD KEY `id_product` (`id_product`);
-
---
--- Indeksy dla tabeli `ps_feature_shop`
---
-ALTER TABLE `ps_feature_shop`
-  ADD PRIMARY KEY (`id_feature`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_feature_value`
---
-ALTER TABLE `ps_feature_value`
-  ADD PRIMARY KEY (`id_feature_value`),
-  ADD KEY `feature` (`id_feature`);
-
---
--- Indeksy dla tabeli `ps_feature_value_lang`
---
-ALTER TABLE `ps_feature_value_lang`
-  ADD PRIMARY KEY (`id_feature_value`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_gender`
---
-ALTER TABLE `ps_gender`
-  ADD PRIMARY KEY (`id_gender`);
-
---
--- Indeksy dla tabeli `ps_gender_lang`
---
-ALTER TABLE `ps_gender_lang`
-  ADD PRIMARY KEY (`id_gender`,`id_lang`),
-  ADD KEY `id_gender` (`id_gender`);
-
---
--- Indeksy dla tabeli `ps_group`
---
-ALTER TABLE `ps_group`
-  ADD PRIMARY KEY (`id_group`);
-
---
--- Indeksy dla tabeli `ps_group_lang`
---
-ALTER TABLE `ps_group_lang`
-  ADD PRIMARY KEY (`id_group`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_group_reduction`
---
-ALTER TABLE `ps_group_reduction`
-  ADD PRIMARY KEY (`id_group_reduction`),
-  ADD UNIQUE KEY `id_group` (`id_group`,`id_category`);
-
---
--- Indeksy dla tabeli `ps_group_shop`
---
-ALTER TABLE `ps_group_shop`
-  ADD PRIMARY KEY (`id_group`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_guest`
---
-ALTER TABLE `ps_guest`
-  ADD PRIMARY KEY (`id_guest`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_operating_system` (`id_operating_system`),
-  ADD KEY `id_web_browser` (`id_web_browser`);
-
---
--- Indeksy dla tabeli `ps_homeslider`
---
-ALTER TABLE `ps_homeslider`
-  ADD PRIMARY KEY (`id_homeslider_slides`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_homeslider_slides`
---
-ALTER TABLE `ps_homeslider_slides`
-  ADD PRIMARY KEY (`id_homeslider_slides`);
-
---
--- Indeksy dla tabeli `ps_homeslider_slides_lang`
---
-ALTER TABLE `ps_homeslider_slides_lang`
-  ADD PRIMARY KEY (`id_homeslider_slides`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_hook`
---
-ALTER TABLE `ps_hook`
-  ADD PRIMARY KEY (`id_hook`),
-  ADD UNIQUE KEY `hook_name` (`name`);
-
---
--- Indeksy dla tabeli `ps_hook_alias`
---
-ALTER TABLE `ps_hook_alias`
-  ADD PRIMARY KEY (`id_hook_alias`),
-  ADD UNIQUE KEY `alias` (`alias`);
-
---
--- Indeksy dla tabeli `ps_hook_module`
---
-ALTER TABLE `ps_hook_module`
-  ADD PRIMARY KEY (`id_module`,`id_hook`,`id_shop`),
-  ADD KEY `id_hook` (`id_hook`),
-  ADD KEY `id_module` (`id_module`),
-  ADD KEY `position` (`id_shop`,`position`);
-
---
--- Indeksy dla tabeli `ps_hook_module_exceptions`
---
-ALTER TABLE `ps_hook_module_exceptions`
-  ADD PRIMARY KEY (`id_hook_module_exceptions`),
-  ADD KEY `id_module` (`id_module`),
-  ADD KEY `id_hook` (`id_hook`);
-
---
--- Indeksy dla tabeli `ps_image`
---
-ALTER TABLE `ps_image`
-  ADD PRIMARY KEY (`id_image`),
-  ADD UNIQUE KEY `id_product_cover` (`id_product`,`cover`),
-  ADD UNIQUE KEY `idx_product_image` (`id_image`,`id_product`,`cover`),
-  ADD KEY `image_product` (`id_product`);
-
---
--- Indeksy dla tabeli `ps_image_lang`
---
-ALTER TABLE `ps_image_lang`
-  ADD PRIMARY KEY (`id_image`,`id_lang`),
-  ADD KEY `id_image` (`id_image`);
-
---
--- Indeksy dla tabeli `ps_image_shop`
---
-ALTER TABLE `ps_image_shop`
-  ADD PRIMARY KEY (`id_image`,`id_shop`),
-  ADD UNIQUE KEY `id_product` (`id_product`,`id_shop`,`cover`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_image_type`
---
-ALTER TABLE `ps_image_type`
-  ADD PRIMARY KEY (`id_image_type`),
-  ADD KEY `image_type_name` (`name`);
-
---
--- Indeksy dla tabeli `ps_import_match`
---
-ALTER TABLE `ps_import_match`
-  ADD PRIMARY KEY (`id_import_match`);
-
---
--- Indeksy dla tabeli `ps_info`
---
-ALTER TABLE `ps_info`
-  ADD PRIMARY KEY (`id_info`);
-
---
--- Indeksy dla tabeli `ps_info_lang`
---
-ALTER TABLE `ps_info_lang`
-  ADD PRIMARY KEY (`id_info`,`id_lang`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_info_shop`
---
-ALTER TABLE `ps_info_shop`
-  ADD PRIMARY KEY (`id_info`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_lang`
---
-ALTER TABLE `ps_lang`
-  ADD PRIMARY KEY (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_lang_shop`
---
-ALTER TABLE `ps_lang_shop`
-  ADD PRIMARY KEY (`id_lang`,`id_shop`),
-  ADD KEY `IDX_2F43BFC7BA299860` (`id_lang`),
-  ADD KEY `IDX_2F43BFC7274A50A0` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_layered_category`
---
-ALTER TABLE `ps_layered_category`
-  ADD PRIMARY KEY (`id_layered_category`),
-  ADD KEY `id_category_shop` (`id_category`,`id_shop`,`type`,`id_value`,`position`),
-  ADD KEY `id_category` (`id_category`,`type`);
-
---
--- Indeksy dla tabeli `ps_layered_filter`
---
-ALTER TABLE `ps_layered_filter`
-  ADD PRIMARY KEY (`id_layered_filter`);
-
---
--- Indeksy dla tabeli `ps_layered_filter_block`
---
-ALTER TABLE `ps_layered_filter_block`
-  ADD PRIMARY KEY (`hash`);
-
---
--- Indeksy dla tabeli `ps_layered_filter_shop`
---
-ALTER TABLE `ps_layered_filter_shop`
-  ADD PRIMARY KEY (`id_layered_filter`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_attribute_group`
---
-ALTER TABLE `ps_layered_indexable_attribute_group`
-  ADD PRIMARY KEY (`id_attribute_group`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_attribute_group_lang_value`
---
-ALTER TABLE `ps_layered_indexable_attribute_group_lang_value`
-  ADD PRIMARY KEY (`id_attribute_group`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_attribute_lang_value`
---
-ALTER TABLE `ps_layered_indexable_attribute_lang_value`
-  ADD PRIMARY KEY (`id_attribute`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_feature`
---
-ALTER TABLE `ps_layered_indexable_feature`
-  ADD PRIMARY KEY (`id_feature`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_feature_lang_value`
---
-ALTER TABLE `ps_layered_indexable_feature_lang_value`
-  ADD PRIMARY KEY (`id_feature`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_layered_indexable_feature_value_lang_value`
---
-ALTER TABLE `ps_layered_indexable_feature_value_lang_value`
-  ADD PRIMARY KEY (`id_feature_value`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_layered_price_index`
---
-ALTER TABLE `ps_layered_price_index`
-  ADD PRIMARY KEY (`id_product`,`id_currency`,`id_shop`,`id_country`),
-  ADD KEY `id_currency` (`id_currency`),
-  ADD KEY `price_min` (`price_min`),
-  ADD KEY `price_max` (`price_max`);
-
---
--- Indeksy dla tabeli `ps_layered_product_attribute`
---
-ALTER TABLE `ps_layered_product_attribute`
-  ADD PRIMARY KEY (`id_attribute`,`id_product`,`id_shop`),
-  ADD UNIQUE KEY `id_attribute_group` (`id_attribute_group`,`id_attribute`,`id_product`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_linksmenutop`
---
-ALTER TABLE `ps_linksmenutop`
-  ADD PRIMARY KEY (`id_linksmenutop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_linksmenutop_lang`
---
-ALTER TABLE `ps_linksmenutop_lang`
-  ADD KEY `id_linksmenutop` (`id_linksmenutop`,`id_lang`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_link_block`
---
-ALTER TABLE `ps_link_block`
-  ADD PRIMARY KEY (`id_link_block`);
-
---
--- Indeksy dla tabeli `ps_link_block_lang`
---
-ALTER TABLE `ps_link_block_lang`
-  ADD PRIMARY KEY (`id_link_block`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_link_block_shop`
---
-ALTER TABLE `ps_link_block_shop`
-  ADD PRIMARY KEY (`id_link_block`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_log`
---
-ALTER TABLE `ps_log`
-  ADD PRIMARY KEY (`id_log`);
-
---
--- Indeksy dla tabeli `ps_mail`
---
-ALTER TABLE `ps_mail`
-  ADD PRIMARY KEY (`id_mail`),
-  ADD KEY `recipient` (`recipient`(10));
-
---
--- Indeksy dla tabeli `ps_manufacturer`
---
-ALTER TABLE `ps_manufacturer`
-  ADD PRIMARY KEY (`id_manufacturer`);
-
---
--- Indeksy dla tabeli `ps_manufacturer_lang`
---
-ALTER TABLE `ps_manufacturer_lang`
-  ADD PRIMARY KEY (`id_manufacturer`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_manufacturer_shop`
---
-ALTER TABLE `ps_manufacturer_shop`
-  ADD PRIMARY KEY (`id_manufacturer`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_memcached_servers`
---
-ALTER TABLE `ps_memcached_servers`
-  ADD PRIMARY KEY (`id_memcached_server`);
-
---
--- Indeksy dla tabeli `ps_message`
---
-ALTER TABLE `ps_message`
-  ADD PRIMARY KEY (`id_message`),
-  ADD KEY `message_order` (`id_order`),
-  ADD KEY `id_cart` (`id_cart`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_employee` (`id_employee`);
-
---
--- Indeksy dla tabeli `ps_message_readed`
---
-ALTER TABLE `ps_message_readed`
-  ADD PRIMARY KEY (`id_message`,`id_employee`);
-
---
--- Indeksy dla tabeli `ps_meta`
---
-ALTER TABLE `ps_meta`
-  ADD PRIMARY KEY (`id_meta`),
-  ADD UNIQUE KEY `page` (`page`);
-
---
--- Indeksy dla tabeli `ps_meta_lang`
---
-ALTER TABLE `ps_meta_lang`
-  ADD PRIMARY KEY (`id_meta`,`id_shop`,`id_lang`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_lang` (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_module`
---
-ALTER TABLE `ps_module`
-  ADD PRIMARY KEY (`id_module`),
-  ADD UNIQUE KEY `name_UNIQUE` (`name`),
-  ADD KEY `name` (`name`);
-
---
--- Indeksy dla tabeli `ps_module_access`
---
-ALTER TABLE `ps_module_access`
-  ADD PRIMARY KEY (`id_profile`,`id_authorization_role`);
-
---
--- Indeksy dla tabeli `ps_module_carrier`
---
-ALTER TABLE `ps_module_carrier`
-  ADD PRIMARY KEY (`id_module`,`id_shop`,`id_reference`);
-
---
--- Indeksy dla tabeli `ps_module_country`
---
-ALTER TABLE `ps_module_country`
-  ADD PRIMARY KEY (`id_module`,`id_shop`,`id_country`);
-
---
--- Indeksy dla tabeli `ps_module_currency`
---
-ALTER TABLE `ps_module_currency`
-  ADD PRIMARY KEY (`id_module`,`id_shop`,`id_currency`),
-  ADD KEY `id_module` (`id_module`);
-
---
--- Indeksy dla tabeli `ps_module_group`
---
-ALTER TABLE `ps_module_group`
-  ADD PRIMARY KEY (`id_module`,`id_shop`,`id_group`);
-
---
--- Indeksy dla tabeli `ps_module_history`
---
-ALTER TABLE `ps_module_history`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeksy dla tabeli `ps_module_preference`
---
-ALTER TABLE `ps_module_preference`
-  ADD PRIMARY KEY (`id_module_preference`),
-  ADD UNIQUE KEY `employee_module` (`id_employee`,`module`);
-
---
--- Indeksy dla tabeli `ps_module_shop`
---
-ALTER TABLE `ps_module_shop`
-  ADD PRIMARY KEY (`id_module`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_operating_system`
---
-ALTER TABLE `ps_operating_system`
-  ADD PRIMARY KEY (`id_operating_system`);
-
---
--- Indeksy dla tabeli `ps_orders`
---
-ALTER TABLE `ps_orders`
-  ADD PRIMARY KEY (`id_order`),
-  ADD KEY `reference` (`reference`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_cart` (`id_cart`),
-  ADD KEY `invoice_number` (`invoice_number`),
-  ADD KEY `id_carrier` (`id_carrier`),
-  ADD KEY `id_lang` (`id_lang`),
-  ADD KEY `id_currency` (`id_currency`),
-  ADD KEY `id_address_delivery` (`id_address_delivery`),
-  ADD KEY `id_address_invoice` (`id_address_invoice`),
-  ADD KEY `id_shop_group` (`id_shop_group`),
-  ADD KEY `current_state` (`current_state`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `date_add` (`date_add`);
-
---
--- Indeksy dla tabeli `ps_order_carrier`
---
-ALTER TABLE `ps_order_carrier`
-  ADD PRIMARY KEY (`id_order_carrier`),
-  ADD KEY `id_order` (`id_order`),
-  ADD KEY `id_carrier` (`id_carrier`),
-  ADD KEY `id_order_invoice` (`id_order_invoice`);
-
---
--- Indeksy dla tabeli `ps_order_cart_rule`
---
-ALTER TABLE `ps_order_cart_rule`
-  ADD PRIMARY KEY (`id_order_cart_rule`),
-  ADD KEY `id_order` (`id_order`),
-  ADD KEY `id_cart_rule` (`id_cart_rule`);
-
---
--- Indeksy dla tabeli `ps_order_detail`
---
-ALTER TABLE `ps_order_detail`
-  ADD PRIMARY KEY (`id_order_detail`),
-  ADD KEY `order_detail_order` (`id_order`),
-  ADD KEY `product_id` (`product_id`,`product_attribute_id`),
-  ADD KEY `product_attribute_id` (`product_attribute_id`),
-  ADD KEY `id_tax_rules_group` (`id_tax_rules_group`),
-  ADD KEY `id_order_id_order_detail` (`id_order`,`id_order_detail`);
-
---
--- Indeksy dla tabeli `ps_order_detail_tax`
---
-ALTER TABLE `ps_order_detail_tax`
-  ADD KEY `id_order_detail` (`id_order_detail`),
-  ADD KEY `id_tax` (`id_tax`);
-
---
--- Indeksy dla tabeli `ps_order_history`
---
-ALTER TABLE `ps_order_history`
-  ADD PRIMARY KEY (`id_order_history`),
-  ADD KEY `order_history_order` (`id_order`),
-  ADD KEY `id_employee` (`id_employee`),
-  ADD KEY `id_order_state` (`id_order_state`);
-
---
--- Indeksy dla tabeli `ps_order_invoice`
---
-ALTER TABLE `ps_order_invoice`
-  ADD PRIMARY KEY (`id_order_invoice`),
-  ADD KEY `id_order` (`id_order`);
-
---
--- Indeksy dla tabeli `ps_order_invoice_payment`
---
-ALTER TABLE `ps_order_invoice_payment`
-  ADD PRIMARY KEY (`id_order_invoice`,`id_order_payment`),
-  ADD KEY `order_payment` (`id_order_payment`),
-  ADD KEY `id_order` (`id_order`);
-
---
--- Indeksy dla tabeli `ps_order_invoice_tax`
---
-ALTER TABLE `ps_order_invoice_tax`
-  ADD KEY `id_tax` (`id_tax`);
-
---
--- Indeksy dla tabeli `ps_order_message`
---
-ALTER TABLE `ps_order_message`
-  ADD PRIMARY KEY (`id_order_message`);
-
---
--- Indeksy dla tabeli `ps_order_message_lang`
---
-ALTER TABLE `ps_order_message_lang`
-  ADD PRIMARY KEY (`id_order_message`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_order_payment`
---
-ALTER TABLE `ps_order_payment`
-  ADD PRIMARY KEY (`id_order_payment`),
-  ADD KEY `order_reference` (`order_reference`);
-
---
--- Indeksy dla tabeli `ps_order_return`
---
-ALTER TABLE `ps_order_return`
-  ADD PRIMARY KEY (`id_order_return`),
-  ADD KEY `order_return_customer` (`id_customer`),
-  ADD KEY `id_order` (`id_order`);
-
---
--- Indeksy dla tabeli `ps_order_return_detail`
---
-ALTER TABLE `ps_order_return_detail`
-  ADD PRIMARY KEY (`id_order_return`,`id_order_detail`,`id_customization`);
-
---
--- Indeksy dla tabeli `ps_order_return_state`
---
-ALTER TABLE `ps_order_return_state`
-  ADD PRIMARY KEY (`id_order_return_state`);
-
---
--- Indeksy dla tabeli `ps_order_return_state_lang`
---
-ALTER TABLE `ps_order_return_state_lang`
-  ADD PRIMARY KEY (`id_order_return_state`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_order_slip`
---
-ALTER TABLE `ps_order_slip`
-  ADD PRIMARY KEY (`id_order_slip`),
-  ADD KEY `order_slip_customer` (`id_customer`),
-  ADD KEY `id_order` (`id_order`);
-
---
--- Indeksy dla tabeli `ps_order_slip_detail`
---
-ALTER TABLE `ps_order_slip_detail`
-  ADD PRIMARY KEY (`id_order_slip`,`id_order_detail`);
-
---
--- Indeksy dla tabeli `ps_order_state`
---
-ALTER TABLE `ps_order_state`
-  ADD PRIMARY KEY (`id_order_state`),
-  ADD KEY `module_name` (`module_name`);
-
---
--- Indeksy dla tabeli `ps_order_state_lang`
---
-ALTER TABLE `ps_order_state_lang`
-  ADD PRIMARY KEY (`id_order_state`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_pack`
---
-ALTER TABLE `ps_pack`
-  ADD PRIMARY KEY (`id_product_pack`,`id_product_item`,`id_product_attribute_item`),
-  ADD KEY `product_item` (`id_product_item`,`id_product_attribute_item`);
-
---
--- Indeksy dla tabeli `ps_page`
---
-ALTER TABLE `ps_page`
-  ADD PRIMARY KEY (`id_page`),
-  ADD KEY `id_page_type` (`id_page_type`),
-  ADD KEY `id_object` (`id_object`);
-
---
--- Indeksy dla tabeli `ps_pagenotfound`
---
-ALTER TABLE `ps_pagenotfound`
-  ADD PRIMARY KEY (`id_pagenotfound`),
-  ADD KEY `date_add` (`date_add`);
-
---
--- Indeksy dla tabeli `ps_page_type`
---
-ALTER TABLE `ps_page_type`
-  ADD PRIMARY KEY (`id_page_type`),
-  ADD KEY `name` (`name`);
-
---
--- Indeksy dla tabeli `ps_page_viewed`
---
-ALTER TABLE `ps_page_viewed`
-  ADD PRIMARY KEY (`id_page`,`id_date_range`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_product`
---
-ALTER TABLE `ps_product`
-  ADD PRIMARY KEY (`id_product`),
-  ADD KEY `reference_idx` (`reference`),
-  ADD KEY `supplier_reference_idx` (`supplier_reference`),
-  ADD KEY `product_supplier` (`id_supplier`),
-  ADD KEY `product_manufacturer` (`id_manufacturer`,`id_product`),
-  ADD KEY `id_category_default` (`id_category_default`),
-  ADD KEY `indexed` (`indexed`),
-  ADD KEY `date_add` (`date_add`),
-  ADD KEY `state` (`state`,`date_upd`);
-
---
--- Indeksy dla tabeli `ps_product_attachment`
---
-ALTER TABLE `ps_product_attachment`
-  ADD PRIMARY KEY (`id_product`,`id_attachment`);
-
---
--- Indeksy dla tabeli `ps_product_attribute`
---
-ALTER TABLE `ps_product_attribute`
-  ADD PRIMARY KEY (`id_product_attribute`),
-  ADD UNIQUE KEY `product_default` (`id_product`,`default_on`),
-  ADD KEY `product_attribute_product` (`id_product`),
-  ADD KEY `reference` (`reference`),
-  ADD KEY `supplier_reference` (`supplier_reference`),
-  ADD KEY `id_product_id_product_attribute` (`id_product_attribute`,`id_product`);
-
---
--- Indeksy dla tabeli `ps_product_attribute_combination`
---
-ALTER TABLE `ps_product_attribute_combination`
-  ADD PRIMARY KEY (`id_attribute`,`id_product_attribute`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_product_attribute_image`
---
-ALTER TABLE `ps_product_attribute_image`
-  ADD PRIMARY KEY (`id_product_attribute`,`id_image`),
-  ADD KEY `id_image` (`id_image`);
-
---
--- Indeksy dla tabeli `ps_product_attribute_shop`
---
-ALTER TABLE `ps_product_attribute_shop`
-  ADD PRIMARY KEY (`id_product_attribute`,`id_shop`),
-  ADD UNIQUE KEY `id_product` (`id_product`,`id_shop`,`default_on`);
-
---
--- Indeksy dla tabeli `ps_product_carrier`
---
-ALTER TABLE `ps_product_carrier`
-  ADD PRIMARY KEY (`id_product`,`id_carrier_reference`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_product_comment`
---
-ALTER TABLE `ps_product_comment`
-  ADD PRIMARY KEY (`id_product_comment`),
-  ADD KEY `id_product` (`id_product`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_guest` (`id_guest`);
-
---
--- Indeksy dla tabeli `ps_product_comment_criterion`
---
-ALTER TABLE `ps_product_comment_criterion`
-  ADD PRIMARY KEY (`id_product_comment_criterion`);
-
---
--- Indeksy dla tabeli `ps_product_comment_criterion_category`
---
-ALTER TABLE `ps_product_comment_criterion_category`
-  ADD PRIMARY KEY (`id_product_comment_criterion`,`id_category`),
-  ADD KEY `id_category` (`id_category`);
-
---
--- Indeksy dla tabeli `ps_product_comment_criterion_lang`
---
-ALTER TABLE `ps_product_comment_criterion_lang`
-  ADD PRIMARY KEY (`id_product_comment_criterion`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_product_comment_criterion_product`
---
-ALTER TABLE `ps_product_comment_criterion_product`
-  ADD PRIMARY KEY (`id_product`,`id_product_comment_criterion`),
-  ADD KEY `id_product_comment_criterion` (`id_product_comment_criterion`);
-
---
--- Indeksy dla tabeli `ps_product_comment_grade`
---
-ALTER TABLE `ps_product_comment_grade`
-  ADD PRIMARY KEY (`id_product_comment`,`id_product_comment_criterion`),
-  ADD KEY `id_product_comment_criterion` (`id_product_comment_criterion`);
-
---
--- Indeksy dla tabeli `ps_product_comment_report`
---
-ALTER TABLE `ps_product_comment_report`
-  ADD PRIMARY KEY (`id_product_comment`,`id_customer`);
-
---
--- Indeksy dla tabeli `ps_product_comment_usefulness`
---
-ALTER TABLE `ps_product_comment_usefulness`
-  ADD PRIMARY KEY (`id_product_comment`,`id_customer`);
-
---
--- Indeksy dla tabeli `ps_product_country_tax`
---
-ALTER TABLE `ps_product_country_tax`
-  ADD PRIMARY KEY (`id_product`,`id_country`);
-
---
--- Indeksy dla tabeli `ps_product_download`
---
-ALTER TABLE `ps_product_download`
-  ADD PRIMARY KEY (`id_product_download`);
-
---
--- Indeksy dla tabeli `ps_product_group_reduction_cache`
---
-ALTER TABLE `ps_product_group_reduction_cache`
-  ADD PRIMARY KEY (`id_product`,`id_group`);
-
---
--- Indeksy dla tabeli `ps_product_lang`
---
-ALTER TABLE `ps_product_lang`
-  ADD PRIMARY KEY (`id_product`,`id_shop`,`id_lang`),
-  ADD KEY `id_lang` (`id_lang`),
-  ADD KEY `name` (`name`);
-
---
--- Indeksy dla tabeli `ps_product_sale`
---
-ALTER TABLE `ps_product_sale`
-  ADD PRIMARY KEY (`id_product`),
-  ADD KEY `quantity` (`quantity`);
-
---
--- Indeksy dla tabeli `ps_product_shop`
---
-ALTER TABLE `ps_product_shop`
-  ADD PRIMARY KEY (`id_product`,`id_shop`),
-  ADD KEY `id_category_default` (`id_category_default`),
-  ADD KEY `date_add` (`date_add`,`active`,`visibility`),
-  ADD KEY `indexed` (`indexed`,`active`,`id_product`);
-
---
--- Indeksy dla tabeli `ps_product_supplier`
---
-ALTER TABLE `ps_product_supplier`
-  ADD PRIMARY KEY (`id_product_supplier`),
-  ADD UNIQUE KEY `id_product` (`id_product`,`id_product_attribute`,`id_supplier`),
-  ADD KEY `id_supplier` (`id_supplier`,`id_product`);
-
---
--- Indeksy dla tabeli `ps_product_tag`
---
-ALTER TABLE `ps_product_tag`
-  ADD PRIMARY KEY (`id_product`,`id_tag`),
-  ADD KEY `id_tag` (`id_tag`),
-  ADD KEY `id_lang` (`id_lang`,`id_tag`);
-
---
--- Indeksy dla tabeli `ps_profile`
---
-ALTER TABLE `ps_profile`
-  ADD PRIMARY KEY (`id_profile`);
-
---
--- Indeksy dla tabeli `ps_profile_lang`
---
-ALTER TABLE `ps_profile_lang`
-  ADD PRIMARY KEY (`id_profile`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_pscheckout_cart`
---
-ALTER TABLE `ps_pscheckout_cart`
-  ADD PRIMARY KEY (`id_pscheckout_cart`);
-
---
--- Indeksy dla tabeli `ps_pscheckout_funding_source`
---
-ALTER TABLE `ps_pscheckout_funding_source`
-  ADD PRIMARY KEY (`name`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_pscheckout_order_matrice`
---
-ALTER TABLE `ps_pscheckout_order_matrice`
-  ADD PRIMARY KEY (`id_order_matrice`);
-
---
--- Indeksy dla tabeli `ps_psgdpr_consent`
---
-ALTER TABLE `ps_psgdpr_consent`
-  ADD PRIMARY KEY (`id_gdpr_consent`,`id_module`);
-
---
--- Indeksy dla tabeli `ps_psgdpr_consent_lang`
---
-ALTER TABLE `ps_psgdpr_consent_lang`
-  ADD PRIMARY KEY (`id_gdpr_consent`,`id_lang`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_psgdpr_log`
---
-ALTER TABLE `ps_psgdpr_log`
-  ADD PRIMARY KEY (`id_gdpr_log`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `idx_id_customer` (`id_customer`,`id_guest`,`client_name`,`id_module`,`date_add`,`date_upd`);
-
---
--- Indeksy dla tabeli `ps_psreassurance`
---
-ALTER TABLE `ps_psreassurance`
-  ADD PRIMARY KEY (`id_psreassurance`);
-
---
--- Indeksy dla tabeli `ps_psreassurance_lang`
---
-ALTER TABLE `ps_psreassurance_lang`
-  ADD PRIMARY KEY (`id_psreassurance`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_quick_access`
---
-ALTER TABLE `ps_quick_access`
-  ADD PRIMARY KEY (`id_quick_access`);
-
---
--- Indeksy dla tabeli `ps_quick_access_lang`
---
-ALTER TABLE `ps_quick_access_lang`
-  ADD PRIMARY KEY (`id_quick_access`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_range_price`
---
-ALTER TABLE `ps_range_price`
-  ADD PRIMARY KEY (`id_range_price`),
-  ADD UNIQUE KEY `id_carrier` (`id_carrier`,`delimiter1`,`delimiter2`);
-
---
--- Indeksy dla tabeli `ps_range_weight`
---
-ALTER TABLE `ps_range_weight`
-  ADD PRIMARY KEY (`id_range_weight`),
-  ADD UNIQUE KEY `id_carrier` (`id_carrier`,`delimiter1`,`delimiter2`);
-
---
--- Indeksy dla tabeli `ps_referrer`
---
-ALTER TABLE `ps_referrer`
-  ADD PRIMARY KEY (`id_referrer`);
-
---
--- Indeksy dla tabeli `ps_referrer_cache`
---
-ALTER TABLE `ps_referrer_cache`
-  ADD PRIMARY KEY (`id_connections_source`,`id_referrer`);
-
---
--- Indeksy dla tabeli `ps_referrer_shop`
---
-ALTER TABLE `ps_referrer_shop`
-  ADD PRIMARY KEY (`id_referrer`,`id_shop`);
-
---
--- Indeksy dla tabeli `ps_request_sql`
---
-ALTER TABLE `ps_request_sql`
-  ADD PRIMARY KEY (`id_request_sql`);
-
---
--- Indeksy dla tabeli `ps_required_field`
---
-ALTER TABLE `ps_required_field`
-  ADD PRIMARY KEY (`id_required_field`),
-  ADD KEY `object_name` (`object_name`);
-
---
--- Indeksy dla tabeli `ps_risk`
---
-ALTER TABLE `ps_risk`
-  ADD PRIMARY KEY (`id_risk`);
-
---
--- Indeksy dla tabeli `ps_risk_lang`
---
-ALTER TABLE `ps_risk_lang`
-  ADD PRIMARY KEY (`id_risk`,`id_lang`),
-  ADD KEY `id_risk` (`id_risk`);
-
---
--- Indeksy dla tabeli `ps_search_engine`
---
-ALTER TABLE `ps_search_engine`
-  ADD PRIMARY KEY (`id_search_engine`);
-
---
--- Indeksy dla tabeli `ps_search_index`
---
-ALTER TABLE `ps_search_index`
-  ADD PRIMARY KEY (`id_word`,`id_product`),
-  ADD KEY `id_product` (`id_product`,`weight`);
-
---
--- Indeksy dla tabeli `ps_search_word`
---
-ALTER TABLE `ps_search_word`
-  ADD PRIMARY KEY (`id_word`),
-  ADD UNIQUE KEY `id_lang` (`id_lang`,`id_shop`,`word`);
-
---
--- Indeksy dla tabeli `ps_shop`
---
-ALTER TABLE `ps_shop`
-  ADD PRIMARY KEY (`id_shop`),
-  ADD KEY `IDX_CBDFBB9EF5C9E40` (`id_shop_group`);
-
---
--- Indeksy dla tabeli `ps_shop_group`
---
-ALTER TABLE `ps_shop_group`
-  ADD PRIMARY KEY (`id_shop_group`);
-
---
--- Indeksy dla tabeli `ps_shop_url`
---
-ALTER TABLE `ps_shop_url`
-  ADD PRIMARY KEY (`id_shop_url`),
-  ADD KEY `IDX_279F19DA274A50A0` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_smarty_cache`
---
-ALTER TABLE `ps_smarty_cache`
-  ADD PRIMARY KEY (`id_smarty_cache`),
-  ADD KEY `name` (`name`),
-  ADD KEY `cache_id` (`cache_id`),
-  ADD KEY `modified` (`modified`);
-
---
--- Indeksy dla tabeli `ps_smarty_last_flush`
---
-ALTER TABLE `ps_smarty_last_flush`
-  ADD PRIMARY KEY (`type`);
-
---
--- Indeksy dla tabeli `ps_smarty_lazy_cache`
---
-ALTER TABLE `ps_smarty_lazy_cache`
-  ADD PRIMARY KEY (`template_hash`,`cache_id`,`compile_id`);
-
---
--- Indeksy dla tabeli `ps_specific_price`
---
-ALTER TABLE `ps_specific_price`
-  ADD PRIMARY KEY (`id_specific_price`),
-  ADD UNIQUE KEY `id_product_2` (`id_product`,`id_product_attribute`,`id_customer`,`id_cart`,`from`,`to`,`id_shop`,`id_shop_group`,`id_currency`,`id_country`,`id_group`,`from_quantity`,`id_specific_price_rule`),
-  ADD KEY `id_product` (`id_product`,`id_shop`,`id_currency`,`id_country`,`id_group`,`id_customer`,`from_quantity`,`from`,`to`),
-  ADD KEY `from_quantity` (`from_quantity`),
-  ADD KEY `id_specific_price_rule` (`id_specific_price_rule`),
-  ADD KEY `id_cart` (`id_cart`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `from` (`from`),
-  ADD KEY `to` (`to`);
-
---
--- Indeksy dla tabeli `ps_specific_price_priority`
---
-ALTER TABLE `ps_specific_price_priority`
-  ADD PRIMARY KEY (`id_specific_price_priority`,`id_product`),
-  ADD UNIQUE KEY `id_product` (`id_product`);
-
---
--- Indeksy dla tabeli `ps_specific_price_rule`
---
-ALTER TABLE `ps_specific_price_rule`
-  ADD PRIMARY KEY (`id_specific_price_rule`),
-  ADD KEY `id_product` (`id_shop`,`id_currency`,`id_country`,`id_group`,`from_quantity`,`from`,`to`);
-
---
--- Indeksy dla tabeli `ps_specific_price_rule_condition`
---
-ALTER TABLE `ps_specific_price_rule_condition`
-  ADD PRIMARY KEY (`id_specific_price_rule_condition`),
-  ADD KEY `id_specific_price_rule_condition_group` (`id_specific_price_rule_condition_group`);
-
---
--- Indeksy dla tabeli `ps_specific_price_rule_condition_group`
---
-ALTER TABLE `ps_specific_price_rule_condition_group`
-  ADD PRIMARY KEY (`id_specific_price_rule_condition_group`,`id_specific_price_rule`);
-
---
--- Indeksy dla tabeli `ps_state`
---
-ALTER TABLE `ps_state`
-  ADD PRIMARY KEY (`id_state`),
-  ADD KEY `id_country` (`id_country`),
-  ADD KEY `name` (`name`),
-  ADD KEY `id_zone` (`id_zone`);
-
---
--- Indeksy dla tabeli `ps_statssearch`
---
-ALTER TABLE `ps_statssearch`
-  ADD PRIMARY KEY (`id_statssearch`);
-
---
--- Indeksy dla tabeli `ps_stock`
---
-ALTER TABLE `ps_stock`
-  ADD PRIMARY KEY (`id_stock`),
-  ADD KEY `id_warehouse` (`id_warehouse`),
-  ADD KEY `id_product` (`id_product`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_stock_available`
---
-ALTER TABLE `ps_stock_available`
-  ADD PRIMARY KEY (`id_stock_available`),
-  ADD UNIQUE KEY `product_sqlstock` (`id_product`,`id_product_attribute`,`id_shop`,`id_shop_group`),
-  ADD KEY `id_shop` (`id_shop`),
-  ADD KEY `id_shop_group` (`id_shop_group`),
-  ADD KEY `id_product` (`id_product`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_stock_mvt`
---
-ALTER TABLE `ps_stock_mvt`
-  ADD PRIMARY KEY (`id_stock_mvt`),
-  ADD KEY `id_stock` (`id_stock`),
-  ADD KEY `id_stock_mvt_reason` (`id_stock_mvt_reason`);
-
---
--- Indeksy dla tabeli `ps_stock_mvt_reason`
---
-ALTER TABLE `ps_stock_mvt_reason`
-  ADD PRIMARY KEY (`id_stock_mvt_reason`);
-
---
--- Indeksy dla tabeli `ps_stock_mvt_reason_lang`
---
-ALTER TABLE `ps_stock_mvt_reason_lang`
-  ADD PRIMARY KEY (`id_stock_mvt_reason`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_store`
---
-ALTER TABLE `ps_store`
-  ADD PRIMARY KEY (`id_store`);
-
---
--- Indeksy dla tabeli `ps_store_lang`
---
-ALTER TABLE `ps_store_lang`
-  ADD PRIMARY KEY (`id_store`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_store_shop`
---
-ALTER TABLE `ps_store_shop`
-  ADD PRIMARY KEY (`id_store`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_supplier`
---
-ALTER TABLE `ps_supplier`
-  ADD PRIMARY KEY (`id_supplier`);
-
---
--- Indeksy dla tabeli `ps_supplier_lang`
---
-ALTER TABLE `ps_supplier_lang`
-  ADD PRIMARY KEY (`id_supplier`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_supplier_shop`
---
-ALTER TABLE `ps_supplier_shop`
-  ADD PRIMARY KEY (`id_supplier`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_supply_order`
---
-ALTER TABLE `ps_supply_order`
-  ADD PRIMARY KEY (`id_supply_order`),
-  ADD KEY `id_supplier` (`id_supplier`),
-  ADD KEY `id_warehouse` (`id_warehouse`),
-  ADD KEY `reference` (`reference`);
-
---
--- Indeksy dla tabeli `ps_supply_order_detail`
---
-ALTER TABLE `ps_supply_order_detail`
-  ADD PRIMARY KEY (`id_supply_order_detail`),
-  ADD KEY `id_supply_order` (`id_supply_order`,`id_product`),
-  ADD KEY `id_product_attribute` (`id_product_attribute`),
-  ADD KEY `id_product_product_attribute` (`id_product`,`id_product_attribute`);
-
---
--- Indeksy dla tabeli `ps_supply_order_history`
---
-ALTER TABLE `ps_supply_order_history`
-  ADD PRIMARY KEY (`id_supply_order_history`),
-  ADD KEY `id_supply_order` (`id_supply_order`),
-  ADD KEY `id_employee` (`id_employee`),
-  ADD KEY `id_state` (`id_state`);
-
---
--- Indeksy dla tabeli `ps_supply_order_receipt_history`
---
-ALTER TABLE `ps_supply_order_receipt_history`
-  ADD PRIMARY KEY (`id_supply_order_receipt_history`),
-  ADD KEY `id_supply_order_detail` (`id_supply_order_detail`),
-  ADD KEY `id_supply_order_state` (`id_supply_order_state`);
-
---
--- Indeksy dla tabeli `ps_supply_order_state`
---
-ALTER TABLE `ps_supply_order_state`
-  ADD PRIMARY KEY (`id_supply_order_state`);
-
---
--- Indeksy dla tabeli `ps_supply_order_state_lang`
---
-ALTER TABLE `ps_supply_order_state_lang`
-  ADD PRIMARY KEY (`id_supply_order_state`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_tab`
---
-ALTER TABLE `ps_tab`
-  ADD PRIMARY KEY (`id_tab`);
-
---
--- Indeksy dla tabeli `ps_tab_lang`
---
-ALTER TABLE `ps_tab_lang`
-  ADD PRIMARY KEY (`id_tab`,`id_lang`),
-  ADD KEY `IDX_CFD9262DED47AB56` (`id_tab`),
-  ADD KEY `IDX_CFD9262DBA299860` (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_tab_module_preference`
---
-ALTER TABLE `ps_tab_module_preference`
-  ADD PRIMARY KEY (`id_tab_module_preference`),
-  ADD UNIQUE KEY `employee_module` (`id_employee`,`id_tab`,`module`);
-
---
--- Indeksy dla tabeli `ps_tag`
---
-ALTER TABLE `ps_tag`
-  ADD PRIMARY KEY (`id_tag`),
-  ADD KEY `tag_name` (`name`),
-  ADD KEY `id_lang` (`id_lang`);
-
---
--- Indeksy dla tabeli `ps_tag_count`
---
-ALTER TABLE `ps_tag_count`
-  ADD PRIMARY KEY (`id_group`,`id_tag`),
-  ADD KEY `id_group` (`id_group`,`id_lang`,`id_shop`,`counter`);
-
---
--- Indeksy dla tabeli `ps_tax`
---
-ALTER TABLE `ps_tax`
-  ADD PRIMARY KEY (`id_tax`);
-
---
--- Indeksy dla tabeli `ps_tax_lang`
---
-ALTER TABLE `ps_tax_lang`
-  ADD PRIMARY KEY (`id_tax`,`id_lang`);
-
---
--- Indeksy dla tabeli `ps_tax_rule`
---
-ALTER TABLE `ps_tax_rule`
-  ADD PRIMARY KEY (`id_tax_rule`),
-  ADD KEY `id_tax_rules_group` (`id_tax_rules_group`),
-  ADD KEY `id_tax` (`id_tax`),
-  ADD KEY `category_getproducts` (`id_tax_rules_group`,`id_country`,`id_state`,`zipcode_from`);
-
---
--- Indeksy dla tabeli `ps_tax_rules_group`
---
-ALTER TABLE `ps_tax_rules_group`
-  ADD PRIMARY KEY (`id_tax_rules_group`);
-
---
--- Indeksy dla tabeli `ps_tax_rules_group_shop`
---
-ALTER TABLE `ps_tax_rules_group_shop`
-  ADD PRIMARY KEY (`id_tax_rules_group`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_timezone`
---
-ALTER TABLE `ps_timezone`
-  ADD PRIMARY KEY (`id_timezone`);
-
---
--- Indeksy dla tabeli `ps_translation`
---
-ALTER TABLE `ps_translation`
-  ADD PRIMARY KEY (`id_translation`),
-  ADD KEY `IDX_ADEBEB36BA299860` (`id_lang`),
-  ADD KEY `key` (`domain`);
-
---
--- Indeksy dla tabeli `ps_warehouse`
---
-ALTER TABLE `ps_warehouse`
-  ADD PRIMARY KEY (`id_warehouse`);
-
---
--- Indeksy dla tabeli `ps_warehouse_carrier`
---
-ALTER TABLE `ps_warehouse_carrier`
-  ADD PRIMARY KEY (`id_warehouse`,`id_carrier`),
-  ADD KEY `id_warehouse` (`id_warehouse`),
-  ADD KEY `id_carrier` (`id_carrier`);
-
---
--- Indeksy dla tabeli `ps_warehouse_product_location`
---
-ALTER TABLE `ps_warehouse_product_location`
-  ADD PRIMARY KEY (`id_warehouse_product_location`),
-  ADD UNIQUE KEY `id_product` (`id_product`,`id_product_attribute`,`id_warehouse`);
-
---
--- Indeksy dla tabeli `ps_warehouse_shop`
---
-ALTER TABLE `ps_warehouse_shop`
-  ADD PRIMARY KEY (`id_warehouse`,`id_shop`),
-  ADD KEY `id_warehouse` (`id_warehouse`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_webservice_account`
---
-ALTER TABLE `ps_webservice_account`
-  ADD PRIMARY KEY (`id_webservice_account`),
-  ADD KEY `key` (`key`);
-
---
--- Indeksy dla tabeli `ps_webservice_account_shop`
---
-ALTER TABLE `ps_webservice_account_shop`
-  ADD PRIMARY KEY (`id_webservice_account`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- Indeksy dla tabeli `ps_webservice_permission`
---
-ALTER TABLE `ps_webservice_permission`
-  ADD PRIMARY KEY (`id_webservice_permission`),
-  ADD UNIQUE KEY `resource_2` (`resource`,`method`,`id_webservice_account`),
-  ADD KEY `resource` (`resource`),
-  ADD KEY `method` (`method`),
-  ADD KEY `id_webservice_account` (`id_webservice_account`);
-
---
--- Indeksy dla tabeli `ps_web_browser`
---
-ALTER TABLE `ps_web_browser`
-  ADD PRIMARY KEY (`id_web_browser`);
-
---
--- Indeksy dla tabeli `ps_wishlist`
---
-ALTER TABLE `ps_wishlist`
-  ADD PRIMARY KEY (`id_wishlist`);
-
---
--- Indeksy dla tabeli `ps_wishlist_product`
---
-ALTER TABLE `ps_wishlist_product`
-  ADD PRIMARY KEY (`id_wishlist_product`);
-
---
--- Indeksy dla tabeli `ps_zone`
---
-ALTER TABLE `ps_zone`
-  ADD PRIMARY KEY (`id_zone`);
-
---
--- Indeksy dla tabeli `ps_zone_shop`
---
-ALTER TABLE `ps_zone_shop`
-  ADD PRIMARY KEY (`id_zone`,`id_shop`),
-  ADD KEY `id_shop` (`id_shop`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `ps_address`
---
-ALTER TABLE `ps_address`
-  MODIFY `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_admin_filter`
---
-ALTER TABLE `ps_admin_filter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_alias`
---
-ALTER TABLE `ps_alias`
-  MODIFY `id_alias` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_attachment`
---
-ALTER TABLE `ps_attachment`
-  MODIFY `id_attachment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_attachment_lang`
---
-ALTER TABLE `ps_attachment_lang`
-  MODIFY `id_attachment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_attribute`
---
-ALTER TABLE `ps_attribute`
-  MODIFY `id_attribute` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `ps_attribute_group`
---
-ALTER TABLE `ps_attribute_group`
-  MODIFY `id_attribute_group` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `ps_attribute_impact`
---
-ALTER TABLE `ps_attribute_impact`
-  MODIFY `id_attribute_impact` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_authorization_role`
---
-ALTER TABLE `ps_authorization_role`
-  MODIFY `id_authorization_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=849;
-
---
--- AUTO_INCREMENT for table `ps_blockwishlist_statistics`
---
-ALTER TABLE `ps_blockwishlist_statistics`
-  MODIFY `id_statistics` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_carrier`
---
-ALTER TABLE `ps_carrier`
-  MODIFY `id_carrier` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_cart`
---
-ALTER TABLE `ps_cart`
-  MODIFY `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_cart_rule`
---
-ALTER TABLE `ps_cart_rule`
-  MODIFY `id_cart_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_cart_rule_product_rule`
---
-ALTER TABLE `ps_cart_rule_product_rule`
-  MODIFY `id_product_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_cart_rule_product_rule_group`
---
-ALTER TABLE `ps_cart_rule_product_rule_group`
-  MODIFY `id_product_rule_group` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_category`
---
-ALTER TABLE `ps_category`
-  MODIFY `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `ps_cms`
---
-ALTER TABLE `ps_cms`
-  MODIFY `id_cms` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_cms_category`
---
-ALTER TABLE `ps_cms_category`
-  MODIFY `id_cms_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_cms_category_shop`
---
-ALTER TABLE `ps_cms_category_shop`
-  MODIFY `id_cms_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_cms_role`
---
-ALTER TABLE `ps_cms_role`
-  MODIFY `id_cms_role` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_configuration`
---
-ALTER TABLE `ps_configuration`
-  MODIFY `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=426;
-
---
--- AUTO_INCREMENT for table `ps_configuration_kpi`
---
-ALTER TABLE `ps_configuration_kpi`
-  MODIFY `id_configuration_kpi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
-
---
--- AUTO_INCREMENT for table `ps_connections`
---
-ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_connections_source`
---
-ALTER TABLE `ps_connections_source`
-  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `ps_contact`
---
-ALTER TABLE `ps_contact`
-  MODIFY `id_contact` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_country`
---
-ALTER TABLE `ps_country`
-  MODIFY `id_country` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=242;
-
---
--- AUTO_INCREMENT for table `ps_currency`
---
-ALTER TABLE `ps_currency`
-  MODIFY `id_currency` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_customer`
---
-ALTER TABLE `ps_customer`
-  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_customer_message`
---
-ALTER TABLE `ps_customer_message`
-  MODIFY `id_customer_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_customer_session`
---
-ALTER TABLE `ps_customer_session`
-  MODIFY `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_customer_thread`
---
-ALTER TABLE `ps_customer_thread`
-  MODIFY `id_customer_thread` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_customization`
---
-ALTER TABLE `ps_customization`
-  MODIFY `id_customization` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_customization_field`
---
-ALTER TABLE `ps_customization_field`
-  MODIFY `id_customization_field` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_date_range`
---
-ALTER TABLE `ps_date_range`
-  MODIFY `id_date_range` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_delivery`
---
-ALTER TABLE `ps_delivery`
-  MODIFY `id_delivery` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `ps_emailsubscription`
---
-ALTER TABLE `ps_emailsubscription`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_employee`
---
-ALTER TABLE `ps_employee`
-  MODIFY `id_employee` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_employee_session`
---
-ALTER TABLE `ps_employee_session`
-  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_feature`
---
-ALTER TABLE `ps_feature`
-  MODIFY `id_feature` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_feature_flag`
---
-ALTER TABLE `ps_feature_flag`
-  MODIFY `id_feature_flag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_feature_value`
---
-ALTER TABLE `ps_feature_value`
-  MODIFY `id_feature_value` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `ps_gender`
---
-ALTER TABLE `ps_gender`
-  MODIFY `id_gender` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_group`
---
-ALTER TABLE `ps_group`
-  MODIFY `id_group` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_group_reduction`
---
-ALTER TABLE `ps_group_reduction`
-  MODIFY `id_group_reduction` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_guest`
---
-ALTER TABLE `ps_guest`
-  MODIFY `id_guest` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_homeslider`
---
-ALTER TABLE `ps_homeslider`
-  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_homeslider_slides`
---
-ALTER TABLE `ps_homeslider_slides`
-  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_hook`
---
-ALTER TABLE `ps_hook`
-  MODIFY `id_hook` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=751;
-
---
--- AUTO_INCREMENT for table `ps_hook_alias`
---
-ALTER TABLE `ps_hook_alias`
-  MODIFY `id_hook_alias` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
-
---
--- AUTO_INCREMENT for table `ps_hook_module_exceptions`
---
-ALTER TABLE `ps_hook_module_exceptions`
-  MODIFY `id_hook_module_exceptions` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_image`
---
-ALTER TABLE `ps_image`
-  MODIFY `id_image` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT for table `ps_image_type`
---
-ALTER TABLE `ps_image_type`
-  MODIFY `id_image_type` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `ps_import_match`
---
-ALTER TABLE `ps_import_match`
-  MODIFY `id_import_match` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_info`
---
-ALTER TABLE `ps_info`
-  MODIFY `id_info` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_lang`
---
-ALTER TABLE `ps_lang`
-  MODIFY `id_lang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_layered_category`
---
-ALTER TABLE `ps_layered_category`
-  MODIFY `id_layered_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
-
---
--- AUTO_INCREMENT for table `ps_layered_filter`
---
-ALTER TABLE `ps_layered_filter`
-  MODIFY `id_layered_filter` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_linksmenutop`
---
-ALTER TABLE `ps_linksmenutop`
-  MODIFY `id_linksmenutop` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_link_block`
---
-ALTER TABLE `ps_link_block`
-  MODIFY `id_link_block` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_link_block_shop`
---
-ALTER TABLE `ps_link_block_shop`
-  MODIFY `id_link_block` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_log`
---
-ALTER TABLE `ps_log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
-
---
--- AUTO_INCREMENT for table `ps_mail`
---
-ALTER TABLE `ps_mail`
-  MODIFY `id_mail` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_manufacturer`
---
-ALTER TABLE `ps_manufacturer`
-  MODIFY `id_manufacturer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_memcached_servers`
---
-ALTER TABLE `ps_memcached_servers`
-  MODIFY `id_memcached_server` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_message`
---
-ALTER TABLE `ps_message`
-  MODIFY `id_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_meta`
---
-ALTER TABLE `ps_meta`
-  MODIFY `id_meta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT for table `ps_module`
---
-ALTER TABLE `ps_module`
-  MODIFY `id_module` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
-
---
--- AUTO_INCREMENT for table `ps_module_history`
---
-ALTER TABLE `ps_module_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_module_preference`
---
-ALTER TABLE `ps_module_preference`
-  MODIFY `id_module_preference` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_operating_system`
---
-ALTER TABLE `ps_operating_system`
-  MODIFY `id_operating_system` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `ps_orders`
---
-ALTER TABLE `ps_orders`
-  MODIFY `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_order_carrier`
---
-ALTER TABLE `ps_order_carrier`
-  MODIFY `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_order_cart_rule`
---
-ALTER TABLE `ps_order_cart_rule`
-  MODIFY `id_order_cart_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_order_detail`
---
-ALTER TABLE `ps_order_detail`
-  MODIFY `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `ps_order_history`
---
-ALTER TABLE `ps_order_history`
-  MODIFY `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `ps_order_invoice`
---
-ALTER TABLE `ps_order_invoice`
-  MODIFY `id_order_invoice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_order_message`
---
-ALTER TABLE `ps_order_message`
-  MODIFY `id_order_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_order_payment`
---
-ALTER TABLE `ps_order_payment`
-  MODIFY `id_order_payment` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_order_return`
---
-ALTER TABLE `ps_order_return`
-  MODIFY `id_order_return` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_order_return_state`
---
-ALTER TABLE `ps_order_return_state`
-  MODIFY `id_order_return_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_order_slip`
---
-ALTER TABLE `ps_order_slip`
-  MODIFY `id_order_slip` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_order_state`
---
-ALTER TABLE `ps_order_state`
-  MODIFY `id_order_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `ps_page`
---
-ALTER TABLE `ps_page`
-  MODIFY `id_page` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_pagenotfound`
---
-ALTER TABLE `ps_pagenotfound`
-  MODIFY `id_pagenotfound` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_page_type`
---
-ALTER TABLE `ps_page_type`
-  MODIFY `id_page_type` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_product`
---
-ALTER TABLE `ps_product`
-  MODIFY `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `ps_product_attribute`
---
-ALTER TABLE `ps_product_attribute`
-  MODIFY `id_product_attribute` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT for table `ps_product_comment`
---
-ALTER TABLE `ps_product_comment`
-  MODIFY `id_product_comment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_product_comment_criterion`
---
-ALTER TABLE `ps_product_comment_criterion`
-  MODIFY `id_product_comment_criterion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_product_download`
---
-ALTER TABLE `ps_product_download`
-  MODIFY `id_product_download` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_product_supplier`
---
-ALTER TABLE `ps_product_supplier`
-  MODIFY `id_product_supplier` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
-
---
--- AUTO_INCREMENT for table `ps_profile`
---
-ALTER TABLE `ps_profile`
-  MODIFY `id_profile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `ps_pscheckout_cart`
---
-ALTER TABLE `ps_pscheckout_cart`
-  MODIFY `id_pscheckout_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_pscheckout_order_matrice`
---
-ALTER TABLE `ps_pscheckout_order_matrice`
-  MODIFY `id_order_matrice` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_psgdpr_consent`
---
-ALTER TABLE `ps_psgdpr_consent`
-  MODIFY `id_gdpr_consent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_psgdpr_consent_lang`
---
-ALTER TABLE `ps_psgdpr_consent_lang`
-  MODIFY `id_gdpr_consent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_psgdpr_log`
---
-ALTER TABLE `ps_psgdpr_log`
-  MODIFY `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_psreassurance`
---
-ALTER TABLE `ps_psreassurance`
-  MODIFY `id_psreassurance` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ps_quick_access`
---
-ALTER TABLE `ps_quick_access`
-  MODIFY `id_quick_access` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_range_price`
---
-ALTER TABLE `ps_range_price`
-  MODIFY `id_range_price` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `ps_range_weight`
---
-ALTER TABLE `ps_range_weight`
-  MODIFY `id_range_weight` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_referrer`
---
-ALTER TABLE `ps_referrer`
-  MODIFY `id_referrer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_referrer_shop`
---
-ALTER TABLE `ps_referrer_shop`
-  MODIFY `id_referrer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_request_sql`
---
-ALTER TABLE `ps_request_sql`
-  MODIFY `id_request_sql` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_required_field`
---
-ALTER TABLE `ps_required_field`
-  MODIFY `id_required_field` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_risk`
---
-ALTER TABLE `ps_risk`
-  MODIFY `id_risk` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `ps_search_engine`
---
-ALTER TABLE `ps_search_engine`
-  MODIFY `id_search_engine` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
--- AUTO_INCREMENT for table `ps_search_word`
---
-ALTER TABLE `ps_search_word`
-  MODIFY `id_word` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1340;
-
---
--- AUTO_INCREMENT for table `ps_shop`
---
-ALTER TABLE `ps_shop`
-  MODIFY `id_shop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_shop_group`
---
-ALTER TABLE `ps_shop_group`
-  MODIFY `id_shop_group` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_shop_url`
---
-ALTER TABLE `ps_shop_url`
-  MODIFY `id_shop_url` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_specific_price`
---
-ALTER TABLE `ps_specific_price`
-  MODIFY `id_specific_price` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_specific_price_priority`
---
-ALTER TABLE `ps_specific_price_priority`
-  MODIFY `id_specific_price_priority` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_specific_price_rule`
---
-ALTER TABLE `ps_specific_price_rule`
-  MODIFY `id_specific_price_rule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_specific_price_rule_condition`
---
-ALTER TABLE `ps_specific_price_rule_condition`
-  MODIFY `id_specific_price_rule_condition` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_specific_price_rule_condition_group`
---
-ALTER TABLE `ps_specific_price_rule_condition_group`
-  MODIFY `id_specific_price_rule_condition_group` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_state`
---
-ALTER TABLE `ps_state`
-  MODIFY `id_state` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=353;
-
---
--- AUTO_INCREMENT for table `ps_statssearch`
---
-ALTER TABLE `ps_statssearch`
-  MODIFY `id_statssearch` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_stock`
---
-ALTER TABLE `ps_stock`
-  MODIFY `id_stock` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_stock_available`
---
-ALTER TABLE `ps_stock_available`
-  MODIFY `id_stock_available` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
-
---
--- AUTO_INCREMENT for table `ps_stock_mvt`
---
-ALTER TABLE `ps_stock_mvt`
-  MODIFY `id_stock_mvt` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ps_stock_mvt_reason`
---
-ALTER TABLE `ps_stock_mvt_reason`
-  MODIFY `id_stock_mvt_reason` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `ps_store`
---
-ALTER TABLE `ps_store`
-  MODIFY `id_store` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_supplier`
---
-ALTER TABLE `ps_supplier`
-  MODIFY `id_supplier` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `ps_supply_order`
---
-ALTER TABLE `ps_supply_order`
-  MODIFY `id_supply_order` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_supply_order_detail`
---
-ALTER TABLE `ps_supply_order_detail`
-  MODIFY `id_supply_order_detail` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_supply_order_history`
---
-ALTER TABLE `ps_supply_order_history`
-  MODIFY `id_supply_order_history` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_supply_order_receipt_history`
---
-ALTER TABLE `ps_supply_order_receipt_history`
-  MODIFY `id_supply_order_receipt_history` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_supply_order_state`
---
-ALTER TABLE `ps_supply_order_state`
-  MODIFY `id_supply_order_state` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ps_tab`
---
-ALTER TABLE `ps_tab`
-  MODIFY `id_tab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
-
---
--- AUTO_INCREMENT for table `ps_tab_module_preference`
---
-ALTER TABLE `ps_tab_module_preference`
-  MODIFY `id_tab_module_preference` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_tag`
---
-ALTER TABLE `ps_tag`
-  MODIFY `id_tag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_tax`
---
-ALTER TABLE `ps_tax`
-  MODIFY `id_tax` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT for table `ps_tax_rule`
---
-ALTER TABLE `ps_tax_rule`
-  MODIFY `id_tax_rule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
-
---
--- AUTO_INCREMENT for table `ps_tax_rules_group`
---
-ALTER TABLE `ps_tax_rules_group`
-  MODIFY `id_tax_rules_group` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ps_timezone`
---
-ALTER TABLE `ps_timezone`
-  MODIFY `id_timezone` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=561;
-
---
--- AUTO_INCREMENT for table `ps_translation`
---
-ALTER TABLE `ps_translation`
-  MODIFY `id_translation` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_warehouse`
---
-ALTER TABLE `ps_warehouse`
-  MODIFY `id_warehouse` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_warehouse_product_location`
---
-ALTER TABLE `ps_warehouse_product_location`
-  MODIFY `id_warehouse_product_location` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_webservice_account`
---
-ALTER TABLE `ps_webservice_account`
-  MODIFY `id_webservice_account` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_webservice_permission`
---
-ALTER TABLE `ps_webservice_permission`
-  MODIFY `id_webservice_permission` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_web_browser`
---
-ALTER TABLE `ps_web_browser`
-  MODIFY `id_web_browser` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `ps_wishlist`
---
-ALTER TABLE `ps_wishlist`
-  MODIFY `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_wishlist_product`
---
-ALTER TABLE `ps_wishlist_product`
-  MODIFY `id_wishlist_product` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ps_zone`
---
-ALTER TABLE `ps_zone`
-  MODIFY `id_zone` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
