@@ -7,16 +7,19 @@ services:
       MYSQL_DATABASE: prestashop
     volumes:
       - ./dbquery:/docker-entrypoint-initdb.d/
-      - mariadb:/var/lib/mysql 
+      - mariadb:/var/lib/mysql
     networks:
       - prestashop_network
-  
+
   prestashop:
     container_name: prestashop
     image: prestashop/prestashop:1.7.8
     restart: unless-stopped
-    volumes:  
+    volumes:
       - ../src:/var/www/html
+      - ./ssl/server.crt:/etc/ssl/certs/server.crt
+      - ./ssl/server.key:/etc/ssl/private/server.key
+      - ./ssl/000-default.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - mariadb
     ports:
@@ -34,7 +37,7 @@ services:
       PS_COUNTRY: pl
     networks:
       - prestashop_network
-  
+
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
