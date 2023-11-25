@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-10-14 10:14:40
+/* Smarty version 3.1.48, created on 2023-11-25 17:23:32
   from '/var/www/html/modules/ps_faviconnotificationbo/views/templates/hook/displayBackOfficeHeader.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_652a4df0ef3483_44856524',
+  'unifunc' => 'content_65621f84df1c14_92190919',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6ecfb5ecaea778abcc74842191dcfd6fdcfc2ab3' => 
     array (
       0 => '/var/www/html/modules/ps_faviconnotificationbo/views/templates/hook/displayBackOfficeHeader.tpl',
-      1 => 1675435644,
+      1 => 1700922024,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_652a4df0ef3483_44856524 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65621f84df1c14_92190919 (Smarty_Internal_Template $_smarty_tpl) {
 echo '<script'; ?>
 >
   if (undefined !== ps_faviconnotificationbo) {

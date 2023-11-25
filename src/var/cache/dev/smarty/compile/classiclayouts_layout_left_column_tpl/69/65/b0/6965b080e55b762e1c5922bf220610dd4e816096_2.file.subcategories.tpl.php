@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-24 19:37:15
+/* Smarty version 3.1.48, created on 2023-11-25 16:43:27
   from '/var/www/html/themes/classic/templates/catalog/_partials/subcategories.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6560ed5b4ea1e9_81188280',
+  'unifunc' => 'content_6562161f43dda8_72835715',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6965b080e55b762e1c5922bf220610dd4e816096' => 
     array (
       0 => '/var/www/html/themes/classic/templates/catalog/_partials/subcategories.tpl',
-      1 => 1700850319,
+      1 => 1700922025,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6560ed5b4ea1e9_81188280 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6562161f43dda8_72835715 (Smarty_Internal_Template $_smarty_tpl) {
 if (!empty($_smarty_tpl->tpl_vars['subcategories']->value)) {?>
   <?php if (((isset($_smarty_tpl->tpl_vars['display_subcategories']->value)) && $_smarty_tpl->tpl_vars['display_subcategories']->value == 1) || !(isset($_smarty_tpl->tpl_vars['display_subcategories']->value))) {?>
     <div id="subcategories" class="card card-block">
