@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 24, 2023 at 07:21 PM
+-- Generation Time: Lis 25, 2023 at 04:28 PM
 -- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
 -- Wersja PHP: 8.2.8
 
@@ -2537,7 +2537,7 @@ INSERT INTO `ps_cart` (`id_cart`, `id_shop_group`, `id_shop`, `id_carrier`, `del
 (3, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (4, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (5, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
-(6, 1, 1, 0, '', 2, 0, 0, 1, 0, 4, '', 0, 0, '', 0, 0, '2023-11-24 20:15:03', '2023-11-24 20:15:03', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-addresses-step\":{\"step_is_reachable\":false,\"step_is_complete\":false,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"2c9a4efb780280dc34311393ee5fbcfca6cd6acc\"}');
+(6, 1, 1, 0, '', 2, 0, 0, 1, 0, 4, '', 0, 0, '', 0, 0, '2023-11-24 20:15:03', '2023-11-25 16:40:06', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-addresses-step\":{\"step_is_reachable\":false,\"step_is_complete\":false,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"2c9a4efb780280dc34311393ee5fbcfca6cd6acc\"}');
 
 -- --------------------------------------------------------
 
@@ -2579,7 +2579,7 @@ INSERT INTO `ps_cart_product` (`id_cart`, `id_product`, `id_address_delivery`, `
 (3, 16, 3, 1, 28, 0, 1, '0000-00-00 00:00:00'),
 (4, 16, 3, 1, 29, 0, 1, '0000-00-00 00:00:00'),
 (5, 10, 3, 1, 25, 0, 1, '0000-00-00 00:00:00'),
-(6, 3, 0, 1, 13, 0, 1, '2023-11-24 20:15:03');
+(6, 3, 0, 1, 13, 0, 2, '2023-11-24 20:15:03');
 
 -- --------------------------------------------------------
 
@@ -3233,11 +3233,11 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (84, NULL, NULL, 'PS_STOCK_MVT_REASON_DEFAULT', '3', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (85, NULL, NULL, 'PS_SPECIFIC_PRICE_PRIORITIES', 'id_shop;id_currency;id_country;id_group', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (86, NULL, NULL, 'PS_TAX_DISPLAY', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(87, NULL, NULL, 'PS_SMARTY_FORCE_COMPILE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(87, NULL, NULL, 'PS_SMARTY_FORCE_COMPILE', '2', '0000-00-00 00:00:00', '2023-11-25 15:48:21'),
 (88, NULL, NULL, 'PS_DISTANCE_UNIT', 'km', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (89, NULL, NULL, 'PS_STORES_DISPLAY_CMS', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(90, NULL, NULL, 'SHOP_LOGO_WIDTH', '100', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
-(91, NULL, NULL, 'SHOP_LOGO_HEIGHT', '28', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
+(90, NULL, NULL, 'SHOP_LOGO_WIDTH', '500', '0000-00-00 00:00:00', '2023-11-25 15:25:32'),
+(91, NULL, NULL, 'SHOP_LOGO_HEIGHT', '148', '0000-00-00 00:00:00', '2023-11-25 15:25:32'),
 (92, NULL, NULL, 'EDITORIAL_IMAGE_WIDTH', '530', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (93, NULL, NULL, 'EDITORIAL_IMAGE_HEIGHT', '228', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (94, NULL, NULL, 'PS_STATSDATA_CUSTOMER_PAGESVIEWS', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3249,7 +3249,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (100, NULL, NULL, 'PS_LOCALE_LANGUAGE', 'en', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
 (101, NULL, NULL, 'PS_LOCALE_COUNTRY', 'pl', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
 (102, NULL, NULL, 'PS_ATTACHMENT_MAXIMUM_SIZE', '8', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(103, NULL, NULL, 'PS_SMARTY_CACHE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(103, NULL, NULL, 'PS_SMARTY_CACHE', NULL, '0000-00-00 00:00:00', '2023-11-25 15:48:21'),
 (104, NULL, NULL, 'PS_DIMENSION_UNIT', 'cm', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (105, NULL, NULL, 'PS_GUEST_CHECKOUT_ENABLED', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (106, NULL, NULL, 'PS_DISPLAY_SUPPLIERS', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3262,7 +3262,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (113, NULL, NULL, 'PS_COOKIE_SAMESITE', 'Lax', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (114, NULL, NULL, 'PS_USE_ECOTAX', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (115, NULL, NULL, 'PS_CANONICAL_REDIRECT', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(116, NULL, NULL, 'PS_IMG_UPDATE_TIME', '1324977642', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(116, NULL, NULL, 'PS_IMG_UPDATE_TIME', '1700922332', '0000-00-00 00:00:00', '2023-11-25 15:25:32'),
 (117, NULL, NULL, 'PS_BACKUP_DROP_TABLE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (118, NULL, NULL, 'PS_OS_CHEQUE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (119, NULL, NULL, 'PS_OS_PAYMENT', '2', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3386,7 +3386,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (237, NULL, NULL, 'PS_SHOP_EMAIL', 's188843@student.pg.edu.pl', '0000-00-00 00:00:00', '2023-10-14 10:10:43'),
 (238, NULL, NULL, 'PS_MAIL_METHOD', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (239, NULL, NULL, 'PS_SHOP_ACTIVITY', '0', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
-(240, NULL, NULL, 'PS_LOGO', 'logo.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(240, NULL, NULL, 'PS_LOGO', 'logo-1700922332.jpg', '0000-00-00 00:00:00', '2023-11-25 15:25:32'),
 (241, NULL, NULL, 'PS_FAVICON', 'favicon.ico', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (242, NULL, NULL, 'PS_STORES_ICON', 'logo_stores.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (243, NULL, NULL, 'PS_ROOT_CATEGORY', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3412,7 +3412,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (263, NULL, NULL, 'PS_DASHBOARD_SIMULATION', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (264, NULL, NULL, 'PS_USE_HTMLPURIFIER', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (265, NULL, NULL, 'PS_SMARTY_CACHING_TYPE', 'filesystem', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(266, NULL, NULL, 'PS_SMARTY_LOCAL', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(266, NULL, NULL, 'PS_SMARTY_LOCAL', NULL, '0000-00-00 00:00:00', '2023-11-25 15:48:21'),
 (267, NULL, NULL, 'PS_SMARTY_CLEAR_CACHE', 'everytime', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (268, NULL, NULL, 'PS_DETECT_LANG', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (269, NULL, NULL, 'PS_DETECT_COUNTRY', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -3507,7 +3507,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (367, NULL, NULL, 'PSGDPR_CUSTOMER_FORM', NULL, '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
 (368, NULL, NULL, 'PSGDPR_ANONYMOUS_CUSTOMER', '1', '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
 (369, NULL, NULL, 'PSGDPR_ANONYMOUS_ADDRESS', '1', '2023-10-14 10:11:16', '2023-10-14 10:11:16'),
-(370, NULL, NULL, 'PS_MBO_SHOP_ADMIN_UUID', '3c3e0299-56e2-4592-a37e-21a3b4bb4a85', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
+(370, NULL, NULL, 'PS_MBO_SHOP_ADMIN_UUID', '7fd89900-20b0-49cf-b16f-697a2efe7bf1', '2023-10-14 10:11:17', '2023-11-25 15:25:41'),
 (371, NULL, NULL, 'CONF_PS_CHECKOUT_FIXED', '0.2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
 (372, NULL, NULL, 'CONF_PS_CHECKOUT_VAR', '2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
 (373, NULL, NULL, 'CONF_PS_CHECKOUT_FIXED_FOREIGN', '0.2', '2023-10-14 10:11:17', '2023-10-14 10:11:17'),
@@ -3724,7 +3724,9 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (1, 1, 1, 1, 1, 2130706433, '2023-10-14 10:11:36', 'https://www.prestashop.com'),
 (2, 1, 1, 3, 1, 2887122945, '2023-10-14 10:18:10', 'http://127.0.0.1:8080/install/index.php'),
 (3, 1, 1, 3, 1, 2887188481, '2023-10-16 16:26:18', ''),
-(4, 1, 1, 3, 1, 2887188481, '2023-10-20 14:29:38', '');
+(4, 1, 1, 3, 1, 2887188481, '2023-10-20 14:29:38', ''),
+(5, 1, 1, 4, 1, 2886991873, '2023-11-25 15:24:07', ''),
+(6, 1, 1, 4, 1, 2886991873, '2023-11-25 15:55:24', '');
 
 -- --------------------------------------------------------
 
@@ -3772,7 +3774,60 @@ INSERT INTO `ps_connections_source` (`id_connections_source`, `id_connections`, 
 (11, 5, 'http://127.0.0.1:8080/index.php?id_category=6&controller=category&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-24 20:12:08'),
 (12, 5, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-24 20:15:05'),
 (13, 5, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-24 20:15:08'),
-(14, 5, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-24 20:15:30');
+(14, 5, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-24 20:15:30'),
+(15, 6, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?id_category=3&controller=category&id_lang=2', '', '2023-11-25 16:00:36'),
+(16, 6, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php', '', '2023-11-25 16:28:04'),
+(17, 6, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php', '', '2023-11-25 16:29:07'),
+(18, 6, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php', '', '2023-11-25 16:30:02'),
+(19, 6, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php', '', '2023-11-25 16:31:56'),
+(20, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:32:19'),
+(21, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:35:20'),
+(22, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:35:31'),
+(23, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:36:50'),
+(24, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:37:11'),
+(25, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 16:37:29'),
+(26, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:37:32'),
+(27, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:38:26'),
+(28, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:39:19'),
+(29, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:39:33'),
+(30, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:39:55'),
+(31, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:41:36'),
+(32, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_category=2&controller=category&id_lang=2', '', '2023-11-25 16:43:27'),
+(33, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:43:29'),
+(34, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:45:32'),
+(35, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:48:21'),
+(36, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:51:27'),
+(37, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:52:01'),
+(38, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:52:32'),
+(39, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:53:03'),
+(40, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 16:54:29'),
+(41, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:02:09'),
+(42, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:03:38'),
+(43, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:04:06'),
+(44, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:04:29'),
+(45, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:05:47'),
+(46, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:06:33'),
+(47, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 17:06:38'),
+(48, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=authentication&back=my-account', '', '2023-11-25 17:06:44'),
+(49, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:06:48'),
+(50, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:07:00'),
+(51, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:07:07'),
+(52, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:08:18'),
+(53, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:08:45'),
+(54, 6, 'http://127.0.0.1:8080/index.php?controller=authentication&back=my-account', '127.0.0.1:8080/index.php', '', '2023-11-25 17:09:08'),
+(55, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-25 17:13:36'),
+(56, 6, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-25 17:15:17'),
+(57, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:15:28'),
+(58, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:16:52'),
+(59, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:17:21'),
+(60, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:17:23'),
+(61, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:17:24'),
+(62, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:17:24'),
+(63, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:19:22'),
+(64, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:20:11'),
+(65, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:20:26'),
+(66, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:21:20'),
+(67, 6, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-25 17:23:34');
 
 -- --------------------------------------------------------
 
@@ -5207,6 +5262,13 @@ CREATE TABLE `ps_emailsubscription` (
   `id_lang` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
+--
+-- Dumping data for table `ps_emailsubscription`
+--
+
+INSERT INTO `ps_emailsubscription` (`id`, `id_shop`, `id_shop_group`, `email`, `newsletter_date_add`, `ip_registration_newsletter`, `http_referer`, `active`, `id_lang`) VALUES
+(1, 1, 1, 's188843@student.pg.edu.pl', '2023-11-25 15:38:28', '172.20.0.1', NULL, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -5250,7 +5312,7 @@ CREATE TABLE `ps_employee` (
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`, `reset_password_token`, `reset_password_validity`, `has_enabled_gravatar`) VALUES
-(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'theme.css', 1, 0, 1, 1, NULL, 0, 0, 0, '2023-11-24', NULL, '0000-00-00 00:00:00', 0);
+(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'theme.css', 1, 0, 1, 1, NULL, 0, 0, 0, '2023-11-25', NULL, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -5270,7 +5332,8 @@ CREATE TABLE `ps_employee_session` (
 
 INSERT INTO `ps_employee_session` (`id_employee_session`, `id_employee`, `token`) VALUES
 (2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b'),
-(3, 1, '8b0dc065af90e0047a56e4c63631aacd8794b0cd');
+(3, 1, '8b0dc065af90e0047a56e4c63631aacd8794b0cd'),
+(4, 1, '98c2b8d55f2434ff496b4e157ee36b274a08dfb2');
 
 -- --------------------------------------------------------
 
@@ -5685,7 +5748,8 @@ CREATE TABLE `ps_homeslider` (
 INSERT INTO `ps_homeslider` (`id_homeslider_slides`, `id_shop`) VALUES
 (1, 1),
 (2, 1),
-(3, 1);
+(3, 1),
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -5706,7 +5770,8 @@ CREATE TABLE `ps_homeslider_slides` (
 INSERT INTO `ps_homeslider_slides` (`id_homeslider_slides`, `position`, `active`) VALUES
 (1, 1, 1),
 (2, 2, 1),
-(3, 3, 1);
+(3, 3, 1),
+(4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -5729,12 +5794,14 @@ CREATE TABLE `ps_homeslider_slides_lang` (
 --
 
 INSERT INTO `ps_homeslider_slides_lang` (`id_homeslider_slides`, `id_lang`, `title`, `description`, `legend`, `url`, `image`) VALUES
-(1, 1, 'Sample 1', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-1', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-1.jpg'),
-(1, 2, 'Sample 1', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-1', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-1.jpg'),
-(2, 1, 'Sample 2', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-2', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-2.jpg'),
-(2, 2, 'Sample 2', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-2', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-2.jpg'),
-(3, 1, 'Sample 3', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-3', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-3.jpg'),
-(3, 2, 'Sample 3', '<h3>EXCEPTEUR OCCAECAT</h3>\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique in tortor et dignissim. Quisque non tempor leo. Maecenas egestas sem elit</p>', 'sample-3', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'sample-3.jpg');
+(1, 1, '', '', 'sample-1', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '9662f09d9b6c1b2419ad14cb6f25866e82de0789_KRIS_MAIN-1200x600-nobckgr.png'),
+(1, 2, '', '', 'sample-1', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '0b29e7b5dd2083a58e8def1c4f63aa162be81f31_KRIS_MAIN-1200x600-nobckgr.png'),
+(2, 1, '', '', 'sample-2', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '3dfd113065443d4afc6dacc5aec5834de6b492c5_Lizard_FW2023_MAINPAGE_1200_600(1)-1200x600-nobckgr.png'),
+(2, 2, '', '', 'sample-2', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '97c6409f8b5e12a9a55fe46a5c473ec7b9d701af_Lizard_FW2023_MAINPAGE_1200_600(1)-1200x600-nobckgr.png'),
+(3, 1, 'Sample 3', '', 'sample-3', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '7176bada2724ce26743e3ee352d4cb97dd03060c_M_USA_HOODIE_1200_x_600_px-1200x600-nobckgr.jpg'),
+(3, 2, '', '', 'sample-3', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', '463de0d4963e9cc61e2b85f52b119b116c183b56_M_USA_HOODIE_1200_x_600_px-1200x600-nobckgr.jpg'),
+(4, 1, '', '', '', '', '80666b4e85887c1e5052261138cbeed27ed8913c_Remonte_mainpage_fw2023_1200_600(1)-1200x600-nobckgr.png'),
+(4, 2, '', '', 'sample-4', 'https://www.prestashop-project.org?utm_source=back-office&utm_medium=v17_homeslider&utm_campaign=back-office-EN&utm_content=download', 'be7c9035f5e99121f20b821f5aea680d8099e49d_Remonte_mainpage_fw2023_1200_600(1)-1200x600-nobckgr.png');
 
 -- --------------------------------------------------------
 
@@ -7089,7 +7156,7 @@ CREATE TABLE `ps_info_lang` (
 
 INSERT INTO `ps_info_lang` (`id_info`, `id_shop`, `id_lang`, `text`) VALUES
 (1, 1, 1, '<h2>Custom Text Block</h2>\n<p><strong class=\"dark\">Lorem ipsum dolor sit amet conse ctetu</strong></p>\n<p>Sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>'),
-(1, 1, 2, '<h2>Custom Text Block</h2>\n<p><strong class=\"dark\">Lorem ipsum dolor sit amet conse ctetu</strong></p>\n<p>Sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>');
+(1, 1, 2, '<h1 align=\"justify\" style=\"font-size:32px;margin:0in 0px;font-family:Roboto, sans-serif;font-weight:normal;line-height:normal;color:#666666;text-transform:uppercase;letter-spacing:1px;background-color:#ffffff;\">DUŻE ROZMIARY BUTÓW – SKLEP INTERNETOWY BUTYXL</h1>\n<p class=\"western\" align=\"justify\" style=\"margin:0px 0px 0.11in;line-height:15.84px;font-family:Calibri, serif;font-size:11pt;color:#666666;font-weight:400;background-color:#ffffff;\">Specjalizacja naszej firmy to duże rozmiary obuwia. Jesteśmy jednym z nielicznych i jednocześnie największym sklepem w Polsce, gdzie można kupić duże buty damskie i duże buty męskie. Duża stopa to u nas standard! Oferujemy największy wybór, zróżnicowanie cenowe oraz sezonowe wyprzedaże.</p>\n<p class=\"western\" align=\"justify\" style=\"margin:0px 0px 0.11in;line-height:15.84px;font-family:Calibri, serif;font-size:11pt;color:#666666;font-weight:400;background-color:#ffffff;\">Brak dużych rozmiarów butów damskich i męskich w asortymencie popularnych sklepów sieciowych to często ogromny problem dla osób, które takie rozmiary noszą. Powoduje to sytuację, w której wymarzony model – czy to eleganckich szpilek czy funkcjonalnych butów do biegania – jest poza zasięgiem klienta. Nasz sklep z dużymi butami, w którym można dokonać wygodnych zakupów przez Internet oraz w sklepie stacjonarnym, wychodzi naprzeciw potrzebom i wymaganiom właśnie takich osób.</p>\n<h3 align=\"justify\" style=\"font-family:Roboto, sans-serif;font-weight:normal;line-height:normal;color:#666666;margin:0in 0px;font-size:18px;text-transform:uppercase;letter-spacing:1px;background-color:#ffffff;\">BUTY DAMSKIE W DUŻYCH ROZMIARACH – SKLEP ONLINE BUTYXL</h3>\n<p class=\"western\" align=\"justify\" style=\"margin:0px 0px 0.11in;line-height:15.84px;font-family:Calibri, serif;font-size:11pt;color:#666666;font-weight:400;background-color:#ffffff;\">W sklepie online ButyXL dostępne są duże rozmiary butów damskich, w wielu fasonach, krojach, barwach i stylach. Dzięki tak rozbudowanemu asortymentowi każdy znajdzie coś dla siebie, niezależnie od pory roku. To właśnie w sklepie online ButyXL wybór nie jest ograniczany przez duży rozmiar obuwia, a wśród butów na dużą stopę, można znaleźć damskie modele na obcasie (niskim, średnim lub wysokim), płaskie sandały, buty sportowe i trekkingowe, czółenka, półbuty, baleriny, duże buty ślubne, kozaki, botki i wiele, wiele innych rodzajów obuwia. Ponadto oferujemy buty damskie na dużą stopę wykonane z różnych materiałów – najlepszych gatunkowo skór, zamszu oraz z innych, trwałych tworzyw. Zamów duże buty w przystępnych cenach – wygodnie, bez kolejek i z szybką dostawą do domu!</p>\n<h3 align=\"justify\" style=\"font-family:Roboto, sans-serif;font-weight:normal;line-height:normal;color:#666666;margin:0in 0px;font-size:18px;text-transform:uppercase;letter-spacing:1px;background-color:#ffffff;\">BUTY MĘSKIE – DUŻE ROZMIARY, RÓŻNE FASONY, NAJMODNIEJSZE MODELE</h3>\n<p class=\"western\" align=\"justify\" style=\"margin:0px 0px 0.11in;line-height:15.84px;font-family:Calibri, serif;font-size:11pt;color:#666666;font-weight:400;background-color:#ffffff;\">Oprócz butów damskich w dużych rozmiarach (43, 44 i inne) oferujemy również niestandardowe, duże buty męskie. Choć wiele osób może w to nie wierzyć, także w przypadku panów znalezienie obuwia we właściwym, dużym rozmiarze może okazać się nie lada wyzwaniem. Aby na nie odpowiedzieć, starannie wyselekcjonowaliśmy różne modele renomowanych marek, znanych na świecie z doskonałej jakości i solidności swoich produktów – a wszystko po to, by ułatwić Wam – naszym klientom – poszukiwania i zakup idealnego, wygodnego, eleganckiego obuwia. Męskie, duże buty są u nas dostępne w różnych fasonach. Panowie znajdą tu zarówno wyjściowe buty wizytowe, jak i egzemplarze zaprojektowane specjalnie do uprawiania sportu. Oprócz tego w asortymencie sklepu ButyXL znajdują się casualowe sneakersy, idealne na lato klapki, lekkie mokasyny, przewiewne sandały, eleganckie, zimowe sztyblety, buty trekkingowe, domowe kapcie i wiele, wiele innych. Podobnie jak wszystkie duże buty damskie dostępne w naszym sklepie, również buty męskie wykonane są z najwyższej jakości materiałów i z dużą dozą dbałości o detale – szwy, przeszycia, wiązania. To sprawia, że przez wiele lat nie zawiodą swojego właściciela i na długo będą cieszyć trwałością.</p>');
 
 -- --------------------------------------------------------
 
@@ -7305,6 +7372,14 @@ CREATE TABLE `ps_layered_filter_block` (
   `hash` char(32) NOT NULL DEFAULT '',
   `data` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `ps_layered_filter_block`
+--
+
+INSERT INTO `ps_layered_filter_block` (`hash`, `data`) VALUES
+('0325d11a70f0903143b692658ecde210', 'a:1:{s:7:\"filters\";a:10:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:2:{i:4;a:2:{s:4:\"name\";s:3:\"Men\";s:3:\"nbr\";s:1:\"2\";}i:5;a:2:{s:4:\"name\";s:5:\"Women\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:1:{i:4;a:4:{s:3:\"nbr\";s:1:\"2\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:3:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:3;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:3;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"2\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:1:\"3\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:3;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:3;s:5:\"value\";N;}}}'),
+('af71e1a195fd368501fdf87cd70d5ff6', 'a:1:{s:7:\"filters\";a:12:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:3:{i:3;a:2:{s:4:\"name\";s:7:\"Clothes\";s:3:\"nbr\";s:1:\"2\";}i:6;a:2:{s:4:\"name\";s:19:\"Produkty powiązane\";s:3:\"nbr\";s:2:\"12\";}i:9;a:2:{s:4:\"name\";s:3:\"Art\";s:3:\"nbr\";s:1:\"7\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:5:{i:4;a:4:{s:3:\"nbr\";s:1:\"2\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:3:\"nbr\";s:1:\"4\";s:4:\"name\";s:7:\"Ceramic\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:6;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:10:\"Matt paper\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:1;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"Poliester\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:5;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:18:\"Recycled cardboard\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:5:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:10;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"120 pages\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:9;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:15:\"Removable cover\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:20;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:20;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"9\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:2:\"10\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:2:\"20\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:20;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:20;s:5:\"value\";N;}i:10;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"3\";s:4:\"name\";s:9:\"Dimension\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:3:{i:19;a:4:{s:4:\"name\";s:7:\"40x60cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:20;a:4:{s:4:\"name\";s:7:\"60x90cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:21;a:4:{s:4:\"name\";s:8:\"80x120cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:11;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"4\";s:4:\"name\";s:10:\"Paper Type\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:22;a:4:{s:4:\"name\";s:5:\"Ruled\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:23;a:4:{s:4:\"name\";s:5:\"Plain\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:24;a:4:{s:4:\"name\";s:8:\"Squarred\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:25;a:4:{s:4:\"name\";s:5:\"Doted\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}}}');
 
 -- --------------------------------------------------------
 
@@ -7973,7 +8048,8 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (340, 1, 0, 'Product modification', 'Product', 20, 1, NULL, 1, 0, 1, '2023-10-14 10:17:51', '2023-10-14 10:17:51'),
 (341, 1, 0, 'Product modification', 'Product', 20, 1, NULL, 1, 0, 1, '2023-10-14 10:17:57', '2023-10-14 10:17:57'),
 (342, 1, 0, 'Back office connection from 172.23.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-10-14 10:26:32', '2023-10-14 10:26:32'),
-(343, 1, 0, 'Back office connection from 192.168.48.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-24 20:05:02', '2023-11-24 20:05:02');
+(343, 1, 0, 'Back office connection from 192.168.48.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-24 20:05:02', '2023-11-24 20:05:02'),
+(344, 1, 0, 'Back office connection from 172.20.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-25 15:24:43', '2023-11-25 15:24:43');
 
 -- --------------------------------------------------------
 
@@ -9061,6 +9137,14 @@ CREATE TABLE `ps_module_history` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ps_module_history`
+--
+
+INSERT INTO `ps_module_history` (`id`, `id_employee`, `id_module`, `date_add`, `date_upd`) VALUES
+(1, 1, 26, '2023-11-25 15:25:57', '2023-11-25 15:51:02'),
+(2, 1, 20, '2023-11-25 17:16:25', '2023-11-25 17:16:25');
 
 -- --------------------------------------------------------
 
@@ -17834,13 +17918,13 @@ ALTER TABLE `ps_configuration_kpi`
 -- AUTO_INCREMENT for table `ps_connections`
 --
 ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ps_connections_source`
 --
 ALTER TABLE `ps_connections_source`
-  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `ps_contact`
@@ -17912,7 +17996,7 @@ ALTER TABLE `ps_delivery`
 -- AUTO_INCREMENT for table `ps_emailsubscription`
 --
 ALTER TABLE `ps_emailsubscription`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ps_employee`
@@ -17924,7 +18008,7 @@ ALTER TABLE `ps_employee`
 -- AUTO_INCREMENT for table `ps_employee_session`
 --
 ALTER TABLE `ps_employee_session`
-  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ps_feature`
@@ -17972,13 +18056,13 @@ ALTER TABLE `ps_guest`
 -- AUTO_INCREMENT for table `ps_homeslider`
 --
 ALTER TABLE `ps_homeslider`
-  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ps_homeslider_slides`
 --
 ALTER TABLE `ps_homeslider_slides`
-  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_homeslider_slides` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ps_hook`
@@ -18062,7 +18146,7 @@ ALTER TABLE `ps_link_block_shop`
 -- AUTO_INCREMENT for table `ps_log`
 --
 ALTER TABLE `ps_log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=344;
+  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
 
 --
 -- AUTO_INCREMENT for table `ps_mail`
@@ -18104,7 +18188,7 @@ ALTER TABLE `ps_module`
 -- AUTO_INCREMENT for table `ps_module_history`
 --
 ALTER TABLE `ps_module_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ps_module_preference`
