@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-24 20:15:08
+/* Smarty version 3.1.48, created on 2023-11-25 18:19:17
   from '/var/www/html/themes/classic/templates/checkout/_partials/footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6560f63cc3ef95_68357474',
+  'unifunc' => 'content_65622c95819413_12152675',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ba536facb0cbfebfb2b4790329c0a3b528aee8c8' => 
     array (
       0 => '/var/www/html/themes/classic/templates/checkout/_partials/footer.tpl',
-      1 => 1700852152,
+      1 => 1700930692,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6560f63cc3ef95_68357474 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65622c95819413_12152675 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="modal fade js-checkout-modal" id="modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

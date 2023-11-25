@@ -36,7 +36,7 @@ class __TwigTemplate_7f05e0bd488a8856e3b26fb0df2f39ca2191805d65eb684c5aedd920757
         echo "
 ";
         // line 26
-        $this->loadTemplate("@PrestaShop/Admin/Sell/Order/Order/Blocks/change_orders_status_modal.html.twig", "@PrestaShop/Admin/Sell/Order/Order/Blocks/change_orders_status_modal.html.twig", 26, "998294265")->display(twig_array_merge($context, ["id" => "changeOrdersStatusModal", "title" => $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->trans("Choose an order status", [], "Admin.Orderscustomers.Feature"), "closable" => true, "actions" => [0 => ["type" => "button", "label" => $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->trans("Update status", [], "Admin.Orderscustomers.Feature"), "class" => "btn btn-primary btn-lg js-submit-modal-form-btn"]]]));
+        $this->loadTemplate("@PrestaShop/Admin/Sell/Order/Order/Blocks/change_orders_status_modal.html.twig", "@PrestaShop/Admin/Sell/Order/Order/Blocks/change_orders_status_modal.html.twig", 26, "1430714389")->display(twig_array_merge($context, ["id" => "changeOrdersStatusModal", "title" => $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->trans("Choose an order status", [], "Admin.Orderscustomers.Feature"), "closable" => true, "actions" => [0 => ["type" => "button", "label" => $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->trans("Update status", [], "Admin.Orderscustomers.Feature"), "class" => "btn btn-primary btn-lg js-submit-modal-form-btn"]]]));
         
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
 
@@ -132,7 +132,7 @@ class __TwigTemplate_7f05e0bd488a8856e3b26fb0df2f39ca2191805d65eb684c5aedd920757
 
 
 /* @PrestaShop/Admin/Sell/Order/Order/Blocks/change_orders_status_modal.html.twig */
-class __TwigTemplate_7f05e0bd488a8856e3b26fb0df2f39ca2191805d65eb684c5aedd920757f7432___998294265 extends \Twig\Template
+class __TwigTemplate_7f05e0bd488a8856e3b26fb0df2f39ca2191805d65eb684c5aedd920757f7432___1430714389 extends \Twig\Template
 {
     public function __construct(Environment $env)
     {

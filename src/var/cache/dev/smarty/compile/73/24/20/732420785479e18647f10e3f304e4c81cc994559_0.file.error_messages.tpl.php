@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-25 17:16:15
+/* Smarty version 3.1.48, created on 2023-11-25 19:47:20
   from '/var/www/html/myadmin/themes/new-theme/template/components/layout/error_messages.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_65621dcf505f14_46828021',
+  'unifunc' => 'content_656241385eb8b1_94188082',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '732420785479e18647f10e3f304e4c81cc994559' => 
     array (
       0 => '/var/www/html/myadmin/themes/new-theme/template/components/layout/error_messages.tpl',
-      1 => 1700922025,
+      1 => 1700930692,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65621dcf505f14_46828021 (Smarty_Internal_Template $_smarty_tpl) {
+function content_656241385eb8b1_94188082 (Smarty_Internal_Template $_smarty_tpl) {
 if (count($_smarty_tpl->tpl_vars['errors']->value) && current($_smarty_tpl->tpl_vars['errors']->value) != '' && (!(isset($_smarty_tpl->tpl_vars['disableDefaultErrorOutPut']->value)) || $_smarty_tpl->tpl_vars['disableDefaultErrorOutPut']->value == false)) {?>
   <div class="bootstrap">
     <div class="alert alert-danger">
