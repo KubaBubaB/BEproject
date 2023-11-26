@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 25, 2023 at 06:49 PM
+-- Generation Time: Lis 26, 2023 at 02:33 AM
 -- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
 -- Wersja PHP: 8.2.8
 
@@ -910,7 +910,8 @@ INSERT INTO `ps_address` (`id_address`, `id_country`, `id_state`, `id_customer`,
 (5, 21, 12, 2, 0, 0, 0, 'My address', 'My Company', 'DOE', 'John', '16, Main street', '2nd floor', '33133', 'Miami', '', '0102030405', '', '', '', '2023-10-14 10:11:35', '2023-10-14 10:11:35', 1, 0),
 (6, 8, 0, 0, 0, 2, 0, 'accessories_supplier', 'Accessories and Co', 'accessories', 'accessories', '42 Avenue Maréchal Soult', '', '64990', 'Bayonne', '', '0102030405', '', '', '', '2023-10-14 10:11:35', '2023-10-14 10:11:35', 1, 0),
 (7, 14, 0, 3, 0, 0, 0, 'Mój adres', '', 'sadas', 'as', 'asd', '', '06-400', 'asd', '', '', '', '', '', '2023-11-25 18:03:57', '2023-11-25 18:03:57', 1, 0),
-(8, 14, 0, 4, 0, 0, 0, 'Mój adres', '', 'as', 'as', 'asdda', '', '03-600', 'Gdańsk', '', '', '', '', '', '2023-11-25 18:15:26', '2023-11-25 18:15:26', 1, 0);
+(8, 14, 0, 4, 0, 0, 0, 'Mój adres', '', 'as', 'as', 'asdda', '', '03-600', 'Gdańsk', '', '', '', '', '', '2023-11-25 18:15:26', '2023-11-25 18:15:26', 1, 0),
+(9, 14, 0, 5, 0, 0, 0, 'Mój adres', '', 'Kowalska', 'Anna', 'Ulica 32', '', '32-423', 'Wroclaw', '', '', '', '', '', '2023-11-26 01:08:21', '2023-11-26 01:08:21', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1201,7 +1202,9 @@ INSERT INTO `ps_admin_filter` (`id`, `employee`, `shop`, `controller`, `action`,
 (8, 1, 1, 'profile', 'index', '{\"limit\":10,\"orderBy\":\"id_profile\",\"sortOrder\":\"asc\",\"filters\":[]}', ''),
 (9, 1, 1, 'employee', 'index', '{\"limit\":50,\"orderBy\":\"id_employee\",\"sortOrder\":\"asc\",\"filters\":[]}', ''),
 (10, 1, 1, 'contacts', 'index', '{\"limit\":10,\"orderBy\":\"id_contact\",\"sortOrder\":\"asc\",\"filters\":[]}', ''),
-(11, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_meta\",\"sortOrder\":\"asc\",\"filters\":[]}', 'meta');
+(11, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_meta\",\"sortOrder\":\"asc\",\"filters\":[]}', 'meta'),
+(12, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_webservice_account\",\"sortOrder\":\"asc\",\"filters\":[]}', 'webservice_key'),
+(13, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_zone\",\"sortOrder\":\"asc\",\"filters\":[]}', 'zone');
 
 -- --------------------------------------------------------
 
@@ -2580,9 +2583,10 @@ INSERT INTO `ps_cart` (`id_cart`, `id_shop_group`, `id_shop`, `id_carrier`, `del
 (3, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (4, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
 (5, 1, 1, 2, '{\"3\":\"2,\"}', 1, 5, 5, 1, 2, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2023-10-14 10:11:36', '2023-10-14 10:11:36', NULL),
-(6, 1, 1, 0, '', 2, 0, 0, 1, 0, 4, '', 0, 0, '', 0, 0, '2023-11-24 20:15:03', '2023-11-25 16:40:06', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-addresses-step\":{\"step_is_reachable\":false,\"step_is_complete\":false,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"2c9a4efb780280dc34311393ee5fbcfca6cd6acc\"}'),
+(6, 1, 1, 5, '{\"9\":\"5,\"}', 2, 9, 9, 1, 5, 4, 'dafcbe485db7e7ecf68130a294a8fe18', 0, 0, '', 0, 0, '2023-11-24 20:15:03', '2023-11-26 01:08:30', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"c8e1f9aa6052561e8001563e7a21791fe6e00b13\"}'),
 (7, 1, 1, 1, '{\"7\":\"1,\"}', 2, 7, 7, 1, 3, 4, '1ad19501877c6a9c28936eee23eb810c', 0, 0, '', 0, 0, '2023-11-25 18:03:07', '2023-11-25 18:04:01', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"0f0703ef30da99352e5e2c5c56c18aed994726ac\"}'),
-(8, 1, 1, 0, '', 2, 8, 8, 1, 4, 4, 'f7b4b78fb5f8cea02cd650cbfa1d4869', 0, 0, '', 0, 0, '2023-11-25 18:14:45', '2023-11-25 18:19:17', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"02b77e2686fbcb73715ec10c1bc8801d3448892f\"}');
+(8, 1, 1, 0, '', 2, 8, 8, 1, 4, 4, 'f7b4b78fb5f8cea02cd650cbfa1d4869', 0, 0, '', 0, 0, '2023-11-25 18:14:45', '2023-11-25 18:19:17', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"02b77e2686fbcb73715ec10c1bc8801d3448892f\"}'),
+(9, 1, 1, 0, '', 2, 9, 9, 1, 5, 4, 'dafcbe485db7e7ecf68130a294a8fe18', 0, 0, '', 0, 0, '2023-11-26 03:14:12', '2023-11-26 03:14:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -2624,9 +2628,10 @@ INSERT INTO `ps_cart_product` (`id_cart`, `id_product`, `id_address_delivery`, `
 (3, 16, 3, 1, 28, 0, 1, '0000-00-00 00:00:00'),
 (4, 16, 3, 1, 29, 0, 1, '0000-00-00 00:00:00'),
 (5, 10, 3, 1, 25, 0, 1, '0000-00-00 00:00:00'),
-(6, 3, 0, 1, 13, 0, 2, '2023-11-24 20:15:03'),
+(6, 3, 9, 1, 13, 0, 2, '2023-11-24 20:15:03'),
 (7, 1, 7, 1, 1, 0, 1, '2023-11-25 18:03:07'),
-(8, 3, 8, 1, 13, 0, 100, '2023-11-25 18:18:35');
+(8, 3, 8, 1, 13, 0, 100, '2023-11-25 18:18:35'),
+(9, 2, 9, 1, 9, 0, 1, '2023-11-26 03:14:12');
 
 -- --------------------------------------------------------
 
@@ -3194,7 +3199,7 @@ CREATE TABLE `ps_configuration` (
 --
 
 INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, `name`, `value`, `date_add`, `date_upd`) VALUES
-(1, NULL, NULL, 'PS_LANG_DEFAULT', '1', '2023-10-14 10:10:38', '2023-10-14 10:10:38'),
+(1, NULL, NULL, 'PS_LANG_DEFAULT', '2', '2023-10-14 10:10:38', '2023-11-26 01:15:54'),
 (2, NULL, NULL, 'PS_VERSION_DB', '1.7.8.10', '2023-10-14 10:10:38', '2023-10-14 10:10:38'),
 (3, NULL, NULL, 'PS_INSTALL_VERSION', '1.7.8.10', '2023-10-14 10:10:38', '2023-10-14 10:10:38'),
 (4, NULL, NULL, 'PS_CARRIER_DEFAULT', '1', '2023-10-14 10:10:39', '2023-10-14 10:10:39'),
@@ -3293,7 +3298,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (97, NULL, NULL, 'PS_GEOLOCATION_ENABLED', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (98, NULL, NULL, 'PS_ALLOWED_COUNTRIES', 'AF;ZA;AX;AL;DZ;DE;AD;AO;AI;AQ;AG;AN;SA;AR;AM;AW;AU;AT;AZ;BS;BH;BD;BB;BY;BE;BZ;BJ;BM;BT;BO;BA;BW;BV;BR;BN;BG;BF;MM;BI;KY;KH;CM;CA;CV;CF;CL;CN;CX;CY;CC;CO;KM;CG;CD;CK;KR;KP;CR;CI;HR;CU;DK;DJ;DM;EG;IE;SV;AE;EC;ER;ES;EE;ET;FK;FO;FJ;FI;FR;GA;GM;GE;GS;GH;GI;GR;GD;GL;GP;GU;GT;GG;GN;GQ;GW;GY;GF;HT;HM;HN;HK;HU;IM;MU;VG;VI;IN;ID;IR;IQ;IS;IL;IT;JM;JP;JE;JO;KZ;KE;KG;KI;KW;LA;LS;LV;LB;LR;LY;LI;LT;LU;MO;MK;MG;MY;MW;MV;ML;MT;MP;MA;MH;MQ;MR;YT;MX;FM;MD;MC;MN;ME;MS;MZ;NA;NR;NP;NI;NE;NG;NU;NF;NO;NC;NZ;IO;OM;UG;UZ;PK;PW;PS;PA;PG;PY;NL;PE;PH;PN;PL;PF;PR;PT;QA;DO;CZ;RE;RO;GB;RU;RW;EH;BL;KN;SM;MF;PM;VA;VC;LC;SB;WS;AS;ST;SN;RS;SC;SL;SG;SK;SI;SO;SD;LK;SE;CH;SR;SJ;SZ;SY;TJ;TW;TZ;TD;TF;TH;TL;TG;TK;TO;TT;TN;TM;TC;TR;TV;UA;UY;US;VU;VE;VN;WF;YE;ZM;ZW', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (99, NULL, NULL, 'PS_GEOLOCATION_BEHAVIOR', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(100, NULL, NULL, 'PS_LOCALE_LANGUAGE', 'en', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
+(100, NULL, NULL, 'PS_LOCALE_LANGUAGE', 'pl', '0000-00-00 00:00:00', '2023-11-26 01:42:56'),
 (101, NULL, NULL, 'PS_LOCALE_COUNTRY', 'pl', '0000-00-00 00:00:00', '2023-10-14 10:10:40'),
 (102, NULL, NULL, 'PS_ATTACHMENT_MAXIMUM_SIZE', '8', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (103, NULL, NULL, 'PS_SMARTY_CACHE', NULL, '0000-00-00 00:00:00', '2023-11-25 15:48:21'),
@@ -3692,7 +3697,13 @@ INSERT INTO `ps_configuration_kpi` (`id_configuration_kpi`, `id_shop_group`, `id
 (55, NULL, NULL, 'MESSAGES_PER_THREAD', '0', '2023-11-25 17:50:19', '2023-11-25 17:50:19'),
 (56, NULL, NULL, 'MESSAGES_PER_THREAD_EXPIRE', '1700974219', '2023-11-25 17:50:19', '2023-11-25 17:50:19'),
 (57, NULL, NULL, 'PENDING_MESSAGES', '0', '2023-11-25 17:50:19', '2023-11-25 17:50:19'),
-(58, NULL, NULL, 'PENDING_MESSAGES_EXPIRE', '1700931319', '2023-11-25 17:50:19', '2023-11-25 17:50:19');
+(58, NULL, NULL, 'PENDING_MESSAGES_EXPIRE', '1700931319', '2023-11-25 17:50:19', '2023-11-25 17:50:19'),
+(59, NULL, NULL, 'ENABLED_LANGUAGES', '2', '2023-11-26 01:16:05', '2023-11-26 01:16:05'),
+(60, NULL, NULL, 'ENABLED_LANGUAGES_EXPIRE', '1700957825', '2023-11-26 01:16:05', '2023-11-26 01:16:05'),
+(61, NULL, NULL, 'FRONTOFFICE_TRANSLATIONS', '0%', '2023-11-26 01:16:05', '2023-11-26 01:16:05'),
+(62, NULL, NULL, 'FRONTOFFICE_TRANSLATIONS_EXPIRE', '1700957885', '2023-11-26 01:16:05', '2023-11-26 01:16:05'),
+(63, NULL, NULL, 'MAIN_COUNTRY', NULL, '2023-11-26 01:16:05', '2023-11-26 01:16:05'),
+(64, NULL, NULL, 'MAIN_COUNTRY_EXPIRE', NULL, '2023-11-26 01:16:05', '2023-11-26 01:16:05');
 
 -- --------------------------------------------------------
 
@@ -3715,7 +3726,11 @@ INSERT INTO `ps_configuration_kpi_lang` (`id_configuration_kpi`, `id_lang`, `val
 (45, 1, '54 years', '2023-11-25 17:49:58'),
 (46, 1, '1701017398', '2023-11-25 17:49:58'),
 (47, 1, '100% Male Customers', '2023-11-25 17:49:58'),
-(48, 1, '1701017398', '2023-11-25 17:49:58');
+(48, 1, '1701017398', '2023-11-25 17:49:58'),
+(63, 1, 'No orders', '2023-11-26 01:39:17'),
+(63, 2, 'Brak zamówień', '2023-11-26 01:16:05'),
+(64, 1, '1701045557', '2023-11-26 01:39:17'),
+(64, 2, '1701044165', '2023-11-26 01:16:05');
 
 -- --------------------------------------------------------
 
@@ -3765,8 +3780,8 @@ INSERT INTO `ps_configuration_lang` (`id_configuration`, `id_lang`, `value`, `da
 (317, 2, '', '2023-10-14 10:10:46'),
 (318, 1, '', '2023-10-14 10:10:46'),
 (318, 2, '', '2023-10-14 10:10:46'),
-(327, 1, 'The personal data you provide is used to answer queries, process orders or allow access to specific information. You have the right to modify and delete all the personal information found in the \"My Account\" page.', '2023-10-14 10:10:47'),
-(327, 2, 'The personal data you provide is used to answer queries, process orders or allow access to specific information. You have the right to modify and delete all the personal information found in the \"My Account\" page.', '2023-10-14 10:10:47'),
+(327, 1, '<p>The personal data you provide is used to answer queries, process orders or allow access to specific information. You have the right to modify and delete all the personal information found in the \"My Account\" page.</p>', '2023-11-26 00:26:13'),
+(327, 2, '<p>Tu bylem</p>\n<div id=\"gtx-trans\">\n<div class=\"gtx-trans-icon\"></div>\n</div>', '2023-11-26 00:26:13'),
 (329, 1, 'You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.', '2023-10-14 10:10:47'),
 (329, 2, 'Możesz zrezygnować w każdej chwili. W tym celu należy odnaleźć szczegóły w naszej informacji prawnej.', '2023-10-14 10:10:47'),
 (365, 1, 'I agree to the terms and conditions and the privacy policy', '2023-10-14 08:11:16'),
@@ -3804,7 +3819,11 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (6, 1, 1, 4, 1, 2886991873, '2023-11-25 15:55:24', ''),
 (7, 1, 1, 4, 1, 2886860801, '2023-11-25 17:46:53', ''),
 (8, 1, 1, 4, 2, 2886860801, '2023-11-25 18:17:06', 'http://127.0.0.1:8080/index.php?id_product=3&id_product_attribute=13&rewrite=the-best-is-yet-to-come-framed-poster&controller=product&id_lang=2'),
-(9, 1, 1, 4, 1, 2886860801, '2023-11-25 19:36:12', '');
+(9, 1, 1, 4, 1, 2886860801, '2023-11-25 19:36:12', ''),
+(10, 1, 1, 4, 1, 2886860801, '2023-11-26 01:06:22', ''),
+(11, 1, 1, 4, 1, 2886860801, '2023-11-26 01:37:54', ''),
+(12, 1, 1, 4, 1, 2886860801, '2023-11-26 02:51:52', ''),
+(13, 1, 1, 6, 1, 2886860801, '2023-11-26 03:30:03', 'http://127.0.0.1:8080/index.php');
 
 -- --------------------------------------------------------
 
@@ -3941,7 +3960,112 @@ INSERT INTO `ps_connections_source` (`id_connections_source`, `id_connections`, 
 (100, 8, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-25 19:34:57'),
 (101, 8, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-25 19:34:59'),
 (102, 8, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-25 19:35:01'),
-(103, 8, 'http://127.0.0.1:8080/index.php?controller=contact', '127.0.0.1:8080/index.php', '', '2023-11-25 19:35:05');
+(103, 8, 'http://127.0.0.1:8080/index.php?controller=contact', '127.0.0.1:8080/index.php', '', '2023-11-25 19:35:05'),
+(104, 10, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-26 01:06:28'),
+(105, 10, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-26 01:07:20'),
+(106, 10, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-26 01:07:52'),
+(107, 10, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-26 01:08:22'),
+(108, 10, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-26 01:08:30'),
+(109, 10, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '', '2023-11-26 01:08:46'),
+(110, 10, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '127.0.0.1:8080/index.php', '', '2023-11-26 01:08:58'),
+(111, 10, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=order-slip', '', '2023-11-26 01:11:38'),
+(112, 10, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '127.0.0.1:8080/index.php', '', '2023-11-26 01:11:42'),
+(113, 10, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?fc=module&module=blockwishlist&controller=lists&id_lang=2', '', '2023-11-26 01:11:43'),
+(114, 10, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '127.0.0.1:8080/index.php', '', '2023-11-26 01:11:48'),
+(115, 10, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:11:49'),
+(116, 10, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '127.0.0.1:8080/index.php', '', '2023-11-26 01:11:59'),
+(117, 10, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 01:13:39'),
+(118, 10, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=6&id_module=35&id_order=6&key=dafcbe485db7e7ecf68130a294a8fe18', '127.0.0.1:8080/index.php', '', '2023-11-26 01:13:41'),
+(119, 10, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_lang=1', '', '2023-11-26 01:18:34'),
+(120, 10, 'http://127.0.0.1:8080/index.php?id_lang=1', '127.0.0.1:8080/index.php?id_lang=2', '', '2023-11-26 01:18:41'),
+(121, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_lang=2', '', '2023-11-26 01:21:05'),
+(122, 10, 'http://127.0.0.1:8080/myadmin/index.php/configure/advanced/employees/1/edit?_token=6iJ-E939N1fIl-0-756LLEMYeCMiY-zYNip8MoiZhvU', '127.0.0.1:8080/index.php', '', '2023-11-26 01:23:24'),
+(123, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-26 01:26:21'),
+(124, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_lang=2', '', '2023-11-26 01:26:24'),
+(125, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:26:26'),
+(126, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_lang=2', '', '2023-11-26 01:26:29'),
+(127, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:26:42'),
+(128, 10, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:37:46'),
+(129, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:46:48'),
+(130, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?id_cms=4&controller=cms&id_lang=2', '', '2023-11-26 01:55:28'),
+(131, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:55:43'),
+(132, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?controller=identity', '', '2023-11-26 01:55:52'),
+(133, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:55:53'),
+(134, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?controller=history', '', '2023-11-26 01:55:55'),
+(135, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:55:58'),
+(136, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?id_cms=5&controller=cms&id_lang=2', '', '2023-11-26 01:56:13'),
+(137, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:56:18'),
+(138, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?controller=new-products', '', '2023-11-26 01:56:24'),
+(139, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:56:26'),
+(140, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?controller=history', '', '2023-11-26 01:56:28'),
+(141, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:56:30'),
+(142, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?id_cms=4&controller=cms&id_lang=2', '', '2023-11-26 01:56:32'),
+(143, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:56:33'),
+(144, 11, 'http://127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '127.0.0.1:8080/index.php?id_cms=1&controller=cms&id_lang=2', '', '2023-11-26 01:56:34'),
+(145, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?controller=stores', '', '2023-11-26 01:58:20'),
+(146, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?controller=sitemap', '', '2023-11-26 01:58:43'),
+(147, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-26 01:59:46'),
+(148, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php?controller=addresses', '', '2023-11-26 02:00:24'),
+(149, 11, 'http://127.0.0.1:8080/index.php?id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:03:05'),
+(150, 11, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 02:03:08'),
+(151, 11, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=1&id_product_attribute=1&rewrite=hummingbird-printed-t-shirt&controller=product&id_lang=2', '', '2023-11-26 02:04:24'),
+(152, 11, 'http://127.0.0.1:8080/index.php?id_product=1&id_product_attribute=1&rewrite=hummingbird-printed-t-shirt&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:04:26'),
+(153, 11, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_category=4&controller=category&id_lang=2', '', '2023-11-26 02:04:29'),
+(154, 11, 'http://127.0.0.1:8080/index.php?id_category=4&controller=category&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:04:41'),
+(155, 11, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-26 02:04:45'),
+(156, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?id_category=5&controller=category&id_lang=2', '', '2023-11-26 02:04:51'),
+(157, 11, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-26 02:07:43'),
+(158, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:07:45'),
+(159, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:11:48'),
+(160, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:12:14'),
+(161, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:18:16'),
+(162, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:26:51'),
+(163, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:29:13'),
+(164, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:29:14'),
+(165, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:29:24'),
+(166, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:30:08'),
+(167, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:30:09'),
+(168, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:32:58'),
+(169, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:32:59'),
+(170, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:33:08'),
+(171, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:33:20'),
+(172, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:33:23'),
+(173, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:39:52'),
+(174, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:40:09'),
+(175, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:40:49'),
+(176, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:41:01'),
+(177, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:41:02'),
+(178, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:41:15'),
+(179, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:41:32'),
+(180, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:41:40'),
+(181, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:43:06'),
+(182, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:47:39'),
+(183, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:47:52'),
+(184, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:48:02'),
+(185, 11, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 02:51:15'),
+(186, 12, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 03:12:21'),
+(187, 12, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 03:13:39'),
+(188, 12, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php', '', '2023-11-26 03:14:05'),
+(189, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '', '2023-11-26 03:14:11'),
+(190, 12, 'http://127.0.0.1:8080/index.php?id_product=2&id_product_attribute=9&rewrite=brown-bear-printed-sweater&controller=product&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-26 03:14:14'),
+(191, 12, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php', '', '2023-11-26 03:14:15'),
+(192, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:14:46'),
+(193, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:16:07'),
+(194, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:16:10'),
+(195, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:17:09'),
+(196, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:19:27'),
+(197, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:19:57'),
+(198, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:22:32'),
+(199, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:22:50'),
+(200, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:22:51'),
+(201, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:23:11'),
+(202, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:24:55'),
+(203, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:25:53'),
+(204, 12, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=my-account', '', '2023-11-26 03:28:48'),
+(205, 12, 'http://127.0.0.1:8080/index.php?controller=my-account', '127.0.0.1:8080/index.php', '', '2023-11-26 03:29:30'),
+(206, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:30:03'),
+(207, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:31:03'),
+(208, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:32:44');
 
 -- --------------------------------------------------------
 
@@ -5148,7 +5272,8 @@ INSERT INTO `ps_customer` (`id_customer`, `id_shop_group`, `id_shop`, `id_gender
 (1, 1, 1, 1, 3, 1, 0, '', '', '', 'Anonymous', 'Anonymous', 'anonymous@psgdpr.com', '$2y$10$rLtzf7lvvbvksiSRwtfMtOKslnrbZ7JBUHdL8Aql9sNymICIPvy8i', '2023-10-14 04:11:16', '0000-00-00', 0, '', '0000-00-00 00:00:00', 0, '', 0.000000, 0, 0, '08edbea20778efb8089f53afd9af034e', '', 0, 0, 0, '2023-10-14 10:11:16', '2023-10-14 10:11:16', '', '0000-00-00 00:00:00'),
 (2, 1, 1, 1, 3, 1, 0, '', '', '', 'John', 'DOE', 'pub@prestashop.com', 'c5ed575c5649400935b4b22b3ee0599d', '2023-10-14 04:11:35', '1970-01-15', 1, '', '2013-12-13 08:19:15', 1, '', 0.000000, 0, 0, '10ec362a8a6f621d9551952c85ba7e4f', '', 1, 0, 0, '2023-10-14 10:11:35', '2023-10-14 10:11:35', '', '0000-00-00 00:00:00'),
 (3, 1, 1, 1, 3, 2, 0, '', '', '', 'as', 'sadas', 'saf@sa.pl', '$2y$10$zPrB5eyKywdWtmduMhJCw.gA2U1iBfQfXmYaoLvXqEF/FgDCF0zOm', '2023-11-25 12:03:39', '2002-07-04', 0, '', '0000-00-00 00:00:00', 0, '', 0.000000, 0, 0, '1ad19501877c6a9c28936eee23eb810c', '', 1, 0, 0, '2023-11-25 18:03:39', '2023-11-25 18:03:39', '', '0000-00-00 00:00:00'),
-(4, 1, 1, 1, 2, 2, 0, NULL, NULL, NULL, 'as', 'as', 'asa@ss.pl', '$2y$10$C866qqPIAqdxceNWu0d9u.2olKnN9CDQ5SZoiZxdh3FNiHDL.m/U.', '2023-11-25 12:15:09', '2002-07-04', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'f7b4b78fb5f8cea02cd650cbfa1d4869', NULL, 1, 1, 0, '2023-11-25 18:15:09', '2023-11-25 18:19:14', NULL, '0000-00-00 00:00:00');
+(4, 1, 1, 1, 2, 2, 0, NULL, NULL, NULL, 'as', 'as', 'asa@ss.pl', '$2y$10$C866qqPIAqdxceNWu0d9u.2olKnN9CDQ5SZoiZxdh3FNiHDL.m/U.', '2023-11-25 12:15:09', '2002-07-04', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'f7b4b78fb5f8cea02cd650cbfa1d4869', NULL, 1, 1, 0, '2023-11-25 18:15:09', '2023-11-25 18:19:14', NULL, '0000-00-00 00:00:00'),
+(5, 1, 1, 2, 3, 2, 0, NULL, NULL, NULL, 'Anna', 'Kowalska', 's188843@student.pg.edu.pl', '$2y$10$qaNZJIz.xz1Ie6A8eJhIt.Acv83LNPyZVaROQ.AexTqmhrF54CKxO', '2023-11-25 19:07:50', '1970-05-31', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'dafcbe485db7e7ecf68130a294a8fe18', NULL, 1, 0, 0, '2023-11-26 01:07:50', '2023-11-26 01:26:40', NULL, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -5169,7 +5294,8 @@ INSERT INTO `ps_customer_group` (`id_customer`, `id_group`) VALUES
 (4, 2),
 (1, 3),
 (2, 3),
-(3, 3);
+(3, 3),
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -5407,13 +5533,6 @@ CREATE TABLE `ps_emailsubscription` (
   `id_lang` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `ps_emailsubscription`
---
-
-INSERT INTO `ps_emailsubscription` (`id`, `id_shop`, `id_shop_group`, `email`, `newsletter_date_add`, `ip_registration_newsletter`, `http_referer`, `active`, `id_lang`) VALUES
-(1, 1, 1, 's188843@student.pg.edu.pl', '2023-11-25 15:38:28', '172.20.0.1', NULL, 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -5457,7 +5576,7 @@ CREATE TABLE `ps_employee` (
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`, `reset_password_token`, `reset_password_validity`, `has_enabled_gravatar`) VALUES
-(1, 1, 2, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'theme.css', 1, 0, 1, 1, NULL, 5, 0, 4, '2023-11-25', '', '0000-00-00 00:00:00', 0);
+(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'theme.css', 1, 0, 1, 1, NULL, 6, 0, 5, '2023-11-26', '', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -5478,8 +5597,8 @@ CREATE TABLE `ps_employee_session` (
 INSERT INTO `ps_employee_session` (`id_employee_session`, `id_employee`, `token`) VALUES
 (2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b'),
 (3, 1, '8b0dc065af90e0047a56e4c63631aacd8794b0cd'),
-(4, 1, '98c2b8d55f2434ff496b4e157ee36b274a08dfb2'),
-(8, 1, '98a041fae808c93d599a7569bace818ef088855f');
+(8, 1, '98a041fae808c93d599a7569bace818ef088855f'),
+(9, 1, 'ffab7e32ec9997830d065c43cc74ad119d20d75b');
 
 -- --------------------------------------------------------
 
@@ -5875,7 +5994,9 @@ INSERT INTO `ps_guest` (`id_guest`, `id_operating_system`, `id_web_browser`, `id
 (1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0),
 (2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0),
 (3, 6, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
-(4, 6, 11, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0);
+(4, 6, 11, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
+(5, 6, 11, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
+(6, 6, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0);
 
 -- --------------------------------------------------------
 
@@ -6872,7 +6993,6 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (12, 1, 696, 1),
 (13, 1, 14, 1),
 (14, 1, 7, 1),
-(15, 1, 698, 1),
 (15, 1, 701, 1),
 (16, 1, 69, 1),
 (17, 1, 702, 1),
@@ -6895,7 +7015,6 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (28, 1, 41, 1),
 (28, 1, 141, 1),
 (28, 1, 323, 1),
-(29, 1, 25, 1),
 (29, 1, 715, 1),
 (29, 1, 716, 1),
 (29, 1, 717, 1),
@@ -6911,6 +7030,7 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (29, 1, 727, 1),
 (29, 1, 728, 1),
 (29, 1, 729, 1),
+(30, 1, 25, 1),
 (30, 1, 730, 1),
 (31, 1, 58, 1),
 (44, 1, 18, 1),
@@ -6991,8 +7111,8 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (25, 1, 28, 2),
 (26, 1, 16, 2),
 (26, 1, 706, 2),
+(29, 1, 26, 2),
 (29, 1, 82, 2),
-(30, 1, 25, 2),
 (35, 1, 7, 2),
 (36, 1, 55, 2),
 (53, 1, 71, 2),
@@ -7526,7 +7646,9 @@ CREATE TABLE `ps_layered_filter_block` (
 
 INSERT INTO `ps_layered_filter_block` (`hash`, `data`) VALUES
 ('0325d11a70f0903143b692658ecde210', 'a:1:{s:7:\"filters\";a:10:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:2:{i:4;a:2:{s:4:\"name\";s:3:\"Men\";s:3:\"nbr\";s:1:\"2\";}i:5;a:2:{s:4:\"name\";s:5:\"Women\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:1:{i:4;a:4:{s:3:\"nbr\";s:1:\"2\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:3:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:3;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:3;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"2\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:1:\"3\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:3;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:3;s:5:\"value\";N;}}}'),
-('af71e1a195fd368501fdf87cd70d5ff6', 'a:1:{s:7:\"filters\";a:12:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:3:{i:3;a:2:{s:4:\"name\";s:7:\"Clothes\";s:3:\"nbr\";s:1:\"2\";}i:6;a:2:{s:4:\"name\";s:19:\"Produkty powiązane\";s:3:\"nbr\";s:2:\"12\";}i:9;a:2:{s:4:\"name\";s:3:\"Art\";s:3:\"nbr\";s:1:\"7\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:5:{i:4;a:4:{s:3:\"nbr\";s:1:\"2\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:3:\"nbr\";s:1:\"4\";s:4:\"name\";s:7:\"Ceramic\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:6;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:10:\"Matt paper\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:1;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"Poliester\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:5;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:18:\"Recycled cardboard\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:5:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:10;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"120 pages\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:9;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:15:\"Removable cover\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:20;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:20;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"9\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:2:\"10\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:2:\"20\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:20;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:20;s:5:\"value\";N;}i:10;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"3\";s:4:\"name\";s:9:\"Dimension\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:3:{i:19;a:4:{s:4:\"name\";s:7:\"40x60cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:20;a:4:{s:4:\"name\";s:7:\"60x90cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:21;a:4:{s:4:\"name\";s:8:\"80x120cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:11;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"4\";s:4:\"name\";s:10:\"Paper Type\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:22;a:4:{s:4:\"name\";s:5:\"Ruled\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:23;a:4:{s:4:\"name\";s:5:\"Plain\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:24;a:4:{s:4:\"name\";s:8:\"Squarred\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:25;a:4:{s:4:\"name\";s:5:\"Doted\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}}}');
+('af71e1a195fd368501fdf87cd70d5ff6', 'a:1:{s:7:\"filters\";a:12:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:3:{i:3;a:2:{s:4:\"name\";s:7:\"Clothes\";s:3:\"nbr\";s:1:\"2\";}i:6;a:2:{s:4:\"name\";s:19:\"Produkty powiązane\";s:3:\"nbr\";s:2:\"12\";}i:9;a:2:{s:4:\"name\";s:3:\"Art\";s:3:\"nbr\";s:1:\"7\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"2\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"4\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:5:{i:4;a:4:{s:3:\"nbr\";s:1:\"2\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:3:\"nbr\";s:1:\"4\";s:4:\"name\";s:7:\"Ceramic\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:6;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:10:\"Matt paper\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:1;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"Poliester\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:5;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:18:\"Recycled cardboard\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:5:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:10;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:9:\"120 pages\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:9;a:4:{s:3:\"nbr\";s:1:\"3\";s:4:\"name\";s:15:\"Removable cover\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:20;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:20;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"9\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:2:\"10\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:2:\"20\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:20;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:20;s:5:\"value\";N;}i:10;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"3\";s:4:\"name\";s:9:\"Dimension\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:3:{i:19;a:4:{s:4:\"name\";s:7:\"40x60cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:20;a:4:{s:4:\"name\";s:7:\"60x90cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:21;a:4:{s:4:\"name\";s:8:\"80x120cm\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:11;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"4\";s:4:\"name\";s:10:\"Paper Type\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:22;a:4:{s:4:\"name\";s:5:\"Ruled\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:23;a:4:{s:4:\"name\";s:5:\"Plain\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:24;a:4:{s:4:\"name\";s:8:\"Squarred\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:25;a:4:{s:4:\"name\";s:5:\"Doted\";s:3:\"nbr\";s:1:\"3\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}}}'),
+('b64c307de201824d46c3705fd8623a5c', 'a:1:{s:7:\"filters\";a:9:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:0:{}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:1:{i:4;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:1:{i:7;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:12:\"Long sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:1;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:1;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:1:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:1:\"1\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0.29999999999999999;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:1;}i:8;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:45;s:3:\"min\";d:35;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:1;s:5:\"value\";N;}}}'),
+('b8837f1bee71027cc8d4411d1a2234db', 'a:1:{s:7:\"filters\";a:10:{i:0;a:7:{s:9:\"type_lite\";s:8:\"category\";s:4:\"type\";s:8:\"category\";s:6:\"id_key\";i:0;s:4:\"name\";s:9:\"Kategorie\";s:6:\"values\";a:0:{}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:1;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"1\";s:4:\"name\";s:7:\"Rozmiar\";s:14:\"is_color_group\";b:0;s:6:\"values\";a:4:{i:1;a:4:{s:4:\"name\";s:1:\"S\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:2;a:4:{s:4:\"name\";s:1:\"M\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:3;a:4:{s:4:\"name\";s:1:\"L\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:4;a:4:{s:4:\"name\";s:2:\"XL\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:2;a:10:{s:9:\"type_lite\";s:18:\"id_attribute_group\";s:4:\"type\";s:18:\"id_attribute_group\";s:6:\"id_key\";s:1:\"2\";s:4:\"name\";s:5:\"Kolor\";s:14:\"is_color_group\";b:1;s:6:\"values\";a:2:{i:8;a:5:{s:4:\"name\";s:6:\"Biały\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#ffffff\";}i:11;a:5:{s:4:\"name\";s:6:\"czarny\";s:3:\"nbr\";s:1:\"1\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:5:\"color\";s:7:\"#434A54\";}}s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:3;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"1\";s:6:\"values\";a:1:{i:4;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:8:\"Bawełna\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:11:\"Composition\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:4;a:9:{s:9:\"type_lite\";s:10:\"id_feature\";s:4:\"type\";s:10:\"id_feature\";s:6:\"id_key\";s:1:\"2\";s:6:\"values\";a:2:{i:12;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:0:\"\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}i:8;a:4:{s:3:\"nbr\";s:1:\"1\";s:4:\"name\";s:13:\"Short sleeves\";s:8:\"url_name\";N;s:10:\"meta_title\";N;}}s:4:\"name\";s:8:\"Property\";s:8:\"url_name\";N;s:10:\"meta_title\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:5;a:7:{s:9:\"type_lite\";s:12:\"availability\";s:4:\"type\";s:12:\"availability\";s:6:\"id_key\";i:0;s:4:\"name\";s:13:\"Dostępność\";s:6:\"values\";a:3:{i:0;a:2:{s:4:\"name\";s:12:\"Niedostępny\";s:3:\"nbr\";i:0;}i:1;a:2:{s:4:\"name\";s:9:\"Dostępny\";s:3:\"nbr\";i:2;}i:2;a:2:{s:4:\"name\";s:11:\"W magazynie\";s:3:\"nbr\";i:2;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:6;a:7:{s:9:\"type_lite\";s:12:\"manufacturer\";s:4:\"type\";s:12:\"manufacturer\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Marka\";s:6:\"values\";a:2:{i:1;a:2:{s:4:\"name\";s:13:\"Studio Design\";s:3:\"nbr\";s:1:\"1\";}i:2;a:2:{s:4:\"name\";s:14:\"Graphic Corner\";s:3:\"nbr\";s:1:\"1\";}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:7;a:7:{s:9:\"type_lite\";s:9:\"condition\";s:4:\"type\";s:9:\"condition\";s:6:\"id_key\";i:0;s:4:\"name\";s:5:\"Stan:\";s:6:\"values\";a:3:{s:3:\"new\";a:2:{s:4:\"name\";s:4:\"Nowy\";s:3:\"nbr\";s:1:\"2\";}s:4:\"used\";a:2:{s:4:\"name\";s:8:\"Używany\";s:3:\"nbr\";i:0;}s:11:\"refurbished\";a:2:{s:4:\"name\";s:9:\"Odnowiony\";s:3:\"nbr\";i:0;}}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";s:1:\"0\";}i:8;a:12:{s:9:\"type_lite\";s:6:\"weight\";s:4:\"type\";s:6:\"weight\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Waga\";s:3:\"max\";d:0.29999999999999999;s:3:\"min\";d:0;s:4:\"unit\";s:2:\"kg\";s:14:\"specifications\";N;s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:5:\"value\";N;s:3:\"nbr\";i:2;}i:9;a:12:{s:9:\"type_lite\";s:5:\"price\";s:4:\"type\";s:5:\"price\";s:6:\"id_key\";i:0;s:4:\"name\";s:4:\"Cena\";s:3:\"max\";d:30;s:3:\"min\";d:0;s:4:\"unit\";s:3:\"zł\";s:14:\"specifications\";a:11:{s:6:\"symbol\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:12:\"currencyCode\";s:3:\"PLN\";s:14:\"currencySymbol\";s:3:\"zł\";s:13:\"numberSymbols\";a:11:{i:0;s:1:\",\";i:1;s:2:\" \";i:2;s:1:\";\";i:3;s:1:\"%\";i:4;s:1:\"-\";i:5;s:1:\"+\";i:6;s:1:\"E\";i:7;s:2:\"×\";i:8;s:3:\"‰\";i:9;s:3:\"∞\";i:10;s:3:\"NaN\";}s:15:\"positivePattern\";s:12:\"#,##0.00 ¤\";s:15:\"negativePattern\";s:13:\"-#,##0.00 ¤\";s:17:\"maxFractionDigits\";i:2;s:17:\"minFractionDigits\";i:2;s:12:\"groupingUsed\";b:1;s:16:\"primaryGroupSize\";i:3;s:18:\"secondaryGroupSize\";i:3;}s:17:\"filter_show_limit\";i:0;s:11:\"filter_type\";i:3;s:3:\"nbr\";i:2;s:5:\"value\";N;}}}');
 
 -- --------------------------------------------------------
 
@@ -7779,8 +7901,8 @@ CREATE TABLE `ps_link_block` (
 --
 
 INSERT INTO `ps_link_block` (`id_link_block`, `id_hook`, `position`, `content`) VALUES
-(1, 41, 0, '{\"cms\":[false],\"product\":[\"prices-drop\",\"new-products\",\"best-sales\"],\"static\":[false]}'),
-(2, 41, 1, '{\"cms\":[\"1\",\"2\",\"3\",\"4\",\"5\"],\"product\":[false],\"static\":[\"contact\",\"sitemap\",\"stores\"]}');
+(1, 41, 0, '{\"cms\":[false],\"static\":[false],\"product\":[\"prices-drop\",\"new-products\",\"best-sales\"],\"category\":[false]}'),
+(2, 41, 1, '{\"cms\":[false],\"static\":[\"contact\"],\"product\":[false],\"category\":[false]}');
 
 -- --------------------------------------------------------
 
@@ -7801,9 +7923,9 @@ CREATE TABLE `ps_link_block_lang` (
 
 INSERT INTO `ps_link_block_lang` (`id_link_block`, `id_lang`, `name`, `custom_content`) VALUES
 (1, 1, 'Products', NULL),
-(1, 2, 'Products', NULL),
+(1, 2, 'Produkty', NULL),
 (2, 1, 'Our company', NULL),
-(2, 2, 'Our company', NULL);
+(2, 2, 'Nasza firma', NULL);
 
 -- --------------------------------------------------------
 
@@ -8207,7 +8329,12 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (352, 1, 0, 'Exporting mail with theme modern for language Polski (Polish)', '', 0, 1, NULL, 2, 0, 1, '2023-11-25 19:32:38', '2023-11-25 19:32:38'),
 (353, 1, 0, 'Core output folder: /var/www/html/mails', '', 0, 1, NULL, 2, 0, 1, '2023-11-25 19:32:38', '2023-11-25 19:32:38'),
 (354, 1, 0, 'Modules output folder: /var/www/html/modules/', '', 0, 1, NULL, 2, 0, 1, '2023-11-25 19:32:38', '2023-11-25 19:32:38'),
-(355, 1, 0, 'Back office connection from 172.18.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-25 19:46:16', '2023-11-25 19:46:16');
+(355, 1, 0, 'Back office connection from 172.18.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-25 19:46:16', '2023-11-25 19:46:16'),
+(356, 1, 0, 'Back office connection from 172.18.0.1', '', 0, NULL, NULL, 1, 1, 1, '2023-11-26 01:06:46', '2023-11-26 01:06:46'),
+(357, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:91070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001056000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:49930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:30000000, 1.36674:32000000, 1.61250:00000000, 1.45378:35000000, 1.44866:01000000, 16.55847:AB000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:9E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:47000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000087000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000FDBF0300, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400363536, 7.51330:D5C45BBB13EEDB0800000000, 0.39570:A46D44BB, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:07:51', '2023-11-26 01:07:51'),
+(358, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:A7070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:25930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:64000000, 1.36674:32000000, 1.61250:00000000, 1.45378:69000000, 1.44866:01000000, 16.55847:DF000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:7A920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:0D000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400000000, 7.51330:4042C3DA13EEDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:08:44', '2023-11-26 01:08:44'),
+(359, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:AC070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:25930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:52000000, 1.36674:32000000, 1.61250:00000000, 1.45378:57000000, 1.44866:01000000, 16.55847:CD000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2C000000, 0.35180:2A180000, 255.23226:7A920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:BB000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:D1000000, 0.38698:0D000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000534900, 7.36354:01000000000001094D534900, 4.56248:DC040000, 7.40748:010000000000010B00000000, 7.57132:000000000000000004000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED00000000000000003A366165, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400000000, 7.51330:9F9A8FDB13EEDB0800000000, 0.39570:12000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:0300080E, 255.31418:0A00603A, 0.22753:5F010000, 255.21817:DC040000, 0.64418:0A00E680, 4.39842:DC040000, 0.41586:0B00CD0E, 4.60547:DC040000, 0.21966:6C010000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:08:45', '2023-11-26 01:08:45'),
+(360, 1, 0, 'Frontcontroller::init - Cart cannot be loaded or an order has already been placed using this cart', 'Cart', 6, 1, NULL, 2, 0, 0, '2023-11-26 01:08:45', '2023-11-26 01:08:45');
 
 -- --------------------------------------------------------
 
@@ -9312,7 +9439,10 @@ INSERT INTO `ps_module_history` (`id`, `id_employee`, `id_module`, `date_add`, `
 (3, 1, 35, '2023-11-25 17:53:43', '2023-11-25 17:53:43'),
 (4, 1, 14, '2023-11-25 17:53:50', '2023-11-25 17:53:50'),
 (5, 1, 2, '2023-11-25 19:33:53', '2023-11-25 19:35:43'),
-(6, 1, 15, '2023-11-25 19:34:36', '2023-11-25 19:34:36');
+(6, 1, 15, '2023-11-25 19:34:36', '2023-11-25 19:34:36'),
+(7, 1, 21, '2023-11-26 01:25:07', '2023-11-26 01:25:07'),
+(8, 1, 28, '2023-11-26 01:30:19', '2023-11-26 01:57:37'),
+(9, 1, 29, '2023-11-26 02:36:46', '2023-11-26 02:36:46');
 
 -- --------------------------------------------------------
 
@@ -9497,7 +9627,8 @@ INSERT INTO `ps_orders` (`id_order`, `reference`, `id_shop_group`, `id_shop`, `i
 (2, 'OHSATSERP', 1, 1, 2, 1, 2, 2, 1, 5, 5, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Payment by check', 1.000000, 'ps_checkpayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 169.900000, 169.900000, 169.900000, 0.000000, 169.900000, 169.900000, 0.000000, 0.000000, 0.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
 (3, 'UOYEVOLI', 1, 1, 2, 1, 2, 3, 1, 5, 5, 8, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Payment by check', 1.000000, 'ps_checkpayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 14.900000, 21.300000, 19.900000, 0.000000, 12.900000, 12.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
 (4, 'FFATNOMMJ', 1, 1, 2, 1, 2, 4, 1, 5, 5, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Payment by check', 1.000000, 'ps_checkpayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 14.900000, 21.300000, 19.900000, 0.000000, 12.900000, 12.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
-(5, 'KHWLILZLL', 1, 1, 2, 1, 2, 5, 1, 5, 5, 10, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Bank wire', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 20.900000, 27.300000, 25.900000, 0.000000, 18.900000, 18.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', '');
+(5, 'KHWLILZLL', 1, 1, 2, 1, 2, 5, 1, 5, 5, 10, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Bank wire', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 20.900000, 27.300000, 25.900000, 0.000000, 18.900000, 18.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
+(6, 'SVAKHXUYE', 1, 1, 5, 2, 5, 6, 1, 9, 9, 10, 'dafcbe485db7e7ecf68130a294a8fe18', 'Płatności elektroniczne', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 76.340000, 76.340000, 63.000000, 0.000000, 58.000000, 71.340000, 5.000000, 5.000000, 5.000000, 0.000, 0.000000, 0.000000, 0.000000, 2, 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-11-26 01:08:43', '2023-11-26 01:08:43', '');
 
 -- --------------------------------------------------------
 
@@ -9526,7 +9657,8 @@ INSERT INTO `ps_order_carrier` (`id_order_carrier`, `id_order`, `id_carrier`, `i
 (2, 2, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
 (3, 3, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
 (4, 4, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
-(5, 5, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37');
+(5, 5, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
+(6, 6, 5, 0, 0.600000, 5.000000, 5.000000, '', '2023-11-26 01:08:43');
 
 -- --------------------------------------------------------
 
@@ -9615,7 +9747,8 @@ INSERT INTO `ps_order_detail` (`id_order_detail`, `id_order`, `id_order_invoice`
 (4, 2, 0, 0, 1, 8, 0, 0, 'Mug Today is a good day', 1, 1, 0, 0, 0, 11.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_13', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 11.900000, 11.900000, 11.900000, 11.900000, 0.000000, 0.000000, 0.000000, 11.900000, 0.000000, 0.000000, 0.000000),
 (5, 3, 0, 0, 1, 16, 28, 0, 'Mountain fox notebook Style : Ruled', 1, 1, 0, 0, 0, 12.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_8', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 12.900000, 12.900000, 12.900000, 12.900000, 0.000000, 0.000000, 0.000000, 12.900000, 0.000000, 0.000000, 0.000000),
 (6, 4, 0, 0, 1, 16, 29, 0, 'Mountain fox notebook Style : Plain', 1, 1, 0, 0, 0, 12.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_8', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 12.900000, 12.900000, 12.900000, 12.900000, 0.000000, 0.000000, 0.000000, 12.900000, 0.000000, 0.000000, 0.000000),
-(7, 5, 0, 0, 1, 10, 25, 0, 'Brown bear cushion Color : Black', 1, 1, 0, 0, 0, 18.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_16', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 18.900000, 18.900000, 18.900000, 18.900000, 0.000000, 0.000000, 0.000000, 18.900000, 0.000000, 0.000000, 0.000000);
+(7, 5, 0, 0, 1, 10, 25, 0, 'Brown bear cushion Color : Black', 1, 1, 0, 0, 0, 18.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_16', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 18.900000, 18.900000, 18.900000, 18.900000, 0.000000, 0.000000, 0.000000, 18.900000, 0.000000, 0.000000, 0.000000),
+(8, 6, 0, 0, 1, 3, 13, 0, 'The best is yet to come\' Framed poster (Dimension: 40x60cm)', 2, 2, 0, 0, 0, 29.000000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_6', 'demo_6_70', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 71.340000, 58.000000, 35.670000, 29.000000, 0.000000, 0.000000, 5.490000, 29.000000, 0.000000, 0.000000, 0.000000);
 
 -- --------------------------------------------------------
 
@@ -9629,6 +9762,13 @@ CREATE TABLE `ps_order_detail_tax` (
   `unit_amount` decimal(16,6) NOT NULL DEFAULT 0.000000,
   `total_amount` decimal(16,6) NOT NULL DEFAULT 0.000000
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ps_order_detail_tax`
+--
+
+INSERT INTO `ps_order_detail_tax` (`id_order_detail`, `id_tax`, `unit_amount`, `total_amount`) VALUES
+(8, 1, 6.670000, 13.340000);
 
 -- --------------------------------------------------------
 
@@ -9655,7 +9795,8 @@ INSERT INTO `ps_order_history` (`id_order_history`, `id_employee`, `id_order`, `
 (4, 0, 4, 1, '2023-10-14 10:11:37'),
 (5, 0, 5, 10, '2023-10-14 10:11:37'),
 (6, 1, 1, 6, '2023-10-14 10:11:37'),
-(7, 1, 3, 8, '2023-10-14 10:11:37');
+(7, 1, 3, 8, '2023-10-14 10:11:37'),
+(8, 0, 6, 10, '2023-11-26 01:08:43');
 
 -- --------------------------------------------------------
 
@@ -11028,7 +11169,8 @@ CREATE TABLE `ps_psgdpr_log` (
 
 INSERT INTO `ps_psgdpr_log` (`id_gdpr_log`, `id_customer`, `id_guest`, `client_name`, `id_module`, `request_type`, `date_add`, `date_upd`) VALUES
 (1, 3, 0, 'as sadas', 0, 1, '2023-11-25 18:03:39', '2023-11-25 18:03:39'),
-(2, 4, 0, 'as as', 0, 1, '2023-11-25 18:15:09', '2023-11-25 18:15:09');
+(2, 4, 0, 'as as', 0, 1, '2023-11-25 18:15:09', '2023-11-25 18:15:09'),
+(3, 5, 0, 'Anna Kowalska', 0, 1, '2023-11-26 01:07:51', '2023-11-26 01:07:51');
 
 -- --------------------------------------------------------
 
@@ -13848,7 +13990,7 @@ CREATE TABLE `ps_stock_available` (
 INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_product_attribute`, `id_shop`, `id_shop_group`, `quantity`, `physical_quantity`, `reserved_quantity`, `depends_on_stock`, `out_of_stock`, `location`) VALUES
 (1, 1, 0, 1, 0, 2400, 0, 0, 0, 2, ''),
 (2, 2, 0, 1, 0, 2100, 0, 0, 0, 2, ''),
-(3, 3, 0, 1, 0, 1500, 0, 0, 0, 2, ''),
+(3, 3, 0, 1, 0, 1498, 1498, 0, 0, 2, ''),
 (4, 4, 0, 1, 0, 1500, 0, 0, 0, 2, ''),
 (5, 5, 0, 1, 0, 900, 0, 0, 0, 2, ''),
 (6, 6, 0, 1, 0, 300, 0, 0, 0, 2, ''),
@@ -13877,9 +14019,9 @@ INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_produc
 (29, 2, 10, 1, 0, 300, 0, 0, 0, 2, ''),
 (30, 2, 11, 1, 0, 300, 0, 0, 0, 2, ''),
 (31, 2, 12, 1, 0, 300, 0, 0, 0, 2, ''),
-(32, 3, 13, 1, 0, 900, 0, 0, 0, 2, ''),
-(33, 3, 14, 1, 0, 300, 0, 0, 0, 2, ''),
-(34, 3, 15, 1, 0, 300, 0, 0, 0, 2, ''),
+(32, 3, 13, 1, 0, 898, 900, 2, 0, 2, ''),
+(33, 3, 14, 1, 0, 300, 300, 0, 0, 2, ''),
+(34, 3, 15, 1, 0, 300, 300, 0, 0, 2, ''),
 (35, 4, 16, 1, 0, 900, 0, 0, 0, 2, ''),
 (36, 4, 17, 1, 0, 300, 0, 0, 0, 2, ''),
 (37, 4, 18, 1, 0, 300, 0, 0, 0, 2, ''),
@@ -15917,7 +16059,8 @@ CREATE TABLE `ps_wishlist` (
 --
 
 INSERT INTO `ps_wishlist` (`id_wishlist`, `id_customer`, `id_shop`, `id_shop_group`, `token`, `name`, `counter`, `date_add`, `date_upd`, `default`) VALUES
-(1, 3, 1, 1, '8BCC8426B1A8F495', 'My wishlist', NULL, '2023-11-25 18:04:19', '2023-11-25 18:04:19', 1);
+(1, 3, 1, 1, '8BCC8426B1A8F495', 'My wishlist', NULL, '2023-11-25 18:04:19', '2023-11-25 18:04:19', 1),
+(2, 5, 1, 1, 'C16B57F25794D474', 'My wishlist', NULL, '2023-11-26 01:08:46', '2023-11-26 01:08:46', 1);
 
 -- --------------------------------------------------------
 
@@ -17973,13 +18116,13 @@ ALTER TABLE `ps_zone_shop`
 -- AUTO_INCREMENT for table `ps_address`
 --
 ALTER TABLE `ps_address`
-  MODIFY `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ps_admin_filter`
 --
 ALTER TABLE `ps_admin_filter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ps_alias`
@@ -18039,7 +18182,7 @@ ALTER TABLE `ps_carrier`
 -- AUTO_INCREMENT for table `ps_cart`
 --
 ALTER TABLE `ps_cart`
-  MODIFY `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ps_cart_rule`
@@ -18099,19 +18242,19 @@ ALTER TABLE `ps_configuration`
 -- AUTO_INCREMENT for table `ps_configuration_kpi`
 --
 ALTER TABLE `ps_configuration_kpi`
-  MODIFY `id_configuration_kpi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_configuration_kpi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `ps_connections`
 --
 ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ps_connections_source`
 --
 ALTER TABLE `ps_connections_source`
-  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 
 --
 -- AUTO_INCREMENT for table `ps_contact`
@@ -18135,7 +18278,7 @@ ALTER TABLE `ps_currency`
 -- AUTO_INCREMENT for table `ps_customer`
 --
 ALTER TABLE `ps_customer`
-  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ps_customer_message`
@@ -18147,7 +18290,7 @@ ALTER TABLE `ps_customer_message`
 -- AUTO_INCREMENT for table `ps_customer_session`
 --
 ALTER TABLE `ps_customer_session`
-  MODIFY `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ps_customer_thread`
@@ -18195,7 +18338,7 @@ ALTER TABLE `ps_employee`
 -- AUTO_INCREMENT for table `ps_employee_session`
 --
 ALTER TABLE `ps_employee_session`
-  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ps_feature`
@@ -18237,7 +18380,7 @@ ALTER TABLE `ps_group_reduction`
 -- AUTO_INCREMENT for table `ps_guest`
 --
 ALTER TABLE `ps_guest`
-  MODIFY `id_guest` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_guest` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ps_homeslider`
@@ -18333,7 +18476,7 @@ ALTER TABLE `ps_link_block_shop`
 -- AUTO_INCREMENT for table `ps_log`
 --
 ALTER TABLE `ps_log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=356;
+  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
 
 --
 -- AUTO_INCREMENT for table `ps_mail`
@@ -18375,7 +18518,7 @@ ALTER TABLE `ps_module`
 -- AUTO_INCREMENT for table `ps_module_history`
 --
 ALTER TABLE `ps_module_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ps_module_preference`
@@ -18393,13 +18536,13 @@ ALTER TABLE `ps_operating_system`
 -- AUTO_INCREMENT for table `ps_orders`
 --
 ALTER TABLE `ps_orders`
-  MODIFY `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ps_order_carrier`
 --
 ALTER TABLE `ps_order_carrier`
-  MODIFY `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ps_order_cart_rule`
@@ -18411,13 +18554,13 @@ ALTER TABLE `ps_order_cart_rule`
 -- AUTO_INCREMENT for table `ps_order_detail`
 --
 ALTER TABLE `ps_order_detail`
-  MODIFY `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ps_order_history`
 --
 ALTER TABLE `ps_order_history`
-  MODIFY `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ps_order_invoice`
@@ -18549,7 +18692,7 @@ ALTER TABLE `ps_psgdpr_consent_lang`
 -- AUTO_INCREMENT for table `ps_psgdpr_log`
 --
 ALTER TABLE `ps_psgdpr_log`
-  MODIFY `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ps_psreassurance`
@@ -18825,7 +18968,7 @@ ALTER TABLE `ps_web_browser`
 -- AUTO_INCREMENT for table `ps_wishlist`
 --
 ALTER TABLE `ps_wishlist`
-  MODIFY `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ps_wishlist_product`

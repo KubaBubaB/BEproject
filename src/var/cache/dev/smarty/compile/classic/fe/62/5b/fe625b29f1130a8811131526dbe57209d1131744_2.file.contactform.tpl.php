@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-25 19:35:01
+/* Smarty version 3.1.48, created on 2023-11-26 01:59:46
   from '/var/www/html/themes/classic/modules/contactform/views/templates/widget/contactform.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_65623e55886004_16289335',
+  'unifunc' => 'content_65629882704584_38353407',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fe625b29f1130a8811131526dbe57209d1131744' => 
     array (
       0 => '/var/www/html/themes/classic/modules/contactform/views/templates/widget/contactform.tpl',
-      1 => 1700930692,
+      1 => 1700922025,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65623e55886004_16289335 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65629882704584_38353407 (Smarty_Internal_Template $_smarty_tpl) {
 ?><section class="contact-form">
   <form action="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['urls']->value['pages']['contact'], ENT_QUOTES, 'UTF-8');?>
 " method="post" <?php if ($_smarty_tpl->tpl_vars['contact']->value['allow_file_upload']) {?>enctype="multipart/form-data"<?php }?>>

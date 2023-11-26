@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-25 19:35:01
+/* Smarty version 3.1.48, created on 2023-11-26 01:59:46
   from 'module:pscontactinfopscontactinf' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_65623e55872624_75500425',
+  'unifunc' => 'content_656298826d5b98_90214507',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '628089b29e2c5fb69de1c5694b088f988b830ba7' => 
     array (
       0 => 'module:pscontactinfopscontactinf',
-      1 => 1700930692,
+      1 => 1700922025,
       2 => 'module',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65623e55872624_75500425 (Smarty_Internal_Template $_smarty_tpl) {
+function content_656298826d5b98_90214507 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/var/www/html/vendor/smarty/smarty/libs/plugins/function.mailto.php','function'=>'smarty_function_mailto',),));
 ?>
 <!-- begin /var/www/html/themes/classic/modules/ps_contactinfo/ps_contactinfo-rich.tpl -->

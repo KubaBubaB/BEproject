@@ -50,7 +50,15 @@ a[data-depth="0"]:hover {
     line-height: 1.75rem;
     color: #232323;
 }
-
+#header .menu {
+    float:left
+}
+.header-top.navbar {
+    border-top: #f6f6f6 2px solid;
+}
+.user-info {
+    margin-right: 10px;
+}
 /* @media (min-width: 768px){
 .col-md-7 {
     float: left;
