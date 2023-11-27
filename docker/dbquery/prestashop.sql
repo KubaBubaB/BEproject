@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Lis 26, 2023 at 02:33 AM
+-- Generation Time: Lis 27, 2023 at 08:47 PM
 -- Wersja serwera: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204
 -- Wersja PHP: 8.2.8
 
@@ -911,7 +911,8 @@ INSERT INTO `ps_address` (`id_address`, `id_country`, `id_state`, `id_customer`,
 (6, 8, 0, 0, 0, 2, 0, 'accessories_supplier', 'Accessories and Co', 'accessories', 'accessories', '42 Avenue Maréchal Soult', '', '64990', 'Bayonne', '', '0102030405', '', '', '', '2023-10-14 10:11:35', '2023-10-14 10:11:35', 1, 0),
 (7, 14, 0, 3, 0, 0, 0, 'Mój adres', '', 'sadas', 'as', 'asd', '', '06-400', 'asd', '', '', '', '', '', '2023-11-25 18:03:57', '2023-11-25 18:03:57', 1, 0),
 (8, 14, 0, 4, 0, 0, 0, 'Mój adres', '', 'as', 'as', 'asdda', '', '03-600', 'Gdańsk', '', '', '', '', '', '2023-11-25 18:15:26', '2023-11-25 18:15:26', 1, 0),
-(9, 14, 0, 5, 0, 0, 0, 'Mój adres', '', 'Kowalska', 'Anna', 'Ulica 32', '', '32-423', 'Wroclaw', '', '', '', '', '', '2023-11-26 01:08:21', '2023-11-26 01:08:21', 1, 0);
+(9, 14, 0, 5, 0, 0, 0, 'Mój adres', '', 'Kowalska', 'Anna', 'Ulica 32', '', '32-423', 'Wroclaw', '', '', '', '', '', '2023-11-26 01:08:21', '2023-11-26 01:08:21', 1, 0),
+(10, 14, 0, 6, 0, 0, 0, 'Mój adres', '', 'Kowalska', 'Anna', 'ulica 32', '', '21-371', 'Wadowice', '', '', '', '', '', '2023-11-27 21:23:27', '2023-11-27 21:23:27', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1205,9 @@ INSERT INTO `ps_admin_filter` (`id`, `employee`, `shop`, `controller`, `action`,
 (10, 1, 1, 'contacts', 'index', '{\"limit\":10,\"orderBy\":\"id_contact\",\"sortOrder\":\"asc\",\"filters\":[]}', ''),
 (11, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_meta\",\"sortOrder\":\"asc\",\"filters\":[]}', 'meta'),
 (12, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_webservice_account\",\"sortOrder\":\"asc\",\"filters\":[]}', 'webservice_key'),
-(13, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_zone\",\"sortOrder\":\"asc\",\"filters\":[]}', 'zone');
+(13, 1, 1, '', '', '{\"limit\":50,\"orderBy\":\"id_zone\",\"sortOrder\":\"asc\",\"filters\":[]}', 'zone'),
+(14, 1, 1, '', '', '{\"orderBy\":\"position\",\"sortOrder\":\"asc\",\"limit\":50,\"filters\":{\"id_cms_category_parent\":1}}', 'cms_page_category'),
+(15, 1, 1, '', '', '{\"orderBy\":\"position\",\"sortOrder\":\"asc\",\"limit\":50,\"filters\":{\"id_cms_category_parent\":1}}', 'cms_page');
 
 -- --------------------------------------------------------
 
@@ -1569,6 +1572,10 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (548, 'ROLE_MOD_MODULE_PS_BANNER_DELETE'),
 (546, 'ROLE_MOD_MODULE_PS_BANNER_READ'),
 (547, 'ROLE_MOD_MODULE_PS_BANNER_UPDATE'),
+(829, 'ROLE_MOD_MODULE_PS_CASHONDELIVERY_CREATE'),
+(832, 'ROLE_MOD_MODULE_PS_CASHONDELIVERY_DELETE'),
+(830, 'ROLE_MOD_MODULE_PS_CASHONDELIVERY_READ'),
+(831, 'ROLE_MOD_MODULE_PS_CASHONDELIVERY_UPDATE'),
 (549, 'ROLE_MOD_MODULE_PS_CATEGORYTREE_CREATE'),
 (552, 'ROLE_MOD_MODULE_PS_CATEGORYTREE_DELETE'),
 (550, 'ROLE_MOD_MODULE_PS_CATEGORYTREE_READ'),
@@ -2586,7 +2593,9 @@ INSERT INTO `ps_cart` (`id_cart`, `id_shop_group`, `id_shop`, `id_carrier`, `del
 (6, 1, 1, 5, '{\"9\":\"5,\"}', 2, 9, 9, 1, 5, 4, 'dafcbe485db7e7ecf68130a294a8fe18', 0, 0, '', 0, 0, '2023-11-24 20:15:03', '2023-11-26 01:08:30', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"c8e1f9aa6052561e8001563e7a21791fe6e00b13\"}'),
 (7, 1, 1, 1, '{\"7\":\"1,\"}', 2, 7, 7, 1, 3, 4, '1ad19501877c6a9c28936eee23eb810c', 0, 0, '', 0, 0, '2023-11-25 18:03:07', '2023-11-25 18:04:01', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"0f0703ef30da99352e5e2c5c56c18aed994726ac\"}'),
 (8, 1, 1, 0, '', 2, 8, 8, 1, 4, 4, 'f7b4b78fb5f8cea02cd650cbfa1d4869', 0, 0, '', 0, 0, '2023-11-25 18:14:45', '2023-11-25 18:19:17', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checkout-payment-step\":{\"step_is_reachable\":false,\"step_is_complete\":false},\"checksum\":\"02b77e2686fbcb73715ec10c1bc8801d3448892f\"}'),
-(9, 1, 1, 0, '', 2, 9, 9, 1, 5, 4, 'dafcbe485db7e7ecf68130a294a8fe18', 0, 0, '', 0, 0, '2023-11-26 03:14:12', '2023-11-26 03:14:12', NULL);
+(9, 1, 1, 0, '', 2, 9, 9, 1, 5, 4, 'dafcbe485db7e7ecf68130a294a8fe18', 0, 0, '', 0, 0, '2023-11-26 03:14:12', '2023-11-26 03:14:12', NULL),
+(10, 1, 1, 6, '{\"10\":\"6,\"}', 2, 10, 10, 1, 6, 6, '21365dd45f2a35d30b33ef9a3b6e6253', 0, 0, '', 0, 0, '2023-11-27 21:14:32', '2023-11-27 21:23:47', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"7141d8115842cf618ccd466307a3be580fbf24a0\"}'),
+(11, 1, 1, 5, '{\"10\":\"5,\"}', 2, 10, 10, 1, 6, 6, '21365dd45f2a35d30b33ef9a3b6e6253', 0, 0, '', 0, 0, '2023-11-27 21:31:33', '2023-11-27 21:40:04', '{\"checkout-personal-information-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-addresses-step\":{\"step_is_reachable\":true,\"step_is_complete\":true,\"use_same_address\":true},\"checkout-delivery-step\":{\"step_is_reachable\":true,\"step_is_complete\":true},\"checkout-payment-step\":{\"step_is_reachable\":true,\"step_is_complete\":false},\"checksum\":\"96f02a39d97fb2abfe5fe55efa837a8bf882ef84\"}');
 
 -- --------------------------------------------------------
 
@@ -2631,7 +2640,10 @@ INSERT INTO `ps_cart_product` (`id_cart`, `id_product`, `id_address_delivery`, `
 (6, 3, 9, 1, 13, 0, 2, '2023-11-24 20:15:03'),
 (7, 1, 7, 1, 1, 0, 1, '2023-11-25 18:03:07'),
 (8, 3, 8, 1, 13, 0, 100, '2023-11-25 18:18:35'),
-(9, 2, 9, 1, 9, 0, 1, '2023-11-26 03:14:12');
+(9, 2, 9, 1, 9, 0, 1, '2023-11-26 03:14:12'),
+(10, 3, 10, 1, 15, 0, 1, '2023-11-27 21:14:32'),
+(11, 3, 10, 1, 13, 0, 1, '2023-11-27 21:39:56'),
+(11, 6, 10, 1, 0, 0, 1, '2023-11-27 21:31:33');
 
 -- --------------------------------------------------------
 
@@ -3112,16 +3124,16 @@ CREATE TABLE `ps_cms_lang` (
 --
 
 INSERT INTO `ps_cms_lang` (`id_cms`, `id_lang`, `id_shop`, `meta_title`, `head_seo_title`, `meta_description`, `meta_keywords`, `content`, `link_rewrite`) VALUES
-(1, 1, 1, 'Delivery', '', 'Our terms and conditions of delivery', 'conditions, delivery, delay, shipment, pack', '<h2>Shipments and returns</h2><h3>Your pack shipment</h3><p>Packages are generally dispatched within 2 days after receipt of payment and are shipped via UPS with tracking and drop-off without signature. If you prefer delivery by UPS Extra with required signature, an additional cost will be applied, so please contact us before choosing this method. Whichever shipment choice you make, we will provide you with a link to track your package online.</p><p>Shipping fees include handling and packing fees as well as postage costs. Handling fees are fixed, whereas transport fees vary according to total weight of the shipment. We advise you to group your items in one order. We cannot group two distinct orders placed separately, and shipping fees will apply to each of them. Your package will be dispatched at your own risk, but special care is taken to protect fragile objects.<br /><br />Boxes are amply sized and your items are well-protected.</p>', 'delivery'),
-(1, 2, 1, 'Delivery', '', 'Our terms and conditions of delivery', 'conditions, delivery, delay, shipment, pack', '<h2>Shipments and returns</h2><h3>Your pack shipment</h3><p>Packages are generally dispatched within 2 days after receipt of payment and are shipped via UPS with tracking and drop-off without signature. If you prefer delivery by UPS Extra with required signature, an additional cost will be applied, so please contact us before choosing this method. Whichever shipment choice you make, we will provide you with a link to track your package online.</p><p>Shipping fees include handling and packing fees as well as postage costs. Handling fees are fixed, whereas transport fees vary according to total weight of the shipment. We advise you to group your items in one order. We cannot group two distinct orders placed separately, and shipping fees will apply to each of them. Your package will be dispatched at your own risk, but special care is taken to protect fragile objects.<br /><br />Boxes are amply sized and your items are well-protected.</p>', 'delivery'),
-(2, 1, 1, 'Legal Notice', '', 'Legal notice', 'notice, legal, credits', '<h2>Legal</h2><h3>Credits</h3><p>Concept and production:</p><p>This Online store was created using <a href=\"http://www.prestashop.com\">Prestashop Shopping Cart Software</a>,check out PrestaShop\'s <a href=\"http://www.prestashop.com/blog/en/\">ecommerce blog</a> for news and advices about selling online and running your ecommerce website.</p>', 'legal-notice'),
-(2, 2, 1, 'Legal Notice', '', 'Legal notice', 'notice, legal, credits', '<h2>Legal</h2><h3>Credits</h3><p>Concept and production:</p><p>This Web site was created using <a href=\"http://www.prestashop.com\">PrestaShop</a>&trade; open-source software.</p>', 'legal-notice'),
-(3, 1, 1, 'Terms and conditions of use', '', 'Our terms and conditions of use', 'conditions, terms, use, sell', '<h1 class=\"page-heading\">Terms and conditions of use</h1>\n<h3 class=\"page-subheading\">Rule 1</h3>\n<p class=\"bottom-indent\">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h3 class=\"page-subheading\">Rule 2</h3>\n<p class=\"bottom-indent\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam&#1102;</p>\n<h3 class=\"page-subheading\">Rule 3</h3>\n<p class=\"bottom-indent\">Tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam&#1102;</p>', 'terms-and-conditions-of-use'),
-(3, 2, 1, 'Terms and conditions of use', '', 'Our terms and conditions of use', 'conditions, terms, use, sell', '<h2>Your terms and conditions of use</h2><h3>Rule 1</h3><p>Here is the rule 1 content</p>\r\n<h3>Rule 2</h3><p>Here is the rule 2 content</p>\r\n<h3>Rule 3</h3><p>Here is the rule 3 content</p>', 'terms-and-conditions-of-use'),
+(1, 1, 1, 'Delivery', '', 'Our terms and conditions of delivery', 'conditions, delivery, delay, shipment, pack', '<h2>Shipments and returns</h2>\n<h3>Your pack shipment</h3>\n<p>Packages are generally dispatched within 2 days after receipt of payment and are shipped via UPS with tracking and drop-off without signature. If you prefer delivery by UPS Extra with required signature, an additional cost will be applied, so please contact us before choosing this method. Whichever shipment choice you make, we will provide you with a link to track your package online.</p>\n<p>Shipping fees include handling and packing fees as well as postage costs. Handling fees are fixed, whereas transport fees vary according to total weight of the shipment. We advise you to group your items in one order. We cannot group two distinct orders placed separately, and shipping fees will apply to each of them. Your package will be dispatched at your own risk, but special care is taken to protect fragile objects.<br /><br />Boxes are amply sized and your items are well-protected.</p>', 'delivery'),
+(1, 2, 1, 'Dostawa', '', 'Ragulamin dostawy', 'conditions, delivery, delay, shipment, pack', '<h2>Tu bylem</h2>', 'dostawa'),
+(2, 1, 1, 'Legal Notice', '', 'Legal notice', 'notice, legal, credits', '<h2>Legal</h2>\n<h3>Credits</h3>\n<p>Concept and production:</p>\n<p>This Online store was created using <a href=\"http://www.prestashop.com\">Prestashop Shopping Cart Software</a>,check out PrestaShop\'s <a href=\"http://www.prestashop.com/blog/en/\">ecommerce blog</a> for news and advices about selling online and running your ecommerce website.</p>', 'legal-notice'),
+(2, 2, 1, 'Nota prawna', '', 'Nota prawna', 'notice, legal, credits', '<h2>Tu bylem</h2>\n<div id=\"gtx-trans\">\n<div class=\"gtx-trans-icon\"></div>\n</div>', 'nota-prawna'),
+(3, 1, 1, 'Terms and conditions of use', '', 'Our terms and conditions of use', 'conditions, terms, use, sell', '<h1 class=\"page-heading\">Terms and conditions of use</h1>\n<h3 class=\"page-subheading\">Rule 1</h3>\n<p class=\"bottom-indent\">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h3 class=\"page-subheading\">Rule 2</h3>\n<p class=\"bottom-indent\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamю</p>\n<h3 class=\"page-subheading\">Rule 3</h3>\n<p class=\"bottom-indent\">Tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamю</p>', 'terms-and-conditions-of-use'),
+(3, 2, 1, 'Regulamin', '', 'Nasz regulamin', 'conditions, terms, use, sell', '<p>Tu byłem</p>', 'regulamin'),
 (4, 1, 1, 'About us', '', 'Learn more about us', 'about us, informations', '<h1 class=\"page-heading bottom-indent\">About us</h1>\n<div class=\"row\">\n<div class=\"col-xs-12 col-sm-4\">\n<div class=\"cms-block\">\n<h3 class=\"page-subheading\">Our company</h3>\n<p><strong class=\"dark\">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididun.</strong></p>\n<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet conse ctetur adipisicing elit.</p>\n<ul class=\"list-1\">\n<li><em class=\"icon-ok\"></em>Top quality products</li>\n<li><em class=\"icon-ok\"></em>Best customer service</li>\n<li><em class=\"icon-ok\"></em>30-days money back guarantee</li>\n</ul>\n</div>\n</div>\n<div class=\"col-xs-12 col-sm-4\">\n<div class=\"cms-box\">\n<h3 class=\"page-subheading\">Our team</h3>\n<p><strong class=\"dark\">Lorem set sint occaecat cupidatat non </strong></p>\n<p>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>\n</div>\n</div>\n<div class=\"col-xs-12 col-sm-4\">\n<div class=\"cms-box\">\n<h3 class=\"page-subheading\">Testimonials</h3>\n<div class=\"testimonials\">\n<div class=\"inner\"><span class=\"before\">“</span>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.<span class=\"after\">”</span></div>\n</div>\n<p><strong class=\"dark\">Lorem ipsum dolor sit</strong></p>\n<div class=\"testimonials\">\n<div class=\"inner\"><span class=\"before\">“</span>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod.<span class=\"after\">”</span></div>\n</div>\n<p><strong class=\"dark\">Ipsum dolor sit</strong></p>\n</div>\n</div>\n</div>', 'about-us'),
-(4, 2, 1, 'About us', '', 'Learn more about us', 'about us, informations', '<h2>About us</h2>\r\n<h3>Our company</h3><p>Our company</p>\r\n<h3>Our team</h3><p>Our team</p>\r\n<h3>Informations</h3><p>Informations</p>', 'about-us'),
-(5, 1, 1, 'Secure payment', '', 'Our secure payment method', 'secure payment, ssl, visa, mastercard, paypal', '<h2>Secure payment</h2>\r\n<h3>Our secure payment</h3><p>With SSL</p>\r\n<h3>Using Visa/Mastercard/Paypal</h3><p>About this service</p>', 'secure-payment'),
-(5, 2, 1, 'Secure payment', '', 'Our secure payment mean', 'secure payment, ssl, visa, mastercard, paypal', '<h2>Secure payment</h2>\r\n<h3>Our secure payment</h3><p>With SSL</p>\r\n<h3>Using Visa/Mastercard/Paypal</h3><p>About this services</p>', 'secure-payment');
+(4, 2, 1, 'O nas', '', 'Dowiedz się więcej o nas', 'about us, informations', '<h2>Tu bylem</h2>\n<div id=\"gtx-trans\">\n<div class=\"gtx-trans-icon\"></div>\n</div>', 'o-nas'),
+(5, 1, 1, 'Secure payment', '', 'Our secure payment method', 'secure payment, ssl, visa, mastercard, paypal', '<h2>Secure payment</h2>\n<h3>Our secure payment</h3>\n<p>With SSL</p>\n<h3>Using Visa/Mastercard/Paypal</h3>\n<p>About this service</p>', 'secure-payment'),
+(5, 2, 1, 'Bezpieczna płatność', '', 'Bezpieczna płatność', 'secure payment, ssl, visa, mastercard, paypal', '<h2>Tu bylem</h2>\n<div id=\"gtx-trans\">\n<div class=\"gtx-trans-icon\"></div>\n</div>', 'bezpieczna-platnosc');
 
 -- --------------------------------------------------------
 
@@ -3617,7 +3629,16 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (425, NULL, NULL, 'PS_MAIL_EMAIL_MESSAGE', '2', '2023-11-25 18:44:18', '2023-11-25 19:28:48'),
 (426, NULL, NULL, 'PS_MAIL_DOMAIN', NULL, '2023-11-25 18:44:18', '2023-11-25 19:40:46'),
 (427, NULL, NULL, 'CONTACTFORM_SEND_CONFIRMATION_EMAIL', '0', '2023-11-25 19:34:04', '2023-11-25 19:34:04'),
-(428, NULL, NULL, 'CONTACTFORM_SEND_NOTIFICATION_EMAIL', '0', '2023-11-25 19:34:04', '2023-11-25 19:34:04');
+(428, NULL, NULL, 'CONTACTFORM_SEND_NOTIFICATION_EMAIL', '0', '2023-11-25 19:34:04', '2023-11-25 19:34:04'),
+(429, NULL, NULL, 'CONF_PS_CASHONDELIVERY_FIXED', '0.2', '2023-11-27 21:27:56', '2023-11-27 21:27:56'),
+(430, NULL, NULL, 'CONF_PS_CASHONDELIVERY_VAR', '2', '2023-11-27 21:27:56', '2023-11-27 21:27:56'),
+(431, NULL, NULL, 'CONF_PS_CASHONDELIVERY_FIXED_FOREIGN', '0.2', '2023-11-27 21:27:56', '2023-11-27 21:27:56'),
+(432, NULL, NULL, 'CONF_PS_CASHONDELIVERY_VAR_FOREIGN', '2', '2023-11-27 21:27:56', '2023-11-27 21:27:56'),
+(433, NULL, NULL, 'BANK_WIRE_DETAILS', 'PL', '2023-11-27 21:42:36', '2023-11-27 21:44:13'),
+(434, NULL, NULL, 'BANK_WIRE_OWNER', 'ButyXL. Lipinki Łużyckie, Łączna 43', '2023-11-27 21:42:37', '2023-11-27 21:44:13'),
+(435, NULL, NULL, 'BANK_WIRE_ADDRESS', '40 1337 1337 1337 1337 1337 1337 ', '2023-11-27 21:42:37', '2023-11-27 21:44:13'),
+(436, NULL, NULL, 'BANK_WIRE_RESERVATION_DAYS', NULL, '2023-11-27 21:42:37', '2023-11-27 21:42:37'),
+(437, NULL, NULL, 'BANK_WIRE_CUSTOM_TEXT', NULL, '2023-11-27 21:42:37', '2023-11-27 21:42:37');
 
 -- --------------------------------------------------------
 
@@ -3787,7 +3808,9 @@ INSERT INTO `ps_configuration_lang` (`id_configuration`, `id_lang`, `value`, `da
 (365, 1, 'I agree to the terms and conditions and the privacy policy', '2023-10-14 08:11:16'),
 (365, 2, 'Akceptuję ogólne warunki użytkowania i politykę prywatności', '2023-10-14 10:11:16'),
 (367, 1, 'I agree to the terms and conditions and the privacy policy', '2023-10-14 08:11:16'),
-(367, 2, 'Akceptuję ogólne warunki użytkowania i politykę prywatności', '2023-10-14 10:11:16');
+(367, 2, 'Akceptuję ogólne warunki użytkowania i politykę prywatności', '2023-10-14 10:11:16'),
+(437, 1, '', '2023-11-27 21:42:37'),
+(437, 2, '', '2023-11-27 21:42:37');
 
 -- --------------------------------------------------------
 
@@ -3823,7 +3846,9 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (10, 1, 1, 4, 1, 2886860801, '2023-11-26 01:06:22', ''),
 (11, 1, 1, 4, 1, 2886860801, '2023-11-26 01:37:54', ''),
 (12, 1, 1, 4, 1, 2886860801, '2023-11-26 02:51:52', ''),
-(13, 1, 1, 6, 1, 2886860801, '2023-11-26 03:30:03', 'http://127.0.0.1:8080/index.php');
+(13, 1, 1, 6, 1, 2886860801, '2023-11-26 03:30:03', 'http://127.0.0.1:8080/index.php'),
+(14, 1, 1, 6, 1, 2886860801, '2023-11-26 14:46:00', ''),
+(15, 1, 1, 6, 1, 2886860801, '2023-11-27 21:14:05', '');
 
 -- --------------------------------------------------------
 
@@ -4065,7 +4090,59 @@ INSERT INTO `ps_connections_source` (`id_connections_source`, `id_connections`, 
 (205, 12, 'http://127.0.0.1:8080/index.php?controller=my-account', '127.0.0.1:8080/index.php', '', '2023-11-26 03:29:30'),
 (206, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:30:03'),
 (207, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:31:03'),
-(208, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:32:44');
+(208, 13, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-26 03:32:44'),
+(209, 15, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-27 21:14:35'),
+(210, 15, 'http://127.0.0.1:8080/index.php?', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-27 21:16:11'),
+(211, 15, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:16:39'),
+(212, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?id_cms=3&controller=cms&id_lang=2?content_only=1', '', '2023-11-27 21:16:48'),
+(213, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?id_cms=3&controller=cms&id_lang=2?content_only=1', '', '2023-11-27 21:16:53'),
+(214, 15, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:19:22'),
+(215, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?id_cms=3&controller=cms&id_lang=2?content_only=1', '', '2023-11-27 21:19:23'),
+(216, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?id_cms=3&controller=cms&id_lang=2?content_only=1', '', '2023-11-27 21:19:30'),
+(217, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:21:15'),
+(218, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-27 21:21:22'),
+(219, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:21:25'),
+(220, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=best-sales', '', '2023-11-27 21:21:26'),
+(221, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:21:32'),
+(222, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=prices-drop', '', '2023-11-27 21:21:33'),
+(223, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:21:36'),
+(224, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-27 21:22:17'),
+(225, 15, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:22:19'),
+(226, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:22:40'),
+(227, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:22:55'),
+(228, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:23:27'),
+(229, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:23:48'),
+(230, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=10&id_module=35&id_order=7&key=21365dd45f2a35d30b33ef9a3b6e6253', '', '2023-11-27 21:24:00'),
+(231, 15, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=10&id_module=35&id_order=7&key=21365dd45f2a35d30b33ef9a3b6e6253', '127.0.0.1:8080/index.php', '', '2023-11-27 21:31:23'),
+(232, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-27 21:31:35'),
+(233, 15, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:31:37'),
+(234, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:31:39'),
+(235, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:31:43'),
+(236, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?id_cms=3&controller=cms&id_lang=2?content_only=1', '', '2023-11-27 21:31:49'),
+(237, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:33:16'),
+(238, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=addresses', '', '2023-11-27 21:33:22'),
+(239, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:33:25'),
+(240, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=identity', '', '2023-11-27 21:33:27'),
+(241, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:33:35'),
+(242, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:34:25'),
+(243, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_cms=5&controller=cms&id_lang=2', '', '2023-11-27 21:34:27'),
+(244, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php', '', '2023-11-27 21:34:29'),
+(245, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?id_product=3&id_product_attribute=13&rewrite=the-best-is-yet-to-come-framed-poster&controller=product&id_lang=2', '', '2023-11-27 21:39:56'),
+(246, 15, 'http://127.0.0.1:8080/index.php?id_product=3&id_product_attribute=13&rewrite=the-best-is-yet-to-come-framed-poster&controller=product&id_lang=2', '127.0.0.1:8080/index.php?controller=cart&action=show', '', '2023-11-27 21:39:59'),
+(247, 15, 'http://127.0.0.1:8080/index.php?controller=cart&action=show', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:40:00'),
+(248, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:40:02'),
+(249, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order', '', '2023-11-27 21:40:04'),
+(250, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=11&id_module=35&id_order=8&key=21365dd45f2a35d30b33ef9a3b6e6253', '', '2023-11-27 21:40:18'),
+(251, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=11&id_module=35&id_order=8&key=21365dd45f2a35d30b33ef9a3b6e6253', '', '2023-11-27 21:42:50'),
+(252, 15, 'http://127.0.0.1:8080/index.php?controller=order', '127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=11&id_module=35&id_order=8&key=21365dd45f2a35d30b33ef9a3b6e6253', '', '2023-11-27 21:44:16'),
+(253, 15, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=11&id_module=35&id_order=8&key=21365dd45f2a35d30b33ef9a3b6e6253', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-27 21:45:08'),
+(254, 15, 'http://127.0.0.1:8080/index.php?controller=contact', '127.0.0.1:8080/index.php', '', '2023-11-27 21:45:19'),
+(255, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-27 21:46:04'),
+(256, 15, 'http://127.0.0.1:8080/index.php?controller=order-confirmation&id_cart=11&id_module=35&id_order=8&key=21365dd45f2a35d30b33ef9a3b6e6253', '127.0.0.1:8080/index.php?controller=contact', '', '2023-11-27 21:46:05'),
+(257, 15, 'http://127.0.0.1:8080/index.php?controller=contact', '127.0.0.1:8080/index.php', '', '2023-11-27 21:46:07'),
+(258, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php?controller=order-slip', '', '2023-11-27 21:46:53'),
+(259, 15, 'http://127.0.0.1:8080/index.php?controller=contact', '127.0.0.1:8080/index.php', '', '2023-11-27 21:46:58'),
+(260, 15, 'http://127.0.0.1:8080/index.php', '127.0.0.1:8080/index.php', '', '2023-11-27 21:47:11');
 
 -- --------------------------------------------------------
 
@@ -5273,7 +5350,8 @@ INSERT INTO `ps_customer` (`id_customer`, `id_shop_group`, `id_shop`, `id_gender
 (2, 1, 1, 1, 3, 1, 0, '', '', '', 'John', 'DOE', 'pub@prestashop.com', 'c5ed575c5649400935b4b22b3ee0599d', '2023-10-14 04:11:35', '1970-01-15', 1, '', '2013-12-13 08:19:15', 1, '', 0.000000, 0, 0, '10ec362a8a6f621d9551952c85ba7e4f', '', 1, 0, 0, '2023-10-14 10:11:35', '2023-10-14 10:11:35', '', '0000-00-00 00:00:00'),
 (3, 1, 1, 1, 3, 2, 0, '', '', '', 'as', 'sadas', 'saf@sa.pl', '$2y$10$zPrB5eyKywdWtmduMhJCw.gA2U1iBfQfXmYaoLvXqEF/FgDCF0zOm', '2023-11-25 12:03:39', '2002-07-04', 0, '', '0000-00-00 00:00:00', 0, '', 0.000000, 0, 0, '1ad19501877c6a9c28936eee23eb810c', '', 1, 0, 0, '2023-11-25 18:03:39', '2023-11-25 18:03:39', '', '0000-00-00 00:00:00'),
 (4, 1, 1, 1, 2, 2, 0, NULL, NULL, NULL, 'as', 'as', 'asa@ss.pl', '$2y$10$C866qqPIAqdxceNWu0d9u.2olKnN9CDQ5SZoiZxdh3FNiHDL.m/U.', '2023-11-25 12:15:09', '2002-07-04', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'f7b4b78fb5f8cea02cd650cbfa1d4869', NULL, 1, 1, 0, '2023-11-25 18:15:09', '2023-11-25 18:19:14', NULL, '0000-00-00 00:00:00'),
-(5, 1, 1, 2, 3, 2, 0, NULL, NULL, NULL, 'Anna', 'Kowalska', 's188843@student.pg.edu.pl', '$2y$10$qaNZJIz.xz1Ie6A8eJhIt.Acv83LNPyZVaROQ.AexTqmhrF54CKxO', '2023-11-25 19:07:50', '1970-05-31', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'dafcbe485db7e7ecf68130a294a8fe18', NULL, 1, 0, 0, '2023-11-26 01:07:50', '2023-11-26 01:26:40', NULL, '0000-00-00 00:00:00');
+(5, 1, 1, 2, 3, 2, 0, NULL, NULL, NULL, 'Anna', 'Kowalska', 's188843@student.pg.edu.pl', '$2y$10$qaNZJIz.xz1Ie6A8eJhIt.Acv83LNPyZVaROQ.AexTqmhrF54CKxO', '2023-11-25 19:07:50', '1970-05-31', 0, NULL, '0000-00-00 00:00:00', 0, NULL, 0.000000, 0, 0, 'dafcbe485db7e7ecf68130a294a8fe18', NULL, 1, 0, 0, '2023-11-26 01:07:50', '2023-11-26 01:26:40', NULL, '0000-00-00 00:00:00'),
+(6, 1, 1, 2, 3, 2, 0, '', '', '', 'Anna', 'Kowalska', 'costam@gmail.com', '$2y$10$0QsHPqkrHymFT576VoCzSOGJQnOK.1.ofFfjFVAz6VQBOsIwM3/RK', '2023-11-27 15:22:53', '1970-05-31', 0, '', '0000-00-00 00:00:00', 0, '', 0.000000, 0, 0, '21365dd45f2a35d30b33ef9a3b6e6253', '', 1, 0, 0, '2023-11-27 21:22:53', '2023-11-27 21:22:53', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -5295,7 +5373,8 @@ INSERT INTO `ps_customer_group` (`id_customer`, `id_group`) VALUES
 (1, 3),
 (2, 3),
 (3, 3),
-(5, 3);
+(5, 3),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -5316,6 +5395,13 @@ CREATE TABLE `ps_customer_message` (
   `private` tinyint(4) NOT NULL DEFAULT 0,
   `read` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ps_customer_message`
+--
+
+INSERT INTO `ps_customer_message` (`id_customer_message`, `id_customer_thread`, `id_employee`, `message`, `file_name`, `ip_address`, `user_agent`, `date_add`, `date_upd`, `private`, `read`) VALUES
+(1, 1, 0, 'Szybko!', '', '', '', '2023-11-27 21:23:57', '2023-11-27 21:23:57', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5348,7 +5434,8 @@ INSERT INTO `ps_customer_session` (`id_customer_session`, `id_customer`, `token`
 (3, 4, '93541551d813499c6ac9a21ca4231f965c38ccef'),
 (4, 4, 'c61eb44604bc15fcc43a27d1a699b13f95fc3f7f'),
 (5, 4, '30debba42ab4faab59efbc6df35d472a753ee6de'),
-(6, 4, '2852dd051c09ab4d9daf08837c32d63513ce2875');
+(6, 4, '2852dd051c09ab4d9daf08837c32d63513ce2875'),
+(8, 6, 'cdb663d883cf464d70db45dfba2390036f84abd9');
 
 -- --------------------------------------------------------
 
@@ -5370,6 +5457,13 @@ CREATE TABLE `ps_customer_thread` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ps_customer_thread`
+--
+
+INSERT INTO `ps_customer_thread` (`id_customer_thread`, `id_shop`, `id_lang`, `id_contact`, `id_customer`, `id_order`, `id_product`, `status`, `email`, `token`, `date_add`, `date_upd`) VALUES
+(1, 1, 2, 0, 6, 7, 0, 'open', 'costam@gmail.com', 'Cv3pdu90xtcP', '2023-11-27 21:23:57', '2023-11-27 21:23:57');
 
 -- --------------------------------------------------------
 
@@ -5576,7 +5670,7 @@ CREATE TABLE `ps_employee` (
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`, `reset_password_token`, `reset_password_validity`, `has_enabled_gravatar`) VALUES
-(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'theme.css', 1, 0, 1, 1, NULL, 6, 0, 5, '2023-11-26', '', '0000-00-00 00:00:00', 0);
+(1, 1, 1, 'Project', 'BE', 's188843@student.pg.edu.pl', '$2y$10$Hkp6KcStUH3VX2foEpKPEuhyGK7Dh4IAF6pkWQkhmTq2g4rG9.okO', '2023-10-14 04:10:43', '2023-09-14', '2023-10-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'theme.css', 1, 0, 1, 1, NULL, 6, 0, 5, '2023-11-27', '', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -5598,7 +5692,7 @@ INSERT INTO `ps_employee_session` (`id_employee_session`, `id_employee`, `token`
 (2, 1, 'cf871ca9a1c8f457fd6d863cbf9ad6e0f1af3e7b'),
 (3, 1, '8b0dc065af90e0047a56e4c63631aacd8794b0cd'),
 (8, 1, '98a041fae808c93d599a7569bace818ef088855f'),
-(9, 1, 'ffab7e32ec9997830d065c43cc74ad119d20d75b');
+(10, 1, '3000f1fce1b58213f0902d3254eda7edc74ba99a');
 
 -- --------------------------------------------------------
 
@@ -5996,7 +6090,7 @@ INSERT INTO `ps_guest` (`id_guest`, `id_operating_system`, `id_web_browser`, `id
 (3, 6, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
 (4, 6, 11, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
 (5, 6, 11, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0),
-(6, 6, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0);
+(6, 6, 11, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'pl', 0);
 
 -- --------------------------------------------------------
 
@@ -7153,6 +7247,8 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (38, 1, 55, 4),
 (56, 1, 683, 4),
 (59, 1, 71, 4),
+(62, 1, 46, 4),
+(62, 1, 697, 4),
 (7, 1, 682, 5),
 (39, 1, 55, 5),
 (56, 1, 16, 5),
@@ -7902,7 +7998,7 @@ CREATE TABLE `ps_link_block` (
 
 INSERT INTO `ps_link_block` (`id_link_block`, `id_hook`, `position`, `content`) VALUES
 (1, 41, 0, '{\"cms\":[false],\"static\":[false],\"product\":[\"prices-drop\",\"new-products\",\"best-sales\"],\"category\":[false]}'),
-(2, 41, 1, '{\"cms\":[false],\"static\":[\"contact\"],\"product\":[false],\"category\":[false]}');
+(2, 41, 1, '{\"cms\":[\"1\",\"2\",\"3\",\"4\",\"5\"],\"static\":[\"contact\"],\"product\":[false],\"category\":[false]}');
 
 -- --------------------------------------------------------
 
@@ -8334,7 +8430,16 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (357, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:91070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001056000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:49930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:30000000, 1.36674:32000000, 1.61250:00000000, 1.45378:35000000, 1.44866:01000000, 16.55847:AB000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:9E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:47000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000087000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000FDBF0300, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400363536, 7.51330:D5C45BBB13EEDB0800000000, 0.39570:A46D44BB, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:07:51', '2023-11-26 01:07:51'),
 (358, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:A7070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:25930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:64000000, 1.36674:32000000, 1.61250:00000000, 1.45378:69000000, 1.44866:01000000, 16.55847:DF000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:7A920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:0D000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400000000, 7.51330:4042C3DA13EEDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:08:44', '2023-11-26 01:08:44'),
 (359, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:28010000, 16.55847:AC070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:25930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:52000000, 1.36674:32000000, 1.61250:00000000, 1.45378:57000000, 1.44866:01000000, 16.55847:CD000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2C000000, 0.35180:2A180000, 255.23226:7A920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:BB000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:D1000000, 0.38698:0D000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000534900, 7.36354:01000000000001094D534900, 4.56248:DC040000, 7.40748:010000000000010B00000000, 7.57132:000000000000000004000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED00000000000000003A366165, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3230323635363A2E4E455420362E302E323400000000, 7.51330:9F9A8FDB13EEDB0800000000, 0.39570:12000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:0300080E, 255.31418:0A00603A, 0.22753:5F010000, 255.21817:DC040000, 0.64418:0A00E680, 4.39842:DC040000, 0.41586:0B00CD0E, 4.60547:DC040000, 0.21966:6C010000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-26 01:08:45', '2023-11-26 01:08:45'),
-(360, 1, 0, 'Frontcontroller::init - Cart cannot be loaded or an order has already been placed using this cart', 'Cart', 6, 1, NULL, 2, 0, 0, '2023-11-26 01:08:45', '2023-11-26 01:08:45');
+(360, 1, 0, 'Frontcontroller::init - Cart cannot be loaded or an order has already been placed using this cart', 'Cart', 6, 1, NULL, 2, 0, 0, '2023-11-26 01:08:45', '2023-11-26 01:08:45'),
+(361, 1, 0, 'Połączenie z panelem administracyjnym z 172.18.0.1', '', 0, NULL, NULL, 2, 1, 1, '2023-11-27 21:14:51', '2023-11-27 21:14:51'),
+(362, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:F2000000, 16.55847:86070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001056000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:27930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:30000000, 1.36674:32000000, 1.61250:00000000, 1.45378:35000000, 1.44866:01000000, 16.55847:AB000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:8E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:47000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B87000000, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3235363031323A2E4E455420362E302E323400000000, 7.51330:F0B939A386EFDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:12000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-27 21:22:54', '2023-11-27 21:22:54'),
+(363, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:F2000000, 16.55847:98070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:17930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:64000000, 1.36674:32000000, 1.61250:00000000, 1.45378:69000000, 1.44866:01000000, 16.55847:DF000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:7E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:0D000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3235363031323A2E4E455420362E302E323400000000, 7.51330:70E699C986EFDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-27 21:23:59', '2023-11-27 21:23:59'),
+(364, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:F2000000, 16.55847:99070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:17930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:52000000, 1.36674:32000000, 1.61250:00000000, 1.45378:57000000, 1.44866:01000000, 16.55847:CD000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:7E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:37000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:3C000000, 0.38698:47000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3235363031323A2E4E455420362E302E323400000000, 7.51330:B46E56CA86EFDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:0A00030F, 0.22753:8E000000, 255.21817:DC040000, 0.64418:0A006A80, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:98000000, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-27 21:24:00', '2023-11-27 21:24:00'),
+(365, 1, 0, 'Frontcontroller::init - Cart cannot be loaded or an order has already been placed using this cart', 'Cart', 10, 1, NULL, 2, 0, 0, '2023-11-27 21:24:00', '2023-11-27 21:24:00'),
+(366, 1, 0, 'Protect vendor folder in module ps_cashondelivery', '', 0, 1, NULL, 1, 0, 1, '2023-11-27 21:27:56', '2023-11-27 21:27:56'),
+(367, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:F2000000, 16.55847:9C070000, 17.43559:0000000024020000000000000000000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:2F020000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:17930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:64000000, 1.36674:32000000, 1.61250:00000000, 1.45378:69000000, 1.44866:01000000, 16.55847:DF000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:0A003510, 0.35180:2A180000, 255.23226:7E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:0A000C80, 4.21921:DC040000, 255.27962:FA000000, 255.1494:0A005000, 0.38698:87000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000100, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B00000000, 7.57132:000000000000000004000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED00000000000000003A366165, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3235363031323A2E4E455420362E302E323400000000, 7.51330:823BA31089EFDB0800000000, 0.39570:12000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:B6020000, 0.22753:0A004D0E, 255.21817:DC040000, 0.64418:BB020000, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:0A001312, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-27 21:40:17', '2023-11-27 21:40:17'),
+(368, 3, 0, 'Swift Error: Expected response code 250 but got code \\\"554\\\", with message \\\"554 5.2.252 SendAsDenied; butyxl@outlook.com not allowed to send as s188843@student.pg.edu.pl; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 0.35250:1F00AC84, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:A61C0000, 1.36674:0E000000, 1.61250:00000000, 1.45378:AB1C0000, 1.44866:F2000000, 16.55847:9A070000, 17.43559:0000000024020000000000000F00000000000000, 20.52176:140F719B140010100D000000, 20.50032:140F719B8417001000000000, 0.53414:F1030000, 0.35180:00000000, 255.23226:1F00AE84, 255.27962:0A000000, 255.27962:0E000000, 255.31418:17930000, 0.35250:FF7F0000, 1.36674:0A000000, 1.61250:00000000, 1.45378:02000000, 1.44866:52000000, 1.36674:32000000, 1.61250:00000000, 1.45378:57000000, 1.44866:01000000, 16.55847:CD000000, 17.43559:00000000B8030000000000000000000000000000, 20.52176:140F719B14004010F1030000, 20.50032:140F719B841770201F00AE84, 0.53414:2D000000, 0.35180:2A180000, 255.23226:7E920000, 255.27962:0A000000, 255.27962:32000000, 255.17082:DC040000, 0.27745:A1000000, 4.21921:DC040000, 255.27962:FA000000, 255.1494:03001700, 0.38698:47000000, 1.41134:47000000, 0.37692:87000000, 0.37948:87000000, 5.33852:00000000534D545000000000, 7.36354:01000000000001096F000100, 4.56248:DC040000, 7.40748:010000000000010B025B4900, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:FDBF0300EB6D19ED0000000000000000382D6665, 1.46798:04000000, 5.10786:0000000031352E32302E373032352E3032303A475632505231304D42363233333A36616539626431382D666564632D343435382D626364622D3433636165646538633539353A3235363031323A2E4E455420362E302E323400000000, 7.51330:5E33661189EFDB0800000000, 0.39570:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:07000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:2C000000, 1.56562:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 255.1750:6F020000, 255.31418:37010000, 0.22753:1F00050E, 255.21817:DC040000, 0.64418:3D010000, 4.39842:DC040000, 0.41586:79020000, 4.60547:DC040000, 0.21966:0300080E, 4.30158:DC040000[EndDiagnosticData] [Hostname=GV2PR10MB6233.EURPRD10.PROD.OUTLOOK.COM]\\r\\n\\\"', '', 0, 1, NULL, 2, 0, 0, '2023-11-27 21:40:18', '2023-11-27 21:40:18'),
+(369, 1, 0, 'Frontcontroller::init - Cart cannot be loaded or an order has already been placed using this cart', 'Cart', 11, 1, NULL, 2, 0, 0, '2023-11-27 21:40:18', '2023-11-27 21:40:18');
 
 -- --------------------------------------------------------
 
@@ -8448,6 +8553,13 @@ CREATE TABLE `ps_message` (
   `date_add` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ps_message`
+--
+
+INSERT INTO `ps_message` (`id_message`, `id_cart`, `id_customer`, `id_employee`, `id_order`, `message`, `private`, `date_add`) VALUES
+(1, 10, 6, 0, 7, 'Szybko!', 0, '2023-11-27 21:23:47');
+
 -- --------------------------------------------------------
 
 --
@@ -8516,7 +8628,8 @@ INSERT INTO `ps_meta` (`id_meta`, `page`, `configurable`) VALUES
 (37, 'module-ps_emailsubscription-subscription', 1),
 (38, 'module-ps_shoppingcart-ajax', 1),
 (39, 'module-ps_wirepayment-payment', 1),
-(40, 'module-ps_wirepayment-validation', 1);
+(40, 'module-ps_wirepayment-validation', 1),
+(41, 'module-ps_cashondelivery-validation', 1);
 
 -- --------------------------------------------------------
 
@@ -8602,7 +8715,9 @@ INSERT INTO `ps_meta_lang` (`id_meta`, `id_shop`, `id_lang`, `title`, `descripti
 (39, 1, 1, '', '', '', ''),
 (39, 1, 2, '', '', '', ''),
 (40, 1, 1, '', '', '', ''),
-(40, 1, 2, '', '', '', '');
+(40, 1, 2, '', '', '', ''),
+(41, 1, 1, '', '', '', ''),
+(41, 1, 2, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -8681,7 +8796,8 @@ INSERT INTO `ps_module` (`id_module`, `name`, `active`, `version`) VALUES
 (58, 'ps_facebook', 1, '1.31.1'),
 (59, 'psxmarketingwithgoogle', 1, '1.61.1'),
 (60, 'blockreassurance', 1, '5.1.2'),
-(61, 'ps_facetedsearch', 1, '3.12.1');
+(61, 'ps_facetedsearch', 1, '3.12.1'),
+(62, 'ps_cashondelivery', 1, '2.0.1');
 
 -- --------------------------------------------------------
 
@@ -8938,7 +9054,11 @@ INSERT INTO `ps_module_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 825),
 (1, 826),
 (1, 827),
-(1, 828);
+(1, 828),
+(1, 829),
+(1, 830),
+(1, 831),
+(1, 832);
 
 -- --------------------------------------------------------
 
@@ -8974,7 +9094,10 @@ INSERT INTO `ps_module_carrier` (`id_module`, `id_shop`, `id_reference`) VALUES
 (56, 1, 3),
 (56, 1, 4),
 (56, 1, 5),
-(56, 1, 6);
+(56, 1, 6),
+(62, 1, 1),
+(62, 1, 5),
+(62, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -9194,7 +9317,8 @@ INSERT INTO `ps_module_country` (`id_module`, `id_shop`, `id_country`) VALUES
 (56, 1, 234),
 (56, 1, 237),
 (56, 1, 238),
-(56, 1, 239);
+(56, 1, 239),
+(62, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -9215,7 +9339,8 @@ CREATE TABLE `ps_module_currency` (
 INSERT INTO `ps_module_currency` (`id_module`, `id_shop`, `id_currency`) VALUES
 (14, 1, 1),
 (35, 1, 1),
-(56, 1, 1);
+(56, 1, 1),
+(62, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -9413,7 +9538,10 @@ INSERT INTO `ps_module_group` (`id_module`, `id_shop`, `id_group`) VALUES
 (60, 1, 3),
 (61, 1, 1),
 (61, 1, 2),
-(61, 1, 3);
+(61, 1, 3),
+(62, 1, 1),
+(62, 1, 2),
+(62, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -9436,13 +9564,14 @@ CREATE TABLE `ps_module_history` (
 INSERT INTO `ps_module_history` (`id`, `id_employee`, `id_module`, `date_add`, `date_upd`) VALUES
 (1, 1, 26, '2023-11-25 15:25:57', '2023-11-25 15:51:02'),
 (2, 1, 20, '2023-11-25 17:16:25', '2023-11-25 17:16:25'),
-(3, 1, 35, '2023-11-25 17:53:43', '2023-11-25 17:53:43'),
-(4, 1, 14, '2023-11-25 17:53:50', '2023-11-25 17:53:50'),
+(3, 1, 35, '2023-11-25 17:53:43', '2023-11-27 21:40:35'),
+(4, 1, 14, '2023-11-25 17:53:50', '2023-11-27 21:37:49'),
 (5, 1, 2, '2023-11-25 19:33:53', '2023-11-25 19:35:43'),
 (6, 1, 15, '2023-11-25 19:34:36', '2023-11-25 19:34:36'),
 (7, 1, 21, '2023-11-26 01:25:07', '2023-11-26 01:25:07'),
-(8, 1, 28, '2023-11-26 01:30:19', '2023-11-26 01:57:37'),
-(9, 1, 29, '2023-11-26 02:36:46', '2023-11-26 02:36:46');
+(8, 1, 28, '2023-11-26 01:30:19', '2023-11-27 21:34:04'),
+(9, 1, 29, '2023-11-26 02:36:46', '2023-11-26 02:36:46'),
+(10, 1, 60, '2023-11-27 21:15:16', '2023-11-27 21:16:04');
 
 -- --------------------------------------------------------
 
@@ -9488,7 +9617,6 @@ INSERT INTO `ps_module_shop` (`id_module`, `id_shop`, `enable_device`) VALUES
 (11, 1, 7),
 (12, 1, 3),
 (13, 1, 7),
-(14, 1, 7),
 (15, 1, 7),
 (16, 1, 7),
 (17, 1, 7),
@@ -9534,7 +9662,8 @@ INSERT INTO `ps_module_shop` (`id_module`, `id_shop`, `enable_device`) VALUES
 (58, 1, 7),
 (59, 1, 7),
 (60, 1, 7),
-(61, 1, 7);
+(61, 1, 7),
+(62, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -9628,7 +9757,9 @@ INSERT INTO `ps_orders` (`id_order`, `reference`, `id_shop_group`, `id_shop`, `i
 (3, 'UOYEVOLI', 1, 1, 2, 1, 2, 3, 1, 5, 5, 8, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Payment by check', 1.000000, 'ps_checkpayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 14.900000, 21.300000, 19.900000, 0.000000, 12.900000, 12.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
 (4, 'FFATNOMMJ', 1, 1, 2, 1, 2, 4, 1, 5, 5, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Payment by check', 1.000000, 'ps_checkpayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 14.900000, 21.300000, 19.900000, 0.000000, 12.900000, 12.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
 (5, 'KHWLILZLL', 1, 1, 2, 1, 2, 5, 1, 5, 5, 10, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 'Bank wire', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 20.900000, 27.300000, 25.900000, 0.000000, 18.900000, 18.900000, 7.000000, 8.400000, 7.000000, 0.000, 0.000000, 0.000000, 0.000000, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-10-14 10:11:37', '2023-10-14 10:11:37', ''),
-(6, 'SVAKHXUYE', 1, 1, 5, 2, 5, 6, 1, 9, 9, 10, 'dafcbe485db7e7ecf68130a294a8fe18', 'Płatności elektroniczne', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 76.340000, 76.340000, 63.000000, 0.000000, 58.000000, 71.340000, 5.000000, 5.000000, 5.000000, 0.000, 0.000000, 0.000000, 0.000000, 2, 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-11-26 01:08:43', '2023-11-26 01:08:43', '');
+(6, 'SVAKHXUYE', 1, 1, 5, 2, 5, 6, 1, 9, 9, 10, 'dafcbe485db7e7ecf68130a294a8fe18', 'Płatności elektroniczne', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 76.340000, 76.340000, 63.000000, 0.000000, 58.000000, 71.340000, 5.000000, 5.000000, 5.000000, 0.000, 0.000000, 0.000000, 0.000000, 2, 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-11-26 01:08:43', '2023-11-26 01:08:43', ''),
+(7, 'TWGHZYOYS', 1, 1, 6, 2, 6, 10, 1, 10, 10, 10, '21365dd45f2a35d30b33ef9a3b6e6253', 'Płatności elektroniczne', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 106.170000, 106.170000, 88.000000, 0.000000, 79.000000, 97.170000, 9.000000, 9.000000, 9.000000, 0.000, 0.000000, 0.000000, 0.000000, 2, 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-11-27 21:23:57', '2023-11-27 21:23:57', ''),
+(8, 'YBDUAGXPU', 1, 1, 5, 2, 6, 11, 1, 10, 10, 10, '21365dd45f2a35d30b33ef9a3b6e6253', 'Płatności elektroniczne', 1.000000, 'ps_wirepayment', 0, 0, '', 0, '', 0.000000, 0.000000, 0.000000, 55.310000, 55.310000, 45.900000, 0.000000, 40.900000, 50.310000, 5.000000, 5.000000, 5.000000, 0.000, 0.000000, 0.000000, 0.000000, 2, 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2023-11-27 21:40:15', '2023-11-27 21:40:15', '');
 
 -- --------------------------------------------------------
 
@@ -9658,7 +9789,9 @@ INSERT INTO `ps_order_carrier` (`id_order_carrier`, `id_order`, `id_carrier`, `i
 (3, 3, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
 (4, 4, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
 (5, 5, 2, 0, 0.000000, 7.000000, 8.400000, '', '2023-10-14 10:11:37'),
-(6, 6, 5, 0, 0.600000, 5.000000, 5.000000, '', '2023-11-26 01:08:43');
+(6, 6, 5, 0, 0.600000, 5.000000, 5.000000, '', '2023-11-26 01:08:43'),
+(7, 7, 6, 0, 0.300000, 9.000000, 9.000000, '', '2023-11-27 21:23:57'),
+(8, 8, 5, 0, 0.600000, 5.000000, 5.000000, '', '2023-11-27 21:40:15');
 
 -- --------------------------------------------------------
 
@@ -9748,7 +9881,10 @@ INSERT INTO `ps_order_detail` (`id_order_detail`, `id_order`, `id_order_invoice`
 (5, 3, 0, 0, 1, 16, 28, 0, 'Mountain fox notebook Style : Ruled', 1, 1, 0, 0, 0, 12.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_8', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 12.900000, 12.900000, 12.900000, 12.900000, 0.000000, 0.000000, 0.000000, 12.900000, 0.000000, 0.000000, 0.000000),
 (6, 4, 0, 0, 1, 16, 29, 0, 'Mountain fox notebook Style : Plain', 1, 1, 0, 0, 0, 12.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_8', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 12.900000, 12.900000, 12.900000, 12.900000, 0.000000, 0.000000, 0.000000, 12.900000, 0.000000, 0.000000, 0.000000),
 (7, 5, 0, 0, 1, 10, 25, 0, 'Brown bear cushion Color : Black', 1, 1, 0, 0, 0, 18.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_16', '', 0.000000, 0, 0, '', 0.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 18.900000, 18.900000, 18.900000, 18.900000, 0.000000, 0.000000, 0.000000, 18.900000, 0.000000, 0.000000, 0.000000),
-(8, 6, 0, 0, 1, 3, 13, 0, 'The best is yet to come\' Framed poster (Dimension: 40x60cm)', 2, 2, 0, 0, 0, 29.000000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_6', 'demo_6_70', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 71.340000, 58.000000, 35.670000, 29.000000, 0.000000, 0.000000, 5.490000, 29.000000, 0.000000, 0.000000, 0.000000);
+(8, 6, 0, 0, 1, 3, 13, 0, 'The best is yet to come\' Framed poster (Dimension: 40x60cm)', 2, 2, 0, 0, 0, 29.000000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_6', 'demo_6_70', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 71.340000, 58.000000, 35.670000, 29.000000, 0.000000, 0.000000, 5.490000, 29.000000, 0.000000, 0.000000, 0.000000),
+(9, 7, 0, 0, 1, 3, 15, 0, 'The best is yet to come\' Framed poster (Dimension: 80x120cm)', 1, 1, 0, 0, 0, 79.000000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_6', 'demo_6_72', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 97.170000, 79.000000, 97.170000, 79.000000, 0.000000, 0.000000, 5.490000, 79.000000, 0.000000, 0.000000, 0.000000),
+(10, 8, 0, 0, 1, 6, 0, 0, 'Mug The best is yet to come', 1, 1, 0, 0, 0, 11.900000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_11', 'demo_11', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 14.640000, 11.900000, 14.637000, 11.900000, 0.000000, 0.000000, 5.490000, 11.900000, 0.000000, 0.000000, 0.000000),
+(11, 8, 0, 0, 1, 3, 13, 0, 'The best is yet to come\' Framed poster (Dimension: 40x60cm)', 1, 1, 0, 0, 0, 29.000000, 0.00, 0.000000, 0.000000, 0.000000, 0.00, 0.000000, '', '', '', '', 'demo_6', 'demo_6_70', 0.300000, 1, 0, 'PTU PL 23%', 23.000, 0.000000, 0.000, 0, '', 0, '0000-00-00 00:00:00', 35.670000, 29.000000, 35.670000, 29.000000, 0.000000, 0.000000, 5.490000, 29.000000, 0.000000, 0.000000, 0.000000);
 
 -- --------------------------------------------------------
 
@@ -9768,7 +9904,10 @@ CREATE TABLE `ps_order_detail_tax` (
 --
 
 INSERT INTO `ps_order_detail_tax` (`id_order_detail`, `id_tax`, `unit_amount`, `total_amount`) VALUES
-(8, 1, 6.670000, 13.340000);
+(8, 1, 6.670000, 13.340000),
+(9, 1, 18.170000, 18.170000),
+(11, 1, 6.670000, 6.670000),
+(10, 1, 2.737000, 2.740000);
 
 -- --------------------------------------------------------
 
@@ -9796,7 +9935,9 @@ INSERT INTO `ps_order_history` (`id_order_history`, `id_employee`, `id_order`, `
 (5, 0, 5, 10, '2023-10-14 10:11:37'),
 (6, 1, 1, 6, '2023-10-14 10:11:37'),
 (7, 1, 3, 8, '2023-10-14 10:11:37'),
-(8, 0, 6, 10, '2023-11-26 01:08:43');
+(8, 0, 6, 10, '2023-11-26 01:08:43'),
+(9, 0, 7, 10, '2023-11-27 21:23:57'),
+(10, 0, 8, 10, '2023-11-27 21:40:15');
 
 -- --------------------------------------------------------
 
@@ -11170,7 +11311,8 @@ CREATE TABLE `ps_psgdpr_log` (
 INSERT INTO `ps_psgdpr_log` (`id_gdpr_log`, `id_customer`, `id_guest`, `client_name`, `id_module`, `request_type`, `date_add`, `date_upd`) VALUES
 (1, 3, 0, 'as sadas', 0, 1, '2023-11-25 18:03:39', '2023-11-25 18:03:39'),
 (2, 4, 0, 'as as', 0, 1, '2023-11-25 18:15:09', '2023-11-25 18:15:09'),
-(3, 5, 0, 'Anna Kowalska', 0, 1, '2023-11-26 01:07:51', '2023-11-26 01:07:51');
+(3, 5, 0, 'Anna Kowalska', 0, 1, '2023-11-26 01:07:51', '2023-11-26 01:07:51'),
+(4, 6, 0, 'Anna Kowalska', 0, 1, '2023-11-27 21:22:54', '2023-11-27 21:22:54');
 
 -- --------------------------------------------------------
 
@@ -11195,9 +11337,9 @@ CREATE TABLE `ps_psreassurance` (
 --
 
 INSERT INTO `ps_psreassurance` (`id_psreassurance`, `icon`, `custom_icon`, `status`, `position`, `type_link`, `id_cms`, `date_add`, `date_upd`) VALUES
-(1, '/modules/blockreassurance/views/img/reassurance/pack2/security.svg', NULL, 1, 1, NULL, NULL, '2023-10-14 08:11:25', NULL),
-(2, '/modules/blockreassurance/views/img/reassurance/pack2/carrier.svg', NULL, 1, 2, NULL, NULL, '2023-10-14 08:11:25', NULL),
-(3, '/modules/blockreassurance/views/img/reassurance/pack2/parcel.svg', NULL, 1, 3, NULL, NULL, '2023-10-14 08:11:25', NULL);
+(1, '/modules/blockreassurance/views/img/reassurance/pack2/security.svg', NULL, 0, 1, NULL, NULL, '2023-10-14 08:11:25', '2023-11-27 21:16:06'),
+(2, '/modules/blockreassurance/views/img/reassurance/pack2/carrier.svg', NULL, 0, 2, NULL, NULL, '2023-10-14 08:11:25', '2023-11-27 21:16:07'),
+(3, '/modules/blockreassurance/views/img/reassurance/pack2/parcel.svg', NULL, 0, 3, NULL, NULL, '2023-10-14 08:11:25', '2023-11-27 21:16:07');
 
 -- --------------------------------------------------------
 
@@ -13990,10 +14132,10 @@ CREATE TABLE `ps_stock_available` (
 INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_product_attribute`, `id_shop`, `id_shop_group`, `quantity`, `physical_quantity`, `reserved_quantity`, `depends_on_stock`, `out_of_stock`, `location`) VALUES
 (1, 1, 0, 1, 0, 2400, 0, 0, 0, 2, ''),
 (2, 2, 0, 1, 0, 2100, 0, 0, 0, 2, ''),
-(3, 3, 0, 1, 0, 1498, 1498, 0, 0, 2, ''),
+(3, 3, 0, 1, 0, 1496, 1496, 0, 0, 2, ''),
 (4, 4, 0, 1, 0, 1500, 0, 0, 0, 2, ''),
 (5, 5, 0, 1, 0, 900, 0, 0, 0, 2, ''),
-(6, 6, 0, 1, 0, 300, 0, 0, 0, 2, ''),
+(6, 6, 0, 1, 0, 299, 300, 1, 0, 2, ''),
 (7, 7, 0, 1, 0, 300, 0, 0, 0, 2, ''),
 (8, 8, 0, 1, 0, 300, 0, 0, 0, 2, ''),
 (9, 9, 0, 1, 0, 600, 0, 0, 0, 2, ''),
@@ -14019,9 +14161,9 @@ INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_produc
 (29, 2, 10, 1, 0, 300, 0, 0, 0, 2, ''),
 (30, 2, 11, 1, 0, 300, 0, 0, 0, 2, ''),
 (31, 2, 12, 1, 0, 300, 0, 0, 0, 2, ''),
-(32, 3, 13, 1, 0, 898, 900, 2, 0, 2, ''),
+(32, 3, 13, 1, 0, 897, 900, 3, 0, 2, ''),
 (33, 3, 14, 1, 0, 300, 300, 0, 0, 2, ''),
-(34, 3, 15, 1, 0, 300, 300, 0, 0, 2, ''),
+(34, 3, 15, 1, 0, 299, 300, 1, 0, 2, ''),
 (35, 4, 16, 1, 0, 900, 0, 0, 0, 2, ''),
 (36, 4, 17, 1, 0, 300, 0, 0, 0, 2, ''),
 (37, 4, 18, 1, 0, 300, 0, 0, 0, 2, ''),
@@ -16060,7 +16202,8 @@ CREATE TABLE `ps_wishlist` (
 
 INSERT INTO `ps_wishlist` (`id_wishlist`, `id_customer`, `id_shop`, `id_shop_group`, `token`, `name`, `counter`, `date_add`, `date_upd`, `default`) VALUES
 (1, 3, 1, 1, '8BCC8426B1A8F495', 'My wishlist', NULL, '2023-11-25 18:04:19', '2023-11-25 18:04:19', 1),
-(2, 5, 1, 1, 'C16B57F25794D474', 'My wishlist', NULL, '2023-11-26 01:08:46', '2023-11-26 01:08:46', 1);
+(2, 5, 1, 1, 'C16B57F25794D474', 'My wishlist', NULL, '2023-11-26 01:08:46', '2023-11-26 01:08:46', 1),
+(3, 6, 1, 1, '24A79CB9E5D37DDF', 'My wishlist', NULL, '2023-11-27 21:24:00', '2023-11-27 21:24:00', 1);
 
 -- --------------------------------------------------------
 
@@ -18116,13 +18259,13 @@ ALTER TABLE `ps_zone_shop`
 -- AUTO_INCREMENT for table `ps_address`
 --
 ALTER TABLE `ps_address`
-  MODIFY `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_address` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ps_admin_filter`
 --
 ALTER TABLE `ps_admin_filter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `ps_alias`
@@ -18164,7 +18307,7 @@ ALTER TABLE `ps_attribute_impact`
 -- AUTO_INCREMENT for table `ps_authorization_role`
 --
 ALTER TABLE `ps_authorization_role`
-  MODIFY `id_authorization_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=829;
+  MODIFY `id_authorization_role` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=833;
 
 --
 -- AUTO_INCREMENT for table `ps_blockwishlist_statistics`
@@ -18182,7 +18325,7 @@ ALTER TABLE `ps_carrier`
 -- AUTO_INCREMENT for table `ps_cart`
 --
 ALTER TABLE `ps_cart`
-  MODIFY `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_cart` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ps_cart_rule`
@@ -18236,7 +18379,7 @@ ALTER TABLE `ps_cms_role`
 -- AUTO_INCREMENT for table `ps_configuration`
 --
 ALTER TABLE `ps_configuration`
-  MODIFY `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=429;
+  MODIFY `id_configuration` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
 
 --
 -- AUTO_INCREMENT for table `ps_configuration_kpi`
@@ -18248,13 +18391,13 @@ ALTER TABLE `ps_configuration_kpi`
 -- AUTO_INCREMENT for table `ps_connections`
 --
 ALTER TABLE `ps_connections`
-  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_connections` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `ps_connections_source`
 --
 ALTER TABLE `ps_connections_source`
-  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `id_connections_source` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
 -- AUTO_INCREMENT for table `ps_contact`
@@ -18278,25 +18421,25 @@ ALTER TABLE `ps_currency`
 -- AUTO_INCREMENT for table `ps_customer`
 --
 ALTER TABLE `ps_customer`
-  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ps_customer_message`
 --
 ALTER TABLE `ps_customer_message`
-  MODIFY `id_customer_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_customer_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ps_customer_session`
 --
 ALTER TABLE `ps_customer_session`
-  MODIFY `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_customer_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ps_customer_thread`
 --
 ALTER TABLE `ps_customer_thread`
-  MODIFY `id_customer_thread` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_customer_thread` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ps_customization`
@@ -18338,7 +18481,7 @@ ALTER TABLE `ps_employee`
 -- AUTO_INCREMENT for table `ps_employee_session`
 --
 ALTER TABLE `ps_employee_session`
-  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_employee_session` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ps_feature`
@@ -18476,7 +18619,7 @@ ALTER TABLE `ps_link_block_shop`
 -- AUTO_INCREMENT for table `ps_log`
 --
 ALTER TABLE `ps_log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
+  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
 
 --
 -- AUTO_INCREMENT for table `ps_mail`
@@ -18500,25 +18643,25 @@ ALTER TABLE `ps_memcached_servers`
 -- AUTO_INCREMENT for table `ps_message`
 --
 ALTER TABLE `ps_message`
-  MODIFY `id_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_message` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ps_meta`
 --
 ALTER TABLE `ps_meta`
-  MODIFY `id_meta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_meta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `ps_module`
 --
 ALTER TABLE `ps_module`
-  MODIFY `id_module` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_module` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `ps_module_history`
 --
 ALTER TABLE `ps_module_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ps_module_preference`
@@ -18536,13 +18679,13 @@ ALTER TABLE `ps_operating_system`
 -- AUTO_INCREMENT for table `ps_orders`
 --
 ALTER TABLE `ps_orders`
-  MODIFY `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_order` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ps_order_carrier`
 --
 ALTER TABLE `ps_order_carrier`
-  MODIFY `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_order_carrier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ps_order_cart_rule`
@@ -18554,13 +18697,13 @@ ALTER TABLE `ps_order_cart_rule`
 -- AUTO_INCREMENT for table `ps_order_detail`
 --
 ALTER TABLE `ps_order_detail`
-  MODIFY `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_order_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ps_order_history`
 --
 ALTER TABLE `ps_order_history`
-  MODIFY `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_order_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ps_order_invoice`
@@ -18692,7 +18835,7 @@ ALTER TABLE `ps_psgdpr_consent_lang`
 -- AUTO_INCREMENT for table `ps_psgdpr_log`
 --
 ALTER TABLE `ps_psgdpr_log`
-  MODIFY `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_gdpr_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ps_psreassurance`
@@ -18968,7 +19111,7 @@ ALTER TABLE `ps_web_browser`
 -- AUTO_INCREMENT for table `ps_wishlist`
 --
 ALTER TABLE `ps_wishlist`
-  MODIFY `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_wishlist` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ps_wishlist_product`

@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-26 01:08:30
+/* Smarty version 3.1.48, created on 2023-11-27 21:40:04
   from '/var/www/html/themes/classic/templates/checkout/_partials/footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_65628c7e4bf023_88078955',
+  'unifunc' => 'content_6564fea48d5027_96467481',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65628c7e4bf023_88078955 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6564fea48d5027_96467481 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="modal fade js-checkout-modal" id="modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
