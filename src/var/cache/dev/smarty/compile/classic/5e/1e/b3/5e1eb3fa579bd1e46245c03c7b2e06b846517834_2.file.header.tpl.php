@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-28 17:16:27
+/* Smarty version 3.1.48, created on 2023-11-28 19:27:59
   from '/var/www/html/modules/ps_checkout/views/templates/hook/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6566125b52ae41_49770813',
+  'unifunc' => 'content_6566312fa947f5_74335695',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6566125b52ae41_49770813 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6566312fa947f5_74335695 (Smarty_Internal_Template $_smarty_tpl) {
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['contentToPrefetch']->value, 'content');
 $_smarty_tpl->tpl_vars['content']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['content']->value) {
