@@ -9,12 +9,13 @@ def deleteAllCategories(prestashop):
     listOfIds = []
     for category in prestashop.get("categories")["categories"]["category"]:
         listOfIds.append(int(category["attrs"]["id"]))
-
-    prestashop.delete("categories", resource_ids=listOfIds[2:])  # ignore root and home index
+    if len(listOfIds) > 2:
+        prestashop.delete("categories", resource_ids=listOfIds[2:])  # ignore root and home index
 
 
 def addCategory(prestashop, category_template, category_name, categoriesDict, parent_id=2):
     category_template["category"]["name"]["language"][0]["value"] = category_name
+    category_template["category"]["name"]["language"][1]["value"] = category_name
     category_template["category"]["id_parent"] = parent_id
     category_template["category"]["active"] = 1
     desc = ""
@@ -23,7 +24,9 @@ def addCategory(prestashop, category_template, category_name, categoriesDict, pa
         desc = str(list(subcategoryName)[0]) + " -> "
     desc += str(category_name)
     category_template["category"]["description"]["language"][0]["value"] = desc
+    category_template["category"]["description"]["language"][1]["value"] = desc
     category_template["category"]["link_rewrite"]["language"][0]["value"] = category_name.replace(" ", "-").lower()
+    category_template["category"]["link_rewrite"]["language"][1]["value"] = category_name.replace(" ", "-").lower()
 
     return prestashop.add("categories", category_template)["prestashop"]["category"]["id"]
 

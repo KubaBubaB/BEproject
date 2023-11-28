@@ -32,8 +32,13 @@
       </ul>
     {/if}
 {/function}
-
-<div class="menu js-top-menu position-static hidden-sm-down" id="_desktop_top_menu">
-    {menu nodes=$menu.children}
-    <div class="clearfix"></div>
+<div class="header-top navbar">
+  <div class="container">
+    <div class="row">
+      <div class="menu js-top-menu position-static hidden-sm-down" id="_desktop_top_menu">
+          {menu nodes=$menu.children}
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,6 +17,7 @@ config/xml/*.xml
 *sitemap.xml
 themes/*/cache/
 modules/*/config*.xml
-
+scraping_results/products_images/*
+scraping_results/products_images.zip
 debug.log
 debug.log
