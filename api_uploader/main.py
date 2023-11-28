@@ -11,7 +11,7 @@ from utils.cloudDownload import downloadDropboxFolder
 from utils.productUtils import addProducts
 
 if __name__ == '__main__':
-    prestashop = prestapyt.PrestaShopWebServiceDict("http://127.0.0.1:8080/api/", "6QHZJHNKWG7T3AI5AUPNZI9QMCRRCGYH")
+    prestashop = prestapyt.PrestaShopWebServiceDict("http://127.0.0.1:8080/api/", "5EST7TM23X778ANPZ5V2WV74DZDWCQ5B")
 
     products = prestashop.get("products")["products"]
     if products != "":
