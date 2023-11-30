@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2023-11-28 23:21:57
+/* Smarty version 3.1.48, created on 2023-11-30 15:48:11
   from '/var/www/html/myadmin/themes/new-theme/template/components/layout/information_messages.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6566680545c4e2_91210484',
+  'unifunc' => 'content_6568a0ab607d76_70814672',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4b865dfdcb8887ce285ef4338d23b529d3f557df' => 
     array (
       0 => '/var/www/html/myadmin/themes/new-theme/template/components/layout/information_messages.tpl',
-      1 => 1701206591,
+      1 => 1701353854,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6566680545c4e2_91210484 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6568a0ab607d76_70814672 (Smarty_Internal_Template $_smarty_tpl) {
 if ((isset($_smarty_tpl->tpl_vars['informations']->value)) && count($_smarty_tpl->tpl_vars['informations']->value) && $_smarty_tpl->tpl_vars['informations']->value) {?>
   <div class="bootstrap">
     <div class="alert alert-info">
