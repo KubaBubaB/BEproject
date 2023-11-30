@@ -146,37 +146,46 @@ class SampleBlocks {
 </div>
 ';
         $content_block5 = '<div id="contactinfo-section" class="contactinfo-section">
-	<div class="footer-links-column">
-		<div class="footer-colum-title footer-block-title">
-			<h3>Get in Touch</h3>
-		</div>
-		<div class="footer-column-content footer-block-toggle-content">
-			<div class="content">
-				<div class="add-item">
-					<div class="icon"><i class="fa fa-map-marker"></i></div>
-					<div class="text"><strong>Address</strong>
-						<p>123 Street, City, London</p>
-					</div>
-				</div>
-				<div class="add-item">
-					<div class="icon"><i class="fa fa-phone"></i></div>
-					<div class="text"><strong>Phone</strong>
-						<a href="tel:(123)4567890">(123) 456 7890</a>
-					</div>
-				</div>
-				<div class="add-item">
-					<div class="icon"><i class="fa fa-envelope"></i></div>
-					<div class="text"><strong>Mail Us</strong>
-						<a href="mailto:mail@example.com">mail@example.com</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="footer-links-column">
+        <div class="footer-colum-title footer-block-title">
+            <h3>Get in Touch</h3>
+        </div>
+        <div class="footer-column-content footer-block-toggle-content">
+            <div class="content">
+                <div class="add-item">
+                    <div class="icon">
+                        <em class="fa fa-map-marker"></em>
+                    </div>
+                    <div class="text">
+                        <strong>Address</strong>
+                        <p>123 Street, City, London</p>
+                    </div>
+                </div>
+                <div class="add-item">
+                    <div class="icon">
+                        <em class="fa fa-phone"></em>
+                    </div>
+                    <div class="text">
+                        <strong>Phone</strong>
+                        <p>(123) 456 7890</p>
+                    </div>
+                </div>
+                <div class="add-item">
+                    <div class="icon">
+                        <em class="fa fa-envelope"></em>
+                    </div>
+                    <div class="text">
+                        <strong>Mail Us</strong>
+                        <p>mail@example.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 ';
-
-        $content_block6 = '<ul class="footer-payment-icon">
+        
+                $content_block6 = '<ul class="footer-payment-icon">
 	<li><a href="#"><i class="fa fa-cc-visa" aria-hidden="true"></i></a></li>
 	<li><a href="#"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a></li>
 	<li><a href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i></a></li>
@@ -184,11 +193,11 @@ class SampleBlocks {
 	<li><a href="#"><i class="fa fa-cc-mastercard" aria-hidden="true"></i></a></li>
 </ul>
 ';
-
+                
         $content_block7 = '<div class="header-contact-block">
 <div class="item"><span class="icon-block"> <em class="fa fa-phone"></em> </span> <span class="text-block"> Call Us Now <a href="tel:+123456789">(123) 4567-890</a> </span></div>
 </div>
-';
+'; 
 
         $content_block8 = '<div class="footer-text-content">
     <div class="logo-socials">
@@ -221,7 +230,7 @@ class SampleBlocks {
         </div>
     </div>          
 </div>
-';
+'; 
 
         $displayHome = Hook::getIdByName('displayHome');
         $displayTop = Hook::getIdByName('displayTop');
@@ -234,7 +243,6 @@ class SampleBlocks {
         $displayHomeBottom2 = Hook::getIdByName('displayHomeBottom2');
         $displayHomeBottom3 = Hook::getIdByName('displayHomeBottom3');
         $displayFooterPaymentBlock = Hook::getIdByName('displayFooterPaymentBlock');
-        $displayNav2 = Hook::getIdByName('displayNav2');
         $id_shop = Configuration::get('PS_SHOP_DEFAULT');
 
         /* install static Block */
@@ -248,8 +256,7 @@ class SampleBlocks {
                         (5, "displayFooter", 1),
                         (6, "displayFooterPaymentBlock", 1),
                         (7, "displayTop", 1),
-                        (8, "displayFooterAfter", 1),
-                        (9, "displayNav2", 1)
+                        (8, "displayFooterAfter", 1)
 			;');
 
         $result &= Db::getInstance()->Execute('INSERT INTO `' . _DB_PREFIX_ . 'ht_staticblocks_shop` (`id_ht_staticblocks`, `id_shop`,`active`) 
@@ -261,8 +268,7 @@ class SampleBlocks {
 			(5,' . $id_shop . ', 1),
 			(6,' . $id_shop . ', 1),
 			(7,' . $id_shop . ', 1),
-			(8,' . $id_shop . ', 1),
-            (9,' . $id_shop . ', 1)
+			(8,' . $id_shop . ', 1)
 			;');
 
         foreach (Language::getLanguages(false) as $lang) {
@@ -276,6 +282,7 @@ class SampleBlocks {
                         ("6", "' . $id_shop . '","' . $lang['id_lang'] . '","Footer Payment Block", \'' . $content_block6 . '\'),
                         ("7", "' . $id_shop . '","' . $lang['id_lang'] . '","Header Contact Block", \'' . $content_block7 . '\'),
                         ("8", "' . $id_shop . '","' . $lang['id_lang'] . '","Footer Logo & Social Block", \'' . $content_block8 . '\')
+			
                 ;');
         }
         return $result;

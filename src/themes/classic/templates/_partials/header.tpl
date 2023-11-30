@@ -58,7 +58,7 @@
   <div class="header-top">
     <div class="container">
        <div class="row">
-        <div class="col-md-2 hidden-sm-down" id="_desktop_logo">
+        <div class="col-md-4 hidden-sm-down" id="_desktop_logo">
           {if $shop.logo_details}
             {if $page.page_name == 'index'}
               <h1>

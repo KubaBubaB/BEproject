@@ -1,11 +1,13 @@
 import io
 import os
 import random
+import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
 
+from tqdm import tqdm
 from prestapyt import PrestaShopWebServiceError
 
 from utils.categoryUtils import getCategoryId
-
 
 def setQuantity(prestashop, id):
     availablenessId = prestashop.search("stock_availables", options={
@@ -21,7 +23,7 @@ def setQuantity(prestashop, id):
 
 def deleteAllProducts(prestashop):
     products = prestashop.get("products")["products"]
-    if products is not "":
+    if products != "":
         productsList = products["product"]
 
         if isinstance(productsList, dict):  # if 1 product
@@ -38,7 +40,10 @@ def isImageSizeValid(imagePath, maxSizeKb=3000):
 
 def loadImages(prestashop, id, product, DIR):
     catalog_name = product['catalogNumber']
-    imageDir = os.path.join(DIR, 'scraping_results\products_images', catalog_name)
+    imageDir = os.path.join(DIR, 'scraping_results/products_images', catalog_name)
+
+    if not os.path.exists(imageDir) or not os.path.isdir(imageDir):
+        return
 
     for imageName in os.listdir(imageDir):
         imagePath = os.path.join(imageDir, imageName)
@@ -87,7 +92,7 @@ def addProduct(prestashop, product, categoriesDict, product_template, DIR):
         "category": categoriesList
     }
 
-    product_template["product"]["weight"] = random.randint(1, 140) / 2
+    product_template["product"]["weight"] = random.randint(1, 3) / 2
     product_template["product"]["description_short"]["language"][0]["value"] = product["name"]
     product_template["product"]["description_short"]["language"][1]["value"] = product["name"]
 
@@ -115,7 +120,9 @@ def addProduct(prestashop, product, categoriesDict, product_template, DIR):
 
 
 def addProducts(prestashop, product_template, products, categoriesDict, DIR):
+    print("Deleting products...")
     deleteAllProducts(prestashop)
+    print("Finished deleting products.")
 
     for product in products:
         addProduct(prestashop, product, categoriesDict, product_template, DIR)

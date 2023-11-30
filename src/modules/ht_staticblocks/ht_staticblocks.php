@@ -350,17 +350,6 @@ class Ht_Staticblocks extends Module {
         return $this->display(__FILE__, 'ht_staticblocks_displayTop.tpl', $this->getCacheId('ht_staticblocks_displayTop'));
     }
 
-    public function hookdisplayNav2() {
-        if (!$this->isCached('module:ht_staticblocks/views/templates/hook/ht_staticblocks_displayNav2.tpl', $this->getCacheId('ht_staticblocks_displayNav2'))) {
-            $block_list = $this->getBlockFromHook('displayNav2');
-            $this->context->smarty->assign(array(
-                'block_list' => $block_list,
-                'page_name' => $this->context->controller->php_self
-            ));
-        }
-        return $this->display(__FILE__, 'ht_staticblocks_displayNav2.tpl', $this->getCacheId('ht_staticblocks_displayNav2'));
-    }
-
     public function hookdisplayFooter() {
         if (!$this->isCached('module:ht_staticblocks/views/templates/hook/ht_staticblocks_footer.tpl', $this->getCacheId('ht_staticblocks_footer'))) {
             $block_list = $this->getBlockFromHook('displayFooter');
