@@ -41,7 +41,15 @@ Project will be accessible at:
  - 127.0.0.1/myadmin (Admin panel, see faq for credentials)
  - 127.0.0.1:8081 (Phpmyadmin)
 
-
+## Tech-stack
+- prestashop v1.7.8-apache
+- mariaDB
+- docker
+- python
+- requests
+- selenium
+- prestapyt
+- Dropbox API
 
 ## FAQ
 
@@ -60,7 +68,7 @@ in docker desktop remove all the images, all the containers, all the volumes, th
 
 #### What are credentials to myadmin panel?
 
-Email: 188843@student.pg.edu.pl 
+Email: butyxl@outlook.com 
 Password: LozaSzydercow
 
 #### What are credentials to phpmyadmin?
@@ -90,5 +98,21 @@ The sql script that populates the database is only run IF there is no volume mou
 #### I don't want to delete mounted volume each time I want to update, what can I do?
 
 Go to phpmyadmin, log in, drop database called prestashop, run the updated script in sql window, done.
+
+#### How to run scripts?
+
+Every script requires python being installed
+
+To run api_uploader:
+```powershell
+  pip install prestapyt
+  pip install requests
+  python main.py
+```
+To run scraper or tester:
+```powershell
+  pip install selenium
+  python main.py
+```
 
 
