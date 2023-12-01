@@ -20,6 +20,7 @@ services:
       - ./ssl/server.crt:/etc/ssl/certs/server.crt
       - ./ssl/server.key:/etc/ssl/private/server.key
       - ./ssl/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./ssl/ca.crt:/usr/local/share/ca-certificates/ca.crt
     depends_on:
       - mariadb
     ports:
