@@ -1,60 +1,42 @@
-version: '3'
 services:
-  mariadb:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: prestashop
-    volumes:
-      - ./dbquery:/docker-entrypoint-initdb.d/
-      - mariadb:/var/lib/mysql
-    networks:
-      - prestashop_network
-
   prestashop:
-    container_name: prestashop
-    image: prestashop/prestashop:1.7.8
-    restart: unless-stopped
-    volumes:
-      - ../src:/var/www/html
-      - ./ssl/server.crt:/etc/ssl/certs/server.crt
-      - ./ssl/server.key:/etc/ssl/private/server.key
-      - ./ssl/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./ssl/ca.crt:/usr/local/share/ca-certificates/ca.crt
-    depends_on:
-      - mariadb
+    image: alexander0077/biznes:latest
+    user: root
     ports:
-      - 8080:80
-      - 443:443
-    environment:
-      PS_DEV_MODE: 1
-      DB_SERVER: mariadb
-      DB_NAME: prestashop
-      PS_FOLDER_ADMIN: myadmin
-      DB_USER: root
-      DB_PASSWD: root
-      PS_INSTALL_AUTO: 1
-      PS_LANGUAGE: pl
-      PS_COUNTRY: pl
+      - 18867:443
+    depends_on:
+      - memcached
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 2
+        window: 70s
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    volumes:
+      - BE_188672:/var/www/html
     networks:
-      - prestashop_network
-
-  phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      container_name: phpmyadmin
-      links:
-        - mariadb
-      environment:
-        PMA_HOST: mariadb
-        PMA_PORT: 3306
-        PMA_ARBITRARY: 1
-      restart: unless-stopped
-      ports:
-        - 8081:80
-      networks:
-      - prestashop_network
+      - admin-mysql_default
+    entrypoint: /init_script.sh
+  memcached:
+    image: memcached:1.6.10
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 2
+        window: 140s
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - admin-mysql_default
 networks:
-    prestashop_network:
-
+  admin-mysql_default:
+    external: true
 volumes:
-  mariadb:
+  BE_188672:
