@@ -19,3 +19,4 @@ RUN apt-get update && \
     docker-php-ext-enable memcached
 
 RUN update-ca-certificates && a2enmod ssl && a2ensite prestashop-ssl
+
