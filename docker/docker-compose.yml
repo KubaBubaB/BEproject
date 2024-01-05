@@ -1,6 +1,6 @@
 services:
   prestashop:
-    image: alexander0077/biznes:latest
+    image: kiwing132/prestashop:latest
     user: root
     ports:
       - 18867:443
