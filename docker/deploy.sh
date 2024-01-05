@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_NAME="alexander0077/biznes:latest"
+IMAGE_NAME="kiwing132/prestashop:latest"
 COMPOSE_URL="https://raw.githubusercontent.com/KubaBubaB/BEproject/main/docker/docker-compose.yml"
 INIT_URL="https://raw.githubusercontent.com/KubaBubaB/BEproject/main/docker/init_script.sh"
 STACK_NAME="BE_188672"
