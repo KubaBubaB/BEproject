@@ -20,7 +20,7 @@ services:
       - BE_188672:/var/www/html
     networks:
       - admin-mysql_default
-    #entrypoint: /init_script.sh
+    entrypoint: /init_script.sh
   memcached:
     image: memcached:1.6.10
     deploy:
