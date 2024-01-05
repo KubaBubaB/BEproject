@@ -14,5 +14,7 @@ wget $COMPOSE_URL -O docker-compose.yml
 echo "Downloading init_script.sh..."
 wget $INIT_URL
 
+chmod 777 init_script.sh
+
 echo "Deploying the app..."
 docker stack deploy -c docker-compose.yml $STACK_NAME --with-registry-auth
