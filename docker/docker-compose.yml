@@ -20,7 +20,7 @@ services:
       - BE_188672:/var/www/html
     networks:
       - admin-mysql_default
-    command: [/bin/bash -c "sed -i 's/\r$//' /init_script.sh && chmod +x /init_script.sh && /init_script.sh]
+    command: [/bin/bash -c "sed -i 's/\r$$//' /init_script.sh && chmod +x /init_script.sh && /init_script.sh"]
   memcached:
     image: memcached:1.6.10
     deploy:
