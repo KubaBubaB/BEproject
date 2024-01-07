@@ -16,6 +16,11 @@ services:
           memory: 512M
     environment:
       PS_INSTALL_AUTO: 1
+      DB_SERVER: db
+      DB_USER: root
+      DB_PASSWD: student
+      PS_COUNTRY: pl
+      PS_LANGUAGE: pl
     volumes:
       - BE_188672:/var/www/html
     networks:
