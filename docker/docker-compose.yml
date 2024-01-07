@@ -4,8 +4,6 @@ services:
     user: root
     ports:
       - 18867:443
-    depends_on:
-      - memcached
     deploy:
       restart_policy:
         condition: on-failure
