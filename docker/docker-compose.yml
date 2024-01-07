@@ -14,8 +14,8 @@ services:
         limits:
           cpus: '0.5'
           memory: 512M
-      environment:
-        PS_INSTALL_AUTO: 1
+    environment:
+      PS_INSTALL_AUTO: 1
     volumes:
       - BE_188672:/var/www/html
     networks:
