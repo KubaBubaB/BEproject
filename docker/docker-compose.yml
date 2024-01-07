@@ -21,20 +21,6 @@ services:
     networks:
       - admin-mysql_default
     entrypoint: /init_script.sh
-  memcached:
-    image: memcached:1.6.10
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 2
-        window: 140s
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-    networks:
-      - admin-mysql_default
 networks:
   admin-mysql_default:
     external: true
