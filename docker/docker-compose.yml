@@ -18,6 +18,7 @@ services:
       PS_INSTALL_AUTO: 1
       DB_SERVER: db
       DB_USER: root
+      DB_NAME: BE_188672
       DB_PASSWD: student
       PS_COUNTRY: pl
       PS_LANGUAGE: pl
