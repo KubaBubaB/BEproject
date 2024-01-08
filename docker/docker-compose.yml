@@ -22,13 +22,9 @@ services:
       DB_PASSWD: student
       PS_COUNTRY: pl
       PS_LANGUAGE: pl
-    volumes:
-      - BE_188672:/var/www/html
     networks:
       - admin-mysql_default
     entrypoint: /init_script.sh
 networks:
   admin-mysql_default:
     external: true
-volumes:
-  BE_188672:
