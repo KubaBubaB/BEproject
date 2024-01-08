@@ -14,9 +14,13 @@ mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "CR
 echo "Applying SQL dump to initialize the database..."
 mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$SQL_DUMP_FILE"
 
-echo "Removing settings.inc.php file..."
-if [ -f ./config/settings.inc.php ]; then
-    rm ./config/settings.inc.php
+echo "Removing install and config folders..."
+if [ -d "install" ]; then
+    rm -rf install
+fi
+
+if [ -d "config" ]; then
+    rm -rf config
 fi
 
 echo "Initialization complete."
