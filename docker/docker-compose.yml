@@ -15,6 +15,7 @@ services:
           cpus: '0.5'
           memory: 512M
     environment:
+      PS_DEV_MODE: 1
       PS_INSTALL_AUTO: 1
       DB_SERVER: db
       DB_USER: root
