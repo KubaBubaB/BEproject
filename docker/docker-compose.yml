@@ -1,4 +1,21 @@
 services:
+  memcache:
+    container_name: memcached
+    image: memcached
+    user: 1000:1000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 2
+        window: 140s
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    networks:
+      - prestanet
+      
   prestashop:
     image: alexander0077/prestashop:latest
     user: root
@@ -24,8 +41,11 @@ services:
       PS_COUNTRY: pl
       PS_LANGUAGE: pl
     networks:
+      - prestanet
       - admin-mysql_default
     entrypoint: /initialize.sh
+    
 networks:
+  prestanet:
   admin-mysql_default:
     external: true
