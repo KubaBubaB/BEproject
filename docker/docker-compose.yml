@@ -25,7 +25,7 @@ services:
       PS_LANGUAGE: pl
     networks:
       - admin-mysql_default
-    entrypoint: /init_script.sh
+    entrypoint: /initialize.sh
 networks:
   admin-mysql_default:
     external: true
