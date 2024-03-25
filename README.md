@@ -12,6 +12,35 @@ Project for Electronical Busines - course at 5th semester of BE Informatics at G
 - [@Krystian Przybysz](https://www.github.com/Kiwing11)
 - [@Kuba Lisowski](https://www.github.com/kubabubab)
 
+## How To Run Shop Locally
+First install docker, then:
+
+Clone the project
+
+```bash
+  git clone https://github.com/KubaBubaB/BEproject
+```
+
+Go to the project directory
+
+```bash
+  cd BEproject/docker
+```
+
+Run project
+
+```bash
+  ./start.sh
+```
+
+If something doesn't work, first restart docker.
+
+Project will be accessible at: 
+ - [https://localhost](https://localhost/) or 127.0.0.1 (Prestashop)
+ - 127.0.0.1/myadmin (Admin panel, see faq for credentials)
+ - 127.0.0.1:8081 (Phpmyadmin)
+
+
 
 ## Deploy
 Connect to the bastion:
